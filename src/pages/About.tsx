@@ -55,7 +55,7 @@ const About = () => {
   return (
     <div className="pt-20">
       {/* Hero Section */}
-      <section className="relative py-20 bg-gradient-to-br from-gray-900 to-gray-800">
+      <section className="relative py-20 bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-800">
         <div className="container">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -63,8 +63,8 @@ const About = () => {
             transition={{ duration: 0.8 }}
             className="max-w-3xl mx-auto text-center"
           >
-            <h1 className="text-5xl font-bold mb-6 text-white">About Arrotech</h1>
-            <p className="text-xl text-gray-300 mb-8">
+            <h1 className="text-5xl font-bold mb-6 text-gray-900 dark:text-white">About Arrotech</h1>
+            <p className="text-xl text-gray-600 dark:text-gray-300 mb-8">
               We are a team of passionate AI experts dedicated to transforming businesses through innovative technology solutions.
             </p>
           </motion.div>
@@ -72,7 +72,7 @@ const About = () => {
       </section>
 
       {/* Mission Section */}
-      <section className="py-20 bg-gray-900">
+      <section className="py-20 bg-white dark:bg-gray-900">
         <div className="container">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <motion.div
@@ -80,11 +80,11 @@ const About = () => {
               animate={inView ? { opacity: 1, x: 0 } : {}}
               transition={{ duration: 0.8 }}
             >
-              <h2 className="text-3xl font-bold mb-6 text-white">Our Mission</h2>
-              <p className="text-gray-300 mb-6">
+              <h2 className="text-3xl font-bold mb-6 text-gray-900 dark:text-white">Our Mission</h2>
+              <p className="text-gray-600 dark:text-gray-300 mb-6">
                 At Arrotech, we are committed to empowering businesses with cutting-edge AI solutions that drive growth, efficiency, and innovation. Our mission is to make advanced artificial intelligence accessible and beneficial for organizations of all sizes.
               </p>
-              <p className="text-gray-300">
+              <p className="text-gray-600 dark:text-gray-300">
                 We believe in creating sustainable, ethical, and impactful AI solutions that solve real-world problems and create lasting value for our clients.
               </p>
             </motion.div>
@@ -97,13 +97,13 @@ const About = () => {
               {stats.map((stat, index) => (
                 <div
                   key={index}
-                  className="bg-gray-800 p-6 rounded-xl text-center border border-gray-700"
+                  className="bg-gray-50 dark:bg-gray-800 p-6 rounded-xl text-center border border-gray-200 dark:border-gray-700"
                 >
-                  <div className="text-indigo-400 mb-4 flex justify-center">
+                  <div className="text-indigo-600 dark:text-indigo-400 mb-4 flex justify-center">
                     {stat.icon}
                   </div>
-                  <div className="text-3xl font-bold text-white mb-2">{stat.value}</div>
-                  <div className="text-gray-400">{stat.label}</div>
+                  <div className="text-3xl font-bold text-gray-900 dark:text-white mb-2">{stat.value}</div>
+                  <div className="text-gray-600 dark:text-gray-400">{stat.label}</div>
                 </div>
               ))}
             </motion.div>
@@ -112,7 +112,7 @@ const About = () => {
       </section>
 
       {/* Team Section */}
-      <section ref={ref} className="py-20 bg-gray-800">
+      <section ref={ref} className="py-20 bg-gray-50 dark:bg-gray-800">
         <div className="container">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -120,8 +120,8 @@ const About = () => {
             transition={{ duration: 0.8 }}
             className="text-center mb-16"
           >
-            <h2 className="text-3xl font-bold mb-6 text-white">Our Leadership Team</h2>
-            <p className="text-xl text-gray-300">
+            <h2 className="text-3xl font-bold mb-6 text-gray-900 dark:text-white">Our Leadership Team</h2>
+            <p className="text-xl text-gray-600 dark:text-gray-300">
               Meet the experts behind our innovative AI solutions
             </p>
           </motion.div>
@@ -133,7 +133,7 @@ const About = () => {
                 initial={{ opacity: 0, y: 20 }}
                 animate={inView ? { opacity: 1, y: 0 } : {}}
                 transition={{ duration: 0.8, delay: index * 0.2 }}
-                className="bg-gray-900 rounded-xl overflow-hidden shadow-lg border border-gray-700"
+                className="bg-white dark:bg-gray-900 rounded-xl overflow-hidden shadow-lg border border-gray-200 dark:border-gray-700"
               >
                 <div className="relative h-96">
                   <img
@@ -143,9 +143,9 @@ const About = () => {
                   />
                 </div>
                 <div className="p-6">
-                  <h3 className="text-xl font-semibold mb-2 text-white">{member.name}</h3>
-                  <p className="text-indigo-400 mb-4">{member.role}</p>
-                  <p className="text-gray-400">{member.description}</p>
+                  <h3 className="text-xl font-semibold mb-2 text-gray-900 dark:text-white">{member.name}</h3>
+                  <p className="text-indigo-600 dark:text-indigo-400 mb-4">{member.role}</p>
+                  <p className="text-gray-600 dark:text-gray-400">{member.description}</p>
                 </div>
               </motion.div>
             ))}

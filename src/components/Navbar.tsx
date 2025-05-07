@@ -26,7 +26,9 @@ const Navbar = () => {
   return (
     <nav
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        isScrolled ? 'bg-gray-900/95 backdrop-blur-sm shadow-lg' : 'bg-transparent'
+        isScrolled 
+          ? 'bg-white/95 dark:bg-gray-900/95 backdrop-blur-sm shadow-lg' 
+          : 'bg-transparent'
       }`}
     >
       <div className="container mx-auto px-4">
@@ -58,7 +60,7 @@ const Navbar = () => {
               <Link
                 key={link.name}
                 to={link.path}
-                className="text-gray-300 hover:text-white transition-colors duration-300"
+                className="text-gray-700 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-white transition-colors duration-300"
               >
                 {link.name}
               </Link>
@@ -73,7 +75,7 @@ const Navbar = () => {
 
           {/* Mobile Menu Button */}
           <button
-            className="md:hidden text-gray-300 hover:text-white transition-colors duration-300"
+            className="md:hidden text-gray-700 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-white transition-colors duration-300"
             onClick={() => setIsOpen(!isOpen)}
           >
             {isOpen ? <FiX size={24} /> : <FiMenu size={24} />}
@@ -89,7 +91,7 @@ const Navbar = () => {
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.3 }}
-            className="md:hidden bg-gray-900/95 backdrop-blur-sm"
+            className="md:hidden bg-white dark:bg-gray-900/95 backdrop-blur-sm shadow-lg"
           >
             <div className="container mx-auto px-4 py-4">
               <div className="flex flex-col space-y-4">
@@ -97,7 +99,7 @@ const Navbar = () => {
                   <Link
                     key={link.name}
                     to={link.path}
-                    className="text-gray-300 hover:text-white transition-colors duration-300 py-2"
+                    className="text-gray-700 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-white transition-colors duration-300 py-2"
                     onClick={() => setIsOpen(false)}
                   >
                     {link.name}
