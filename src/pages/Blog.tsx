@@ -17,7 +17,7 @@ const Blog = () => {
       author: "Michael Rodriguez",
       date: "March 10, 2024",
       category: "Machine Learning",
-      image: "https://images.unsplash.com/photo-1676299081847-3b2d4c1c0c0d"
+      image: "https://images.unsplash.com/photo-1551434678-e076c223a692"
     },
     {
       title: "AI Ethics: Building Responsible AI Systems",
@@ -25,7 +25,7 @@ const Blog = () => {
       author: "Dr. Emily Watson",
       date: "March 5, 2024",
       category: "AI Ethics",
-      image: "https://images.unsplash.com/photo-1676299081847-3b2d4c1c0c0e"
+      image: "https://images.unsplash.com/photo-1501504905252-473c47e087f8"
     }
   ];
 
