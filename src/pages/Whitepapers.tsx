@@ -1,67 +1,74 @@
 import { motion } from 'framer-motion';
-import { FiDownload, FiFileText, FiCalendar, FiUser } from 'react-icons/fi';
+import { useInView } from 'react-intersection-observer';
+import { Link } from 'react-router-dom';
+import { FiDownload, FiCalendar } from 'react-icons/fi';
 
 const Whitepapers = () => {
+  const [ref, inView] = useInView({
+    triggerOnce: true,
+    threshold: 0.1,
+  });
+
   const whitepapers = [
     {
-      title: "The Future of AI in Enterprise",
-      description: "A comprehensive analysis of how artificial intelligence is transforming enterprise operations and decision-making processes.",
-      author: "Dr. James Wilson",
-      date: "February 2024",
-      category: "Enterprise AI",
-      downloadUrl: "#",
-      image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71"
+      id: 1,
+      title: 'The Future of AI in Business',
+      description: 'A comprehensive guide to implementing AI solutions in modern enterprises',
+      date: 'March 2024',
+      category: 'AI Strategy',
+      downloadUrl: '#',
+      image: 'https://images.unsplash.com/photo-1485827404703-89b55fcc595e?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80'
     },
     {
-      title: "Machine Learning in Healthcare",
-      description: "Exploring the applications and impact of machine learning in modern healthcare systems and patient care.",
-      author: "Dr. Maria Garcia",
-      date: "January 2024",
-      category: "Healthcare AI",
-      downloadUrl: "#",
-      image: "https://images.unsplash.com/photo-1576091160550-2173dba999ef"
+      id: 2,
+      title: 'AI Ethics and Governance',
+      description: 'Best practices for implementing ethical AI systems in your organization',
+      date: 'February 2024',
+      category: 'AI Ethics',
+      downloadUrl: '#',
+      image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80'
     },
     {
-      title: "AI Ethics and Governance",
-      description: "A framework for implementing ethical AI practices and governance structures in organizations.",
-      author: "Prof. Robert Chen",
-      date: "December 2023",
-      category: "AI Ethics",
-      downloadUrl: "#",
-      image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71"
+      id: 3,
+      title: 'Machine Learning Implementation Guide',
+      description: 'Step-by-step guide to deploying machine learning models in production',
+      date: 'January 2024',
+      category: 'Machine Learning',
+      downloadUrl: '#',
+      image: 'https://images.unsplash.com/photo-1555949963-ff9fe0c870eb?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80'
     }
   ];
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
+    <div className="pt-20">
       {/* Hero Section */}
-      <section className="bg-gradient-to-br from-indigo-600 to-purple-600 text-white py-20">
+      <section className="relative py-20 bg-gradient-to-br from-indigo-600 to-purple-600 text-white">
         <div className="container">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
-            className="text-center"
+            className="max-w-3xl mx-auto text-center"
           >
-            <h1 className="text-4xl md:text-5xl font-bold mb-6">Whitepapers</h1>
-            <p className="text-xl text-indigo-100 max-w-3xl mx-auto">
-              In-depth research and analysis on the latest developments in artificial intelligence
+            <h1 className="text-5xl font-bold mb-6">Whitepapers</h1>
+            <p className="text-xl text-indigo-100 mb-8">
+              In-depth research and insights on AI technology and its business applications
             </p>
           </motion.div>
         </div>
       </section>
 
       {/* Whitepapers Grid */}
-      <section className="py-16">
+      <section ref={ref} className="py-20 bg-gray-50 dark:bg-gray-900">
         <div className="container">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {whitepapers.map((paper, index) => (
-              <motion.article
-                key={index}
+              <motion.div
+                key={paper.id}
                 initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-                className="bg-white dark:bg-gray-800 rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300"
+                animate={inView ? { opacity: 1, y: 0 } : {}}
+                transition={{ duration: 0.8, delay: index * 0.2 }}
+                className="bg-white dark:bg-gray-800 rounded-xl overflow-hidden shadow-lg"
               >
                 <div className="relative h-48">
                   <img
@@ -69,61 +76,53 @@ const Whitepapers = () => {
                     alt={paper.title}
                     className="w-full h-full object-cover"
                   />
-                  <div className="absolute top-4 left-4">
-                    <span className="bg-indigo-600 text-white px-3 py-1 rounded-full text-sm">
-                      {paper.category}
-                    </span>
-                  </div>
                 </div>
                 <div className="p-6">
-                  <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-3">
+                  <div className="flex items-center justify-between mb-4">
+                    <span className="text-sm font-medium text-indigo-600 dark:text-indigo-400">
+                      {paper.category}
+                    </span>
+                    <div className="flex items-center text-gray-500 dark:text-gray-400">
+                      <FiCalendar className="mr-1" />
+                      <span className="text-sm">{paper.date}</span>
+                    </div>
+                  </div>
+                  <h3 className="text-xl font-semibold mb-2 text-gray-900 dark:text-white">
                     {paper.title}
-                  </h2>
+                  </h3>
                   <p className="text-gray-600 dark:text-gray-300 mb-4">
                     {paper.description}
                   </p>
-                  <div className="flex items-center justify-between text-sm text-gray-500 dark:text-gray-400 mb-4">
-                    <div className="flex items-center">
-                      <FiUser className="mr-2" />
-                      {paper.author}
-                    </div>
-                    <div className="flex items-center">
-                      <FiCalendar className="mr-2" />
-                      {paper.date}
-                    </div>
-                  </div>
                   <a
                     href={paper.downloadUrl}
-                    className="inline-flex items-center justify-center w-full px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors"
+                    className="inline-flex items-center text-indigo-600 dark:text-indigo-400 hover:text-indigo-700 dark:hover:text-indigo-300"
                   >
                     <FiDownload className="mr-2" />
                     Download Whitepaper
                   </a>
                 </div>
-              </motion.article>
+              </motion.div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Request Section */}
-      <section className="bg-white dark:bg-gray-800 py-16">
-        <div className="container">
-          <div className="max-w-2xl mx-auto text-center">
-            <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-4">
-              Need Custom Research?
-            </h2>
-            <p className="text-gray-600 dark:text-gray-300 mb-8">
-              Contact our research team for custom whitepapers and industry analysis
+      {/* CTA Section */}
+      <section className="py-20 bg-gradient-to-r from-indigo-600 to-purple-600">
+        <div className="container text-center">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={inView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.8 }}
+          >
+            <h2 className="text-4xl font-bold mb-6 text-white">Want to Learn More?</h2>
+            <p className="text-xl mb-8 text-white opacity-90">
+              Contact us for custom research and insights tailored to your business needs
             </p>
-            <a
-              href="/contact"
-              className="inline-flex items-center justify-center px-6 py-3 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors"
-            >
-              <FiFileText className="mr-2" />
-              Request Custom Research
-            </a>
-          </div>
+            <Link to="/contact" className="btn bg-white text-indigo-600 hover:bg-gray-100">
+              Get in Touch
+            </Link>
+          </motion.div>
         </div>
       </section>
     </div>

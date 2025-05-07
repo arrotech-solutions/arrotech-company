@@ -30,19 +30,19 @@ const Blog = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 pt-20">
       {/* Hero Section */}
-      <section className="bg-gradient-to-br from-indigo-600 to-purple-600 text-white py-20">
+      <section className="relative py-20 bg-gradient-to-br from-indigo-600 to-purple-600 text-white">
         <div className="container">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
-            className="text-center"
+            className="max-w-3xl mx-auto text-center"
           >
-            <h1 className="text-4xl md:text-5xl font-bold mb-6">AI Insights Blog</h1>
-            <p className="text-xl text-indigo-100 max-w-3xl mx-auto">
-              Stay updated with the latest trends, insights, and innovations in artificial intelligence
+            <h1 className="text-5xl font-bold mb-6">AI Insights Blog</h1>
+            <p className="text-xl text-indigo-100 mb-8">
+              Stay updated with the latest trends, insights, and innovations in AI technology
             </p>
           </motion.div>
         </div>

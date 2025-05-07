@@ -20,6 +20,9 @@ const Navbar = () => {
     { name: 'Home', path: '/' },
     { name: 'About', path: '/about' },
     { name: 'Services', path: '/services' },
+    { name: 'Case Studies', path: '/case-studies' },
+    { name: 'Blog', path: '/blog' },
+    { name: 'Whitepapers', path: '/whitepapers' },
     { name: 'Contact', path: '/contact' },
   ];
 
@@ -58,7 +61,7 @@ const Navbar = () => {
           <div className="hidden md:flex items-center space-x-8">
             {navLinks.map((link) => (
               <Link
-                key={link.name}
+                key={link.path}
                 to={link.path}
                 className="text-gray-700 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-white transition-colors duration-300"
               >
@@ -97,7 +100,7 @@ const Navbar = () => {
               <div className="flex flex-col space-y-4">
                 {navLinks.map((link) => (
                   <Link
-                    key={link.name}
+                    key={link.path}
                     to={link.path}
                     className="text-gray-700 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-white transition-colors duration-300 py-2"
                     onClick={() => setIsOpen(false)}

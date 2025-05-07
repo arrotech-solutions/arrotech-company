@@ -1,151 +1,127 @@
 import { motion } from 'framer-motion';
-import { FiArrowRight, FiTrendingUp, FiUsers, FiDollarSign } from 'react-icons/fi';
+import { useInView } from 'react-intersection-observer';
+import { Link } from 'react-router-dom';
 
 const CaseStudies = () => {
+  const [ref, inView] = useInView({
+    triggerOnce: true,
+    threshold: 0.1,
+  });
+
   const caseStudies = [
     {
-      title: "AI-Powered Customer Service Transformation",
-      company: "Global E-commerce Platform",
-      challenge: "Handling 1M+ customer inquiries monthly with limited support staff",
-      solution: "Implemented AI chatbot system with natural language processing",
+      id: 1,
+      title: 'AI-Powered Customer Service Transformation',
+      company: 'Global E-commerce Platform',
+      description: 'How we helped a leading e-commerce platform reduce response times by 80% using AI chatbots.',
       results: [
-        "85% reduction in response time",
-        "60% decrease in support costs",
-        "95% customer satisfaction rate"
+        '80% reduction in response time',
+        '60% increase in customer satisfaction',
+        '40% reduction in support costs'
       ],
-      image: "https://images.unsplash.com/photo-1551434678-e076c223a692"
+      image: 'https://images.unsplash.com/photo-1551434678-e076c223a692?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80'
     },
     {
-      title: "Predictive Analytics for Supply Chain",
-      company: "International Retail Chain",
-      challenge: "Optimizing inventory management across 500+ locations",
-      solution: "Deployed machine learning models for demand forecasting",
+      id: 2,
+      title: 'Automated Data Analysis Implementation',
+      company: 'Financial Services Provider',
+      description: 'Implementing AI-driven data analysis to streamline financial reporting and risk assessment.',
       results: [
-        "40% reduction in stockouts",
-        "25% decrease in excess inventory",
-        "$15M annual cost savings"
+        '90% faster report generation',
+        '75% reduction in manual errors',
+        '50% increase in analysis accuracy'
       ],
-      image: "https://images.unsplash.com/photo-1553413077-190dd305871c"
+      image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80'
     },
     {
-      title: "AI Research Assistant Implementation",
-      company: "Leading Research Institution",
-      challenge: "Accelerating research paper analysis and data processing",
-      solution: "Custom AI research assistant with advanced NLP capabilities",
+      id: 3,
+      title: 'AI Research Assistant Deployment',
+      company: 'Healthcare Research Institute',
+      description: 'Deploying AI research assistants to accelerate medical research and drug discovery.',
       results: [
-        "70% faster research paper analysis",
-        "50% increase in research output",
-        "Enhanced collaboration across departments"
+        '70% faster research analysis',
+        '85% improvement in pattern recognition',
+        '60% reduction in research costs'
       ],
-      image: "https://images.unsplash.com/photo-1501504905252-473c47e087f8"
+      image: 'https://images.unsplash.com/photo-1576091160550-2173dba999ef?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80'
     }
   ];
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
+    <div className="pt-20">
       {/* Hero Section */}
-      <section className="bg-gradient-to-br from-indigo-600 to-purple-600 text-white py-20">
+      <section className="relative py-20 bg-gradient-to-br from-indigo-600 to-purple-600 text-white">
         <div className="container">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
-            className="text-center"
+            className="max-w-3xl mx-auto text-center"
           >
-            <h1 className="text-4xl md:text-5xl font-bold mb-6">Case Studies</h1>
-            <p className="text-xl text-indigo-100 max-w-3xl mx-auto">
-              Real-world examples of how our AI solutions have transformed businesses
+            <h1 className="text-5xl font-bold mb-6">Case Studies</h1>
+            <p className="text-xl text-indigo-100 mb-8">
+              Discover how our AI solutions have transformed businesses across industries
             </p>
           </motion.div>
         </div>
       </section>
 
       {/* Case Studies Grid */}
-      <section className="py-16">
+      <section ref={ref} className="py-20 bg-gray-50 dark:bg-gray-900">
         <div className="container">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {caseStudies.map((study, index) => (
-              <motion.article
-                key={index}
+              <motion.div
+                key={study.id}
                 initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
+                animate={inView ? { opacity: 1, y: 0 } : {}}
+                transition={{ duration: 0.8, delay: index * 0.2 }}
                 className="bg-white dark:bg-gray-800 rounded-xl overflow-hidden shadow-lg"
               >
-                <div className="relative h-64">
+                <div className="relative h-48">
                   <img
                     src={study.image}
                     alt={study.title}
                     className="w-full h-full object-cover"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
-                  <div className="absolute bottom-0 left-0 p-6">
-                    <h2 className="text-2xl font-bold text-white mb-2">{study.title}</h2>
-                    <p className="text-indigo-200">{study.company}</p>
-                  </div>
                 </div>
                 <div className="p-6">
-                  <div className="mb-6">
-                    <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">Challenge</h3>
-                    <p className="text-gray-600 dark:text-gray-300">{study.challenge}</p>
-                  </div>
-                  <div className="mb-6">
-                    <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">Solution</h3>
-                    <p className="text-gray-600 dark:text-gray-300">{study.solution}</p>
-                  </div>
-                  <div>
-                    <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">Results</h3>
-                    <ul className="space-y-2">
-                      {study.results.map((result, i) => (
-                        <li key={i} className="flex items-center text-gray-600 dark:text-gray-300">
-                          <FiArrowRight className="mr-2 text-indigo-600" />
-                          {result}
-                        </li>
-                      ))}
-                    </ul>
+                  <h3 className="text-xl font-semibold mb-2 text-gray-900 dark:text-white">
+                    {study.title}
+                  </h3>
+                  <p className="text-indigo-600 dark:text-indigo-400 mb-4">{study.company}</p>
+                  <p className="text-gray-600 dark:text-gray-300 mb-4">{study.description}</p>
+                  <div className="space-y-2">
+                    {study.results.map((result, i) => (
+                      <div key={i} className="flex items-center text-gray-600 dark:text-gray-300">
+                        <span className="w-2 h-2 bg-indigo-600 rounded-full mr-2"></span>
+                        {result}
+                      </div>
+                    ))}
                   </div>
                 </div>
-              </motion.article>
+              </motion.div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Stats Section */}
-      <section className="bg-white dark:bg-gray-800 py-16">
-        <div className="container">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5 }}
-              className="text-center"
-            >
-              <FiTrendingUp className="w-12 h-12 text-indigo-600 mx-auto mb-4" />
-              <h3 className="text-3xl font-bold text-gray-900 dark:text-white mb-2">95%</h3>
-              <p className="text-gray-600 dark:text-gray-300">Client Satisfaction Rate</p>
-            </motion.div>
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.1 }}
-              className="text-center"
-            >
-              <FiUsers className="w-12 h-12 text-indigo-600 mx-auto mb-4" />
-              <h3 className="text-3xl font-bold text-gray-900 dark:text-white mb-2">200+</h3>
-              <p className="text-gray-600 dark:text-gray-300">Successful Implementations</p>
-            </motion.div>
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.2 }}
-              className="text-center"
-            >
-              <FiDollarSign className="w-12 h-12 text-indigo-600 mx-auto mb-4" />
-              <h3 className="text-3xl font-bold text-gray-900 dark:text-white mb-2">$50M+</h3>
-              <p className="text-gray-600 dark:text-gray-300">Client Cost Savings</p>
-            </motion.div>
-          </div>
+      {/* CTA Section */}
+      <section className="py-20 bg-gradient-to-r from-indigo-600 to-purple-600">
+        <div className="container text-center">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={inView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.8 }}
+          >
+            <h2 className="text-4xl font-bold mb-6 text-white">Ready to Transform Your Business?</h2>
+            <p className="text-xl mb-8 text-white opacity-90">
+              Let's discuss how our AI solutions can help you achieve similar results
+            </p>
+            <Link to="/contact" className="btn bg-white text-indigo-600 hover:bg-gray-100">
+              Get Started
+            </Link>
+          </motion.div>
         </div>
       </section>
     </div>
