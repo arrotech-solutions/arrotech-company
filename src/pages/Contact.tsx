@@ -158,8 +158,8 @@ const Contact = () => {
                     <div>
                       <h3 className="text-lg font-medium text-gray-900 dark:text-white">Address</h3>
                       <p className="text-gray-600 dark:text-gray-400">
-                        Westlands<br />
-                        Nairobi City
+                        Juja Square Street, Sovereign Heights Building<br />
+                        Juja, Kiambu County
                       </p>
                     </div>
                   </div>
