@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { FiClock, FiUser, FiTag } from 'react-icons/fi';
+import { FiClock, FiUser } from 'react-icons/fi';
 
 const Blog = () => {
   const articles = [

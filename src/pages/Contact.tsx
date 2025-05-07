@@ -4,7 +4,7 @@ import { useInView } from 'react-intersection-observer';
 import { FiMail, FiPhone, FiMapPin } from 'react-icons/fi';
 
 const Contact = () => {
-  const [ref, inView] = useInView({
+  useInView({
     triggerOnce: true,
     threshold: 0.1,
   });

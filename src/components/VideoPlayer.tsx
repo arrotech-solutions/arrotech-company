@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { FiPlay, FiPause } from 'react-icons/fi';
+import { FiPlay } from 'react-icons/fi';
 
 interface VideoPlayerProps {
   videoUrl: string;
