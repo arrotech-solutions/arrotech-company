@@ -33,7 +33,7 @@ const Contact = () => {
   return (
     <div className="pt-20">
       {/* Hero Section */}
-      <section className="relative py-20 bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-800">
+      <section className="relative py-20 bg-gradient-to-br from-indigo-600 to-purple-600 text-white">
         <div className="container">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -41,8 +41,8 @@ const Contact = () => {
             transition={{ duration: 0.8 }}
             className="max-w-3xl mx-auto text-center"
           >
-            <h1 className="text-5xl font-bold mb-6 text-gray-900 dark:text-white">Contact Us</h1>
-            <p className="text-xl text-gray-600 dark:text-gray-300 mb-8">
+            <h1 className="text-5xl font-bold mb-6">Contact Us</h1>
+            <p className="text-xl text-indigo-100 mb-8">
               Get in touch with our team to discuss how we can help transform your business
             </p>
           </motion.div>

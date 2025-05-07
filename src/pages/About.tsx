@@ -55,7 +55,7 @@ const About = () => {
   return (
     <div className="pt-20">
       {/* Hero Section */}
-      <section className="relative py-20 bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-800">
+      <section className="relative py-20 bg-gradient-to-br from-indigo-600 to-purple-600 text-white">
         <div className="container">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -63,9 +63,9 @@ const About = () => {
             transition={{ duration: 0.8 }}
             className="max-w-3xl mx-auto text-center"
           >
-            <h1 className="text-5xl font-bold mb-6 text-gray-900 dark:text-white">About Arrotech</h1>
-            <p className="text-xl text-gray-600 dark:text-gray-300 mb-8">
-              We are a team of passionate AI experts dedicated to transforming businesses through innovative technology solutions.
+            <h1 className="text-5xl font-bold mb-6">About Us</h1>
+            <p className="text-xl text-indigo-100 mb-8">
+              Pioneering the future of AI solutions for businesses worldwide
             </p>
           </motion.div>
         </div>
