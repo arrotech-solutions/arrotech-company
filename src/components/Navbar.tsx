@@ -1,11 +1,14 @@
 import { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-import { FiMenu, FiX } from 'react-icons/fi';
+import { FiMenu, FiX, FiChevronDown } from 'react-icons/fi';
+import Button from './Button';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const [isResourcesOpen, setIsResourcesOpen] = useState(false);
+  const location = useLocation();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -16,14 +19,16 @@ const Navbar = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const navLinks = [
-    { name: 'Home', path: '/' },
-    { name: 'About', path: '/about' },
-    { name: 'Services', path: '/services' },
-    { name: 'Case Studies', path: '/case-studies' },
-    { name: 'Blog', path: '/blog' },
-    { name: 'Whitepapers', path: '/whitepapers' },
-    { name: 'Contact', path: '/contact' },
+  const navigation = [
+    { name: 'Home', href: '/' },
+    { name: 'About', href: '/about' },
+    { name: 'Services', href: '/services' },
+    { name: 'Contact', href: '/contact' },
+  ];
+
+  const resources = [
+    { name: 'Case Studies', href: '/case-studies' },
+    { name: 'Blog', href: '/blog' },
   ];
 
   return (
@@ -59,21 +64,67 @@ const Navbar = () => {
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-8">
-            {navLinks.map((link) => (
+            {navigation.map((link) => (
               <Link
-                key={link.path}
-                to={link.path}
-                className="text-gray-700 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-white transition-colors duration-300"
+                key={link.href}
+                to={link.href}
+                className={`text-gray-700 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-white transition-colors duration-300 relative group ${
+                  location.pathname === link.href ? 'text-indigo-600 dark:text-white' : ''
+                }`}
               >
                 {link.name}
+                <span className={`absolute bottom-0 left-0 h-0.5 bg-gradient-to-r from-indigo-600 to-purple-600 transition-all duration-300 ${
+                  location.pathname === link.href ? 'w-full' : 'w-0 group-hover:w-full'
+                }`} />
               </Link>
             ))}
-            <Link
-              to="/contact"
-              className="px-6 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors duration-300"
+
+            {/* Resources Dropdown */}
+            <div className="relative">
+              <button
+                onClick={() => setIsResourcesOpen(!isResourcesOpen)}
+                className={`flex items-center text-gray-700 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-white transition-colors duration-300 ${
+                  resources.some(r => location.pathname === r.href) ? 'text-indigo-600 dark:text-white' : ''
+                }`}
+              >
+                Resources
+                <FiChevronDown className={`ml-1 transition-transform duration-300 ${isResourcesOpen ? 'rotate-180' : ''}`} />
+              </button>
+
+              <AnimatePresence>
+                {isResourcesOpen && (
+                  <motion.div
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: 10 }}
+                    transition={{ duration: 0.2 }}
+                    className="absolute top-full left-0 mt-2 w-48 bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-100 dark:border-gray-700 overflow-hidden"
+                  >
+                    {resources.map((resource) => (
+                      <Link
+                        key={resource.href}
+                        to={resource.href}
+                        className={`block px-4 py-3 text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors duration-300 ${
+                          location.pathname === resource.href ? 'bg-gray-50 dark:bg-gray-700' : ''
+                        }`}
+                        onClick={() => setIsResourcesOpen(false)}
+                      >
+                        {resource.name}
+                      </Link>
+                    ))}
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </div>
+
+            <Button
+              href="/contact"
+              variant="primary"
+              size="sm"
+              icon
             >
               Get Started
-            </Link>
+            </Button>
           </div>
 
           {/* Mobile Menu Button */}
@@ -98,23 +149,47 @@ const Navbar = () => {
           >
             <div className="container mx-auto px-4 py-4">
               <div className="flex flex-col space-y-4">
-                {navLinks.map((link) => (
+                {navigation.map((link) => (
                   <Link
-                    key={link.path}
-                    to={link.path}
-                    className="text-gray-700 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-white transition-colors duration-300 py-2"
+                    key={link.href}
+                    to={link.href}
+                    className={`text-gray-700 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-white transition-colors duration-300 py-2 ${
+                      location.pathname === link.href ? 'text-indigo-600 dark:text-white' : ''
+                    }`}
                     onClick={() => setIsOpen(false)}
                   >
                     {link.name}
                   </Link>
                 ))}
-                <Link
-                  to="/contact"
-                  className="px-6 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors duration-300 text-center"
-                  onClick={() => setIsOpen(false)}
+
+                {/* Mobile Resources Section */}
+                <div className="py-2">
+                  <div className="text-gray-700 dark:text-gray-300 font-medium mb-2">Resources</div>
+                  <div className="pl-4 space-y-2">
+                    {resources.map((resource) => (
+                      <Link
+                        key={resource.href}
+                        to={resource.href}
+                        className={`block text-gray-600 dark:text-gray-400 hover:text-indigo-600 dark:hover:text-white transition-colors duration-300 ${
+                          location.pathname === resource.href ? 'text-indigo-600 dark:text-white' : ''
+                        }`}
+                        onClick={() => setIsOpen(false)}
+                      >
+                        {resource.name}
+                      </Link>
+                    ))}
+                  </div>
+                </div>
+
+                <Button
+                  href="/contact"
+                  variant="primary"
+                  size="sm"
+                  icon
+                  fullWidth
                 >
                   Get Started
-                </Link>
+                </Button>
               </div>
             </div>
           </motion.div>

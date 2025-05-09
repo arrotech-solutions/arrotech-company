@@ -5,6 +5,7 @@ import Footer from './components/Footer';
 import LoadingSpinner from './components/LoadingSpinner';
 import ScrollToTop from './components/ScrollToTop';
 import ThemeToggle from './components/ThemeToggle';
+import BlogPost from './pages/BlogPost';
 
 // Lazy load pages for better performance
 const Home = lazy(() => import('./pages/Home'));
@@ -13,7 +14,6 @@ const Services = lazy(() => import('./pages/Services'));
 const Contact = lazy(() => import('./pages/Contact'));
 const Blog = lazy(() => import('./pages/Blog'));
 const CaseStudies = lazy(() => import('./pages/CaseStudies'));
-const Whitepapers = lazy(() => import('./pages/Whitepapers'));
 const Privacy = lazy(() => import('./pages/Privacy'));
 const Terms = lazy(() => import('./pages/Terms'));
 
@@ -31,8 +31,8 @@ const App = () => {
               <Route path="/services" element={<Services />} />
               <Route path="/contact" element={<Contact />} />
               <Route path="/blog" element={<Blog />} />
+              <Route path="/blog/:id" element={<BlogPost />} />
               <Route path="/case-studies" element={<CaseStudies />} />
-              <Route path="/whitepapers" element={<Whitepapers />} />
               <Route path="/privacy" element={<Privacy />} />
               <Route path="/terms" element={<Terms />} />
             </Routes>
