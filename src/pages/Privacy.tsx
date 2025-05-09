@@ -61,7 +61,7 @@ const Privacy = () => {
 
   return (
     <LazyMotion features={domAnimation}>
-      <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
+      <div className="pt-20">
         {/* Hero Section */}
         <section ref={heroRef} className="relative bg-gradient-to-br from-indigo-600 to-purple-600 text-white py-32 overflow-hidden">
           <div className="absolute inset-0 bg-grid-white/[0.05] bg-grid-pattern"></div>
