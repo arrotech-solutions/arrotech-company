@@ -7,5 +7,12 @@
   ],
   "buildCommand": "npm run build",
   "outputDirectory": "dist",
-  "framework": "vite"
+  "framework": "vite",
+  "build": {
+    "env": {
+      "VITE_EMAILJS_PUBLIC_KEY": "@vite_emailjs_public_key",
+      "VITE_EMAILJS_SERVICE_ID": "@vite_emailjs_service_id",
+      "VITE_EMAILJS_TEMPLATE_ID": "@vite_emailjs_template_id"
+    }
+  }
 } 

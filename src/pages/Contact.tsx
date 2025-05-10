@@ -4,8 +4,17 @@ import { FiMapPin, FiPhone, FiMail, FiClock, FiSend, FiChevronDown, FiChevronUp,
 import { useState, useCallback } from 'react';
 import emailjs from '@emailjs/browser';
 
+// Check if EmailJS credentials are available
+const EMAILJS_PUBLIC_KEY = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
+const EMAILJS_SERVICE_ID = import.meta.env.VITE_EMAILJS_SERVICE_ID;
+const EMAILJS_TEMPLATE_ID = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
+
+if (!EMAILJS_PUBLIC_KEY || !EMAILJS_SERVICE_ID || !EMAILJS_TEMPLATE_ID) {
+  console.error('EmailJS credentials are missing. Please check your environment variables.');
+}
+
 // Initialize EmailJS with your public key
-emailjs.init(import.meta.env.VITE_EMAILJS_PUBLIC_KEY);
+emailjs.init(EMAILJS_PUBLIC_KEY || '');
 
 const Contact = () => {
   const [formRef, formInView] = useInView({
@@ -68,13 +77,20 @@ const Contact = () => {
       return;
     }
 
+    // Check if EmailJS credentials are available
+    if (!EMAILJS_PUBLIC_KEY || !EMAILJS_SERVICE_ID || !EMAILJS_TEMPLATE_ID) {
+      setStatus('error');
+      console.error('EmailJS credentials are missing');
+      return;
+    }
+
     setStatus('loading');
 
     try {
       // Send email using EmailJS
       await emailjs.send(
-        import.meta.env.VITE_EMAILJS_SERVICE_ID,
-        import.meta.env.VITE_EMAILJS_TEMPLATE_ID,
+        EMAILJS_SERVICE_ID,
+        EMAILJS_TEMPLATE_ID,
         {
           to_email: "arrotechdesign@gmail.com",
           from_name: formData.name,
