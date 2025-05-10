@@ -41,25 +41,25 @@ const Contact = () => {
 
   const validateForm = useCallback(() => {
     const newErrors: Record<string, string> = {};
-    
+
     if (!formData.name.trim()) {
       newErrors.name = 'Name is required';
     }
-    
+
     if (!formData.email.trim()) {
       newErrors.email = 'Email is required';
     } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
       newErrors.email = 'Invalid email format';
     }
-    
+
     if (formData.phone && !/^\+?[\d\s-]{10,}$/.test(formData.phone)) {
       newErrors.phone = 'Invalid phone number format';
     }
-    
+
     if (!formData.subject) {
       newErrors.subject = 'Please select a subject';
     }
-    
+
     if (!formData.message.trim()) {
       newErrors.message = 'Message is required';
     } else if (formData.message.length < 10) {
@@ -72,7 +72,7 @@ const Contact = () => {
 
   const handleSubmit = useCallback(async (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     if (!validateForm()) {
       return;
     }
@@ -255,9 +255,8 @@ const Contact = () => {
                           name="name"
                           value={formData.name}
                           onChange={handleChange}
-                          className={`w-full pl-10 px-4 py-2 rounded-lg border ${
-                            errors.name ? 'border-red-500' : 'border-gray-300 dark:border-gray-600'
-                          } focus:ring-2 focus:ring-indigo-500 dark:bg-gray-700 dark:text-white`}
+                          className={`w-full pl-10 px-4 py-2 rounded-lg border ${errors.name ? 'border-red-500' : 'border-gray-300 dark:border-gray-600'
+                            } focus:ring-2 focus:ring-indigo-500 dark:bg-gray-700 dark:text-white`}
                           required
                         />
                       </div>
@@ -279,9 +278,8 @@ const Contact = () => {
                           name="email"
                           value={formData.email}
                           onChange={handleChange}
-                          className={`w-full pl-10 px-4 py-2 rounded-lg border ${
-                            errors.email ? 'border-red-500' : 'border-gray-300 dark:border-gray-600'
-                          } focus:ring-2 focus:ring-indigo-500 dark:bg-gray-700 dark:text-white`}
+                          className={`w-full pl-10 px-4 py-2 rounded-lg border ${errors.email ? 'border-red-500' : 'border-gray-300 dark:border-gray-600'
+                            } focus:ring-2 focus:ring-indigo-500 dark:bg-gray-700 dark:text-white`}
                           required
                         />
                       </div>
@@ -305,9 +303,8 @@ const Contact = () => {
                           name="phone"
                           value={formData.phone}
                           onChange={handleChange}
-                          className={`w-full pl-10 px-4 py-2 rounded-lg border ${
-                            errors.phone ? 'border-red-500' : 'border-gray-300 dark:border-gray-600'
-                          } focus:ring-2 focus:ring-indigo-500 dark:bg-gray-700 dark:text-white`}
+                          className={`w-full pl-10 px-4 py-2 rounded-lg border ${errors.phone ? 'border-red-500' : 'border-gray-300 dark:border-gray-600'
+                            } focus:ring-2 focus:ring-indigo-500 dark:bg-gray-700 dark:text-white`}
                         />
                       </div>
                       {errors.phone && (
@@ -327,9 +324,8 @@ const Contact = () => {
                           name="subject"
                           value={formData.subject}
                           onChange={handleChange}
-                          className={`w-full pl-10 px-4 py-2 rounded-lg border ${
-                            errors.subject ? 'border-red-500' : 'border-gray-300 dark:border-gray-600'
-                          } focus:ring-2 focus:ring-indigo-500 dark:bg-gray-700 dark:text-white`}
+                          className={`w-full pl-10 px-4 py-2 rounded-lg border ${errors.subject ? 'border-red-500' : 'border-gray-300 dark:border-gray-600'
+                            } focus:ring-2 focus:ring-indigo-500 dark:bg-gray-700 dark:text-white`}
                           required
                         >
                           <option value="">Select a subject</option>
@@ -354,9 +350,8 @@ const Contact = () => {
                       value={formData.message}
                       onChange={handleChange}
                       rows={6}
-                      className={`w-full px-4 py-2 rounded-lg border ${
-                        errors.message ? 'border-red-500' : 'border-gray-300 dark:border-gray-600'
-                      } focus:ring-2 focus:ring-indigo-500 dark:bg-gray-700 dark:text-white`}
+                      className={`w-full px-4 py-2 rounded-lg border ${errors.message ? 'border-red-500' : 'border-gray-300 dark:border-gray-600'
+                        } focus:ring-2 focus:ring-indigo-500 dark:bg-gray-700 dark:text-white`}
                       required
                     ></textarea>
                     {errors.message && (
@@ -366,9 +361,8 @@ const Contact = () => {
                   <button
                     type="submit"
                     disabled={status === 'loading'}
-                    className={`w-full px-6 py-3 bg-gradient-to-r from-indigo-600 to-purple-600 text-white rounded-lg transition-all duration-300 flex items-center justify-center ${
-                      status === 'loading' ? 'opacity-50 cursor-not-allowed' : 'hover:from-indigo-700 hover:to-purple-700 transform hover:-translate-y-0.5'
-                    }`}
+                    className={`w-full px-6 py-3 bg-gradient-to-r from-indigo-600 to-purple-600 text-white rounded-lg transition-all duration-300 flex items-center justify-center ${status === 'loading' ? 'opacity-50 cursor-not-allowed' : 'hover:from-indigo-700 hover:to-purple-700 transform hover:-translate-y-0.5'
+                      }`}
                   >
                     {status === 'loading' ? (
                       'Sending...'
