@@ -1,8 +1,8 @@
-import { motion, LazyMotion, domAnimation } from 'framer-motion';
-import { useInView } from 'react-intersection-observer';
-import { FiCpu, FiShield, FiTrendingUp, FiUsers, FiCheck, FiStar, FiAward, FiArrowRight } from 'react-icons/fi';
-import { Link } from 'react-router-dom';
+import { domAnimation, LazyMotion, motion } from 'framer-motion';
 import { lazy, Suspense } from 'react';
+import { FiArrowRight, FiAward, FiCheck, FiCpu, FiShield, FiStar, FiTrendingUp, FiUsers } from 'react-icons/fi';
+import { useInView } from 'react-intersection-observer';
+import { Link } from 'react-router-dom';
 import Button from '../components/Button';
 
 // Lazy load components
@@ -107,11 +107,11 @@ const Home = () => {
                     Get Started
                   </Button>
                   <Button 
-                    href="/services"
+                    href="/contact"
                     variant="secondary"
                     icon
                   >
-                    Explore Solutions
+                    Book a Meeting
                   </Button>
                 </motion.div>
               </motion.div>
@@ -371,6 +371,156 @@ const Home = () => {
                 </motion.div>
               ))}
             </div>
+          </div>
+        </section>
+
+        {/* Pricing Section */}
+        <section className="py-20 bg-white dark:bg-gray-900">
+          <div className="container">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={statsInView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.8 }}
+              className="text-center mb-16"
+            >
+              <motion.span 
+                initial={{ opacity: 0, scale: 0.8 }}
+                animate={statsInView ? { opacity: 1, scale: 1 } : {}}
+                transition={{ duration: 0.5 }}
+                className="inline-block px-4 py-2 rounded-full bg-gradient-to-r from-indigo-500 to-purple-500 text-white text-sm font-medium mb-4 shadow-lg shadow-indigo-500/25"
+              >
+                Our Pricing
+              </motion.span>
+              <h2 className="text-4xl font-bold mb-6 text-gray-900 dark:text-white">
+                Choose Your AI Journey
+              </h2>
+              <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
+                Flexible pricing designed for Kenyan businesses of all sizes
+              </p>
+            </motion.div>
+
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+              {[
+                {
+                  name: "Discovery",
+                  price: "KES 350,000",
+                  description: "Perfect for businesses exploring AI opportunities",
+                  features: [
+                    "Comprehensive business analysis",
+                    "AI opportunity assessment",
+                    "Technical feasibility study",
+                    "ROI projection & business case",
+                    "Detailed implementation roadmap",
+                    "Executive presentation"
+                  ],
+                  popular: false
+                },
+                {
+                  name: "Implementation",
+                  price: "KES 1,500,000",
+                  description: "Ideal for businesses ready to deploy AI solutions",
+                  features: [
+                    "Custom AI solution development",
+                    "Full system integration",
+                    "Comprehensive staff training",
+                    "6 months premium support",
+                    "Performance monitoring & optimization"
+                  ],
+                  popular: true
+                },
+                {
+                  name: "Enterprise",
+                  price: "KES 3,500,000",
+                  description: "Comprehensive AI transformation for large organizations",
+                  features: [
+                    "Multi-department AI integration",
+                    "Advanced analytics dashboard",
+                    "Dedicated support team",
+                    "12 months maintenance & updates",
+                    "Ongoing optimization & scaling"
+                  ],
+                  popular: false
+                }
+              ].map((plan, index) => (
+                <motion.div
+                  key={index}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={statsInView ? { opacity: 1, y: 0 } : {}}
+                  transition={{ duration: 0.5, delay: index * 0.1 }}
+                  whileHover={{ scale: 1.02 }}
+                  className={`relative p-8 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 ${
+                    plan.popular 
+                      ? 'bg-gradient-to-br from-indigo-50 to-purple-50 dark:from-indigo-900/20 dark:to-purple-900/20 border-2 border-indigo-500' 
+                      : 'bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700'
+                  }`}
+                >
+                  {plan.popular && (
+                    <div className="absolute -top-4 left-1/2 transform -translate-x-1/2">
+                      <span className="bg-gradient-to-r from-indigo-500 to-purple-500 text-white px-4 py-2 rounded-full text-sm font-medium shadow-lg">
+                        Most Popular
+                      </span>
+                    </div>
+                  )}
+                  
+                  <div className="text-center mb-8">
+                    <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">
+                      {plan.name}
+                    </h3>
+                    <div className="text-4xl font-bold text-indigo-600 dark:text-indigo-400 mb-2">
+                      {plan.price}
+                    </div>
+                    <p className="text-gray-600 dark:text-gray-300">
+                      {plan.description}
+                    </p>
+                  </div>
+
+                  <ul className="space-y-4 mb-8">
+                    {plan.features.map((feature, featureIndex) => (
+                      <li key={featureIndex} className="flex items-center">
+                        <FiCheck className="w-5 h-5 text-green-500 mr-3 flex-shrink-0" />
+                        <span className="text-gray-600 dark:text-gray-300">{feature}</span>
+                      </li>
+                    ))}
+                  </ul>
+
+                  <div className="space-y-3">
+                    <Button
+                      href="/contact"
+                      variant={plan.popular ? "primary" : "secondary"}
+                      className="w-full"
+                    >
+                      Book a Meeting
+                    </Button>
+                    <Button
+                      href="/contact"
+                      variant="outline"
+                      className="w-full"
+                    >
+                      Get Started
+                    </Button>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={statsInView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.5, delay: 0.4 }}
+              className="text-center mt-12"
+            >
+              <p className="text-gray-600 dark:text-gray-300 mb-4">
+                Need a custom solution? We offer flexible payment plans and can work within your budget.
+              </p>
+              <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                <Button href="/contact" variant="primary">
+                  Book a Meeting
+                </Button>
+                <Button href="/contact" variant="outline">
+                  Discuss Custom Pricing
+                </Button>
+              </div>
+            </motion.div>
           </div>
         </section>
 
