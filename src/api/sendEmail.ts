@@ -9,6 +9,20 @@ const transporter = nodemailer.createTransport({
   },
 });
 
+// Email routing based on subject
+const getRecipientEmail = (subject: string): string => {
+  switch (subject) {
+    case 'support':
+      return 'support@arrotechsolutions.com';
+    case 'sales':
+    case 'partnership':
+      return 'sales@arrotechsolutions.com';
+    case 'general':
+    default:
+      return 'info@arrotechsolutions.com';
+  }
+};
+
 export const sendEmail = async (formData: {
   name: string;
   email: string;
@@ -20,7 +34,7 @@ export const sendEmail = async (formData: {
 
   const mailOptions = {
     from: process.env.GMAIL_USER,
-    to: 'arrotechdesign@gmail.com',
+    to: getRecipientEmail(subject),
     subject: `New Contact Form Submission: ${subject}`,
     html: `
       <h2>New Contact Form Submission</h2>

@@ -91,6 +91,6 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 
 ## Contact
 
-Arrotech - contact@arrotech.com
+Arrotech - info@arrotechsolutions.com
 
 Project Link: [https://github.com/yourusername/arrotech](https://github.com/yourusername/arrotech) 

@@ -184,7 +184,7 @@ const Terms = () => {
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                   <div className="flex items-center text-white">
                     <FiMail className="w-6 h-6 mr-3" />
-                    <span>arrotechdesign@gmail.com</span>
+                    <span>info@arrotechsolutions.com</span>
                   </div>
                   <div className="flex items-center text-white">
                     <FiPhone className="w-6 h-6 mr-3" />

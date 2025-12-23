@@ -1,8 +1,8 @@
-import { motion, LazyMotion, domAnimation } from 'framer-motion';
-import { useInView } from 'react-intersection-observer';
-import { FiMapPin, FiPhone, FiMail, FiClock, FiSend, FiChevronDown, FiChevronUp, FiMessageSquare, FiUser, FiCheckCircle } from 'react-icons/fi';
-import { useState, useCallback } from 'react';
 import emailjs from '@emailjs/browser';
+import { LazyMotion, domAnimation, motion } from 'framer-motion';
+import { useCallback, useState } from 'react';
+import { FiCheckCircle, FiChevronDown, FiChevronUp, FiClock, FiMail, FiMapPin, FiMessageSquare, FiPhone, FiSend, FiUser } from 'react-icons/fi';
+import { useInView } from 'react-intersection-observer';
 
 // Check if EmailJS credentials are available
 const EMAILJS_PUBLIC_KEY = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
@@ -87,12 +87,12 @@ const Contact = () => {
     setStatus('loading');
 
     try {
-      // Send email using EmailJS
+      // Send email using EmailJS - all emails go to info@arrotechsolutions.com
       await emailjs.send(
         EMAILJS_SERVICE_ID,
         EMAILJS_TEMPLATE_ID,
         {
-          to_email: "arrotechdesign@gmail.com",
+          to_email: 'info@arrotechsolutions.com',
           from_name: formData.name,
           from_email: formData.email,
           phone: formData.phone,
@@ -139,7 +139,7 @@ const Contact = () => {
     {
       icon: <FiMail className="w-6 h-6" />,
       title: 'Email Address',
-      content: 'arrotechdesign@gmail.com',
+      content: 'info@arrotechsolutions.com',
     },
     {
       icon: <FiClock className="w-6 h-6" />,
