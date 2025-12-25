@@ -1,6 +1,6 @@
 import { domAnimation, LazyMotion, motion } from 'framer-motion';
 import { lazy, Suspense } from 'react';
-import { FiArrowRight, FiAward, FiCheck, FiCpu, FiShield, FiStar, FiTrendingUp, FiUsers } from 'react-icons/fi';
+import { FiArrowRight, FiAward, FiCheck, FiCpu, FiExternalLink, FiGlobe, FiRefreshCw, FiShield, FiStar, FiTrendingUp, FiUsers } from 'react-icons/fi';
 import { useInView } from 'react-intersection-observer';
 import { Link } from 'react-router-dom';
 import Button from '../components/Button';
@@ -24,6 +24,41 @@ const Home = () => {
     triggerOnce: true,
     threshold: 0.1,
   });
+
+  const [productsRef, productsInView] = useInView({
+    triggerOnce: true,
+    threshold: 0.1,
+  });
+
+  const liveProducts = [
+    {
+      name: 'Mini-Hub',
+      tagline: 'AI-Powered Business Automation',
+      description: 'Enterprise platform with Model Context Protocol (MCP) for seamless LLM integration with 15+ business tools.',
+      url: 'https://hub.arrotechsolutions.com/',
+      gradient: 'from-violet-600 to-indigo-600',
+      icon: <FiCpu className="w-6 h-6" />,
+      stats: ['15+ Integrations', '6+ LLM Providers', '24/7 Automation']
+    },
+    {
+      name: 'WholeSaleHub',
+      tagline: 'Crowdsource Global Imports',
+      description: 'Pool orders with businesses worldwide to hit factory MOQs and save 30-50% on shipping costs.',
+      url: 'http://crowdsource.arrotechsolutions.com/',
+      gradient: 'from-emerald-600 to-teal-600',
+      icon: <FiGlobe className="w-6 h-6" />,
+      stats: ['500+ Group Buys', '1000+ Factories', '50+ Countries']
+    },
+    {
+      name: 'TSC Swap',
+      tagline: 'Teacher Transfer Platform',
+      description: 'Smart matching engine for Kenyan teachers to find compatible TSC swaps across all 47 counties.',
+      url: 'https://www.tscswap.com/',
+      gradient: 'from-amber-600 to-orange-600',
+      icon: <FiRefreshCw className="w-6 h-6" />,
+      stats: ['500+ Swaps', '98% Approval', '47 Counties']
+    }
+  ];
 
   const features = [
     {
@@ -216,8 +251,111 @@ const Home = () => {
           </div>
         </section>
 
+        {/* Live Products Section */}
+        <section ref={productsRef} className="py-20 bg-gradient-to-b from-gray-50 to-white dark:from-gray-800 dark:to-gray-900 relative overflow-hidden">
+          {/* Background Elements */}
+          <div className="absolute inset-0 overflow-hidden pointer-events-none">
+            <div className="absolute -top-40 -right-40 w-80 h-80 bg-violet-500 rounded-full mix-blend-multiply filter blur-xl opacity-10 animate-blob"></div>
+            <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-emerald-500 rounded-full mix-blend-multiply filter blur-xl opacity-10 animate-blob animation-delay-2000"></div>
+          </div>
+
+          <div className="container relative">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={productsInView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.5 }}
+              className="text-center mb-16"
+            >
+              <motion.span 
+                initial={{ opacity: 0, scale: 0.8 }}
+                animate={productsInView ? { opacity: 1, scale: 1 } : {}}
+                transition={{ duration: 0.3 }}
+                className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-violet-500 to-purple-500 text-white text-sm font-medium mb-4 shadow-lg shadow-violet-500/25"
+              >
+                <span className="w-2 h-2 bg-green-400 rounded-full animate-pulse" />
+                Live Products
+              </motion.span>
+              <h2 className="text-4xl font-bold mb-6 text-gray-900 dark:text-white">
+                Our AI-Powered Platforms
+              </h2>
+              <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
+                Production-ready solutions transforming businesses across industries
+              </p>
+            </motion.div>
+
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+              {liveProducts.map((product, index) => (
+                <motion.a
+                  key={product.name}
+                  href={product.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={productsInView ? { opacity: 1, y: 0 } : {}}
+                  transition={{ duration: 0.5, delay: index * 0.15 }}
+                  whileHover={{ scale: 1.03, y: -5 }}
+                  className="group relative bg-white dark:bg-gray-800 rounded-2xl shadow-xl overflow-hidden border border-gray-100 dark:border-gray-700 hover:shadow-2xl transition-all duration-300"
+                >
+                  {/* Gradient Header */}
+                  <div className={`p-6 bg-gradient-to-r ${product.gradient}`}>
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center gap-3">
+                        <div className="w-12 h-12 bg-white/20 backdrop-blur-sm rounded-xl flex items-center justify-center text-white">
+                          {product.icon}
+                        </div>
+                        <div>
+                          <h3 className="text-xl font-bold text-white">{product.name}</h3>
+                          <p className="text-white/80 text-sm">{product.tagline}</p>
+                        </div>
+                      </div>
+                      <FiExternalLink className="w-5 h-5 text-white/60 group-hover:text-white transition-colors" />
+                    </div>
+                  </div>
+
+                  {/* Content */}
+                  <div className="p-6">
+                    <p className="text-gray-600 dark:text-gray-300 mb-4 text-sm leading-relaxed">
+                      {product.description}
+                    </p>
+                    
+                    {/* Stats */}
+                    <div className="flex flex-wrap gap-2">
+                      {product.stats.map((stat, statIndex) => (
+                        <span
+                          key={statIndex}
+                          className={`px-3 py-1 rounded-full text-xs font-medium bg-gradient-to-r ${product.gradient} text-white`}
+                        >
+                          {stat}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* Hover Indicator */}
+                  <div className={`absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r ${product.gradient} transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300`} />
+                </motion.a>
+              ))}
+            </div>
+
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={productsInView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.5, delay: 0.5 }}
+              className="text-center mt-12"
+            >
+              <Link
+                to="/products"
+                className="inline-flex items-center text-indigo-600 dark:text-indigo-400 hover:text-indigo-500 dark:hover:text-indigo-300 font-semibold group"
+              >
+                View All Products
+                <FiArrowRight className="ml-2 group-hover:translate-x-1 transition-transform" />
+              </Link>
+            </motion.div>
+          </div>
+        </section>
+
         {/* Content Showcase Section */}
-        <section ref={showcaseRef} className="py-20 bg-gradient-to-b from-gray-50 to-white dark:from-gray-800 dark:to-gray-900">
+        <section ref={showcaseRef} className="py-20 bg-white dark:bg-gray-900">
           <div className="container">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
