@@ -112,7 +112,7 @@ const Services = () => {
   return (
     <div className="pt-20 bg-slate-950 min-h-screen">
       {/* Hero Section - Dark Futuristic */}
-      <section ref={heroRef} className="relative min-h-[80vh] flex items-center overflow-hidden">
+      <section ref={heroRef} className="relative min-h-[80vh] flex items-center overflow-hidden pt-16 md:pt-20">
         {/* Animated Grid Background */}
         <div className="absolute inset-0">
           <div className="absolute inset-0 bg-gradient-to-b from-slate-950 via-slate-900 to-slate-950" />
