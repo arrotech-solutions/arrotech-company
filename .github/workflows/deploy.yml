@@ -19,7 +19,7 @@ jobs:
     uses: arrotech-solutions/arrotech-solutions-actions/.github/workflows/cd-deploy.yml@main
     with:
       platform: 'vercel'
-      environment: 'staging'
+      environment: 'preview'
       vercel-deploy-mode: 'preview'
     secrets:
       VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
