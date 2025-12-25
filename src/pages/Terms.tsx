@@ -1,207 +1,236 @@
-import { motion, LazyMotion, domAnimation } from 'framer-motion';
-import { useInView } from 'react-intersection-observer';
-import { FiFileText, FiAlertCircle, FiCheckCircle, FiXCircle, FiChevronDown, FiChevronUp, FiMail, FiPhone, FiMapPin } from 'react-icons/fi';
+import { motion } from 'framer-motion';
 import { useState } from 'react';
+import {
+  FiAlertCircle,
+  FiCheckCircle,
+  FiChevronDown,
+  FiChevronUp,
+  FiFileText,
+  FiMail,
+  FiMapPin,
+  FiPhone,
+  FiXCircle
+} from 'react-icons/fi';
+import { useInView } from 'react-intersection-observer';
 
 const Terms = () => {
   const [expandedSection, setExpandedSection] = useState<number | null>(null);
-
-  const [heroRef, heroInView] = useInView({
-    triggerOnce: true,
-    threshold: 0.1,
-  });
-
-  const [contentRef, contentInView] = useInView({
-    triggerOnce: true,
-    threshold: 0.1,
-  });
+  const [heroRef, heroInView] = useInView({ triggerOnce: true, threshold: 0.1 });
+  const [contentRef, contentInView] = useInView({ triggerOnce: true, threshold: 0.1 });
 
   const sections = [
     {
-      title: "Acceptance of Terms",
+      title: 'Acceptance of Terms',
       icon: <FiCheckCircle className="w-6 h-6" />,
+      gradient: 'from-emerald-500 to-teal-600',
       content: [
-        "By accessing and using our services, you agree to be bound by these Terms of Service",
-        "You must be at least 18 years old to use our services",
-        "You are responsible for maintaining the confidentiality of your account",
-        "You agree to provide accurate and complete information"
+        'By accessing and using our services, you agree to be bound by these Terms of Service',
+        'You must be at least 18 years old to use our services',
+        'You are responsible for maintaining the confidentiality of your account',
+        'You agree to provide accurate and complete information'
       ]
     },
     {
-      title: "Service Usage",
+      title: 'Service Usage',
       icon: <FiFileText className="w-6 h-6" />,
+      gradient: 'from-blue-500 to-cyan-600',
       content: [
-        "Our services are provided 'as is' and 'as available'",
-        "We reserve the right to modify or discontinue services at any time",
-        "You agree to use our services in compliance with all applicable laws",
-        "You are responsible for all activities that occur under your account"
+        'Our services are provided "as is" and "as available"',
+        'We reserve the right to modify or discontinue services at any time',
+        'You agree to use our services in compliance with all applicable laws',
+        'You are responsible for all activities that occur under your account'
       ]
     },
     {
-      title: "Prohibited Activities",
+      title: 'Prohibited Activities',
       icon: <FiXCircle className="w-6 h-6" />,
+      gradient: 'from-red-500 to-pink-600',
       content: [
-        "Unauthorized access to our systems or networks",
-        "Use of our services for illegal purposes",
-        "Distribution of harmful code or malware",
-        "Attempting to reverse engineer our services"
+        'Unauthorized access to our systems or networks',
+        'Use of our services for illegal purposes',
+        'Distribution of harmful code or malware',
+        'Attempting to reverse engineer our services'
       ]
     },
     {
-      title: "Intellectual Property",
+      title: 'Intellectual Property',
       icon: <FiAlertCircle className="w-6 h-6" />,
+      gradient: 'from-amber-500 to-orange-600',
       content: [
-        "All content and materials are protected by intellectual property rights",
-        "You may not copy, modify, or distribute our content without permission",
-        "You retain rights to your own content",
-        "You grant us license to use your content for service provision"
+        'All content and materials are protected by intellectual property rights',
+        'You may not copy, modify, or distribute our content without permission',
+        'You retain rights to your own content',
+        'You grant us license to use your content for service provision'
       ]
     }
   ];
 
   return (
-    <LazyMotion features={domAnimation}>
-      <div className="pt-20">
-        {/* Hero Section */}
-        <section ref={heroRef} className="relative bg-gradient-to-br from-indigo-600 to-purple-600 text-white py-32 overflow-hidden">
-          <div className="absolute inset-0 bg-grid-white/[0.05] bg-grid-pattern"></div>
-          <div className="container relative">
+    <div className="bg-slate-950 min-h-screen pt-20">
+      {/* Hero Section */}
+      <section ref={heroRef} className="relative py-24 overflow-hidden">
+        {/* Background */}
+        <div className="absolute inset-0">
+          <div className="absolute inset-0 bg-gradient-to-b from-slate-950 via-slate-900 to-slate-950" />
+          <div 
+            className="absolute inset-0 opacity-20"
+            style={{
+              backgroundImage: `
+                linear-gradient(rgba(99, 102, 241, 0.1) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(99, 102, 241, 0.1) 1px, transparent 1px)
+              `,
+              backgroundSize: '60px 60px'
+            }}
+          />
+          <div className="absolute top-1/4 left-1/4 w-[500px] h-[500px] bg-violet-600/20 rounded-full blur-[150px]" />
+          <div className="absolute bottom-1/4 right-1/4 w-[400px] h-[400px] bg-blue-600/20 rounded-full blur-[120px]" />
+        </div>
+
+        <div className="container relative z-10">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={heroInView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.8 }}
+            className="max-w-4xl mx-auto text-center"
+          >
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 backdrop-blur-sm border border-white/10 mb-8">
+              <FiFileText className="w-4 h-4 text-violet-400" />
+              <span className="text-slate-300 text-sm font-medium">Terms of Service</span>
+            </div>
+
+            <h1 className="text-5xl md:text-7xl font-bold mb-6 leading-tight">
+              <span className="text-white">Terms &</span>{' '}
+              <span className="bg-gradient-to-r from-violet-400 via-blue-400 to-cyan-400 bg-clip-text text-transparent">
+                Conditions
+              </span>
+            </h1>
+
+            <p className="text-xl md:text-2xl text-slate-400 max-w-3xl mx-auto leading-relaxed">
+              Please read these terms carefully before using our services.
+            </p>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Main Content */}
+      <section ref={contentRef} className="py-16">
+        <div className="container">
+          <div className="max-w-4xl mx-auto">
+            {/* Introduction */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
-              animate={heroInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.8 }}
-              className="text-center max-w-4xl mx-auto"
+              animate={contentInView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.5 }}
+              className="bg-slate-900/50 backdrop-blur-sm border border-slate-800 rounded-2xl p-8 mb-8"
             >
-              <motion.span
-                initial={{ opacity: 0, scale: 0.8 }}
-                animate={heroInView ? { opacity: 1, scale: 1 } : {}}
-                transition={{ duration: 0.5 }}
-                className="inline-block px-4 py-2 rounded-full bg-white/10 backdrop-blur-sm text-white text-sm font-medium mb-6"
-              >
-                Terms of Service
-              </motion.span>
-              <h1 className="text-5xl md:text-6xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-white to-indigo-100">
-                Our Terms & Conditions
-              </h1>
-              <p className="text-xl text-indigo-100 max-w-3xl mx-auto leading-relaxed">
-                Please read these terms carefully before using our services. By accessing our platform, you agree to be bound by these terms.
+              <div className="flex items-center gap-4 mb-6">
+                <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-violet-600 to-blue-600 flex items-center justify-center text-white">
+                  <FiFileText className="w-6 h-6" />
+                </div>
+                <h2 className="text-2xl font-bold text-white">
+                  Agreement to Terms
+                </h2>
+              </div>
+              <p className="text-slate-400 leading-relaxed mb-4">
+                These Terms of Service constitute a legally binding agreement between you and Arrotech regarding your use of our services. By accessing or using our services, you agree to be bound by these terms.
               </p>
+              <div className="flex items-center text-sm text-slate-500">
+                <span className="w-2 h-2 bg-violet-500 rounded-full mr-2"></span>
+                Last updated: March 15, 2024
+              </div>
+            </motion.div>
+
+            {/* Terms Sections */}
+            <div className="space-y-4">
+              {sections.map((section, index) => (
+                <motion.div
+                  key={index}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={contentInView ? { opacity: 1, y: 0 } : {}}
+                  transition={{ duration: 0.5, delay: index * 0.1 }}
+                  className="bg-slate-900/50 backdrop-blur-sm border border-slate-800 rounded-2xl overflow-hidden"
+                >
+                  <button
+                    onClick={() => setExpandedSection(expandedSection === index ? null : index)}
+                    className="w-full px-6 py-5 flex items-center justify-between text-left hover:bg-slate-800/50 transition-colors"
+                  >
+                    <div className="flex items-center gap-4">
+                      <div className={`w-12 h-12 rounded-xl bg-gradient-to-br ${section.gradient} flex items-center justify-center text-white`}>
+                        {section.icon}
+                      </div>
+                      <h3 className="text-lg font-semibold text-white">
+                        {section.title}
+                      </h3>
+                    </div>
+                    <div className={`w-8 h-8 rounded-lg bg-slate-800 flex items-center justify-center flex-shrink-0 transition-transform duration-300 ${expandedSection === index ? 'rotate-180' : ''}`}>
+                      {expandedSection === index ? (
+                        <FiChevronUp className="w-5 h-5 text-slate-400" />
+                      ) : (
+                        <FiChevronDown className="w-5 h-5 text-slate-400" />
+                      )}
+                    </div>
+                  </button>
+                  {expandedSection === index && (
+                    <motion.div
+                      initial={{ height: 0, opacity: 0 }}
+                      animate={{ height: 'auto', opacity: 1 }}
+                      exit={{ height: 0, opacity: 0 }}
+                      transition={{ duration: 0.3 }}
+                      className="px-6 pb-6"
+                    >
+                      <ul className="space-y-3 pl-16">
+                        {section.content.map((item, i) => (
+                          <li key={i} className="flex items-start text-slate-400">
+                            <span className="w-2 h-2 bg-violet-500 rounded-full mt-2 mr-3 flex-shrink-0"></span>
+                            {item}
+                          </li>
+                        ))}
+                      </ul>
+                    </motion.div>
+                  )}
+                </motion.div>
+              ))}
+            </div>
+
+            {/* Contact Section */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={contentInView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.5, delay: 0.4 }}
+              className="bg-gradient-to-br from-violet-600/20 via-blue-600/20 to-cyan-600/20 backdrop-blur-sm border border-slate-800 rounded-2xl p-8 mt-8"
+            >
+              <h3 className="text-2xl font-semibold text-white mb-6">
+                Need Clarification?
+              </h3>
+              <p className="text-slate-300 mb-6">
+                If you have any questions about our Terms of Service, please don't hesitate to contact us:
+              </p>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div className="flex items-center text-slate-300">
+                  <div className="w-10 h-10 rounded-lg bg-slate-800 flex items-center justify-center mr-3">
+                    <FiMail className="w-5 h-5 text-violet-400" />
+                  </div>
+                  <span className="text-sm">info@arrotechsolutions.com</span>
+                </div>
+                <div className="flex items-center text-slate-300">
+                  <div className="w-10 h-10 rounded-lg bg-slate-800 flex items-center justify-center mr-3">
+                    <FiPhone className="w-5 h-5 text-violet-400" />
+                  </div>
+                  <span className="text-sm">+254 711 371 265</span>
+                </div>
+                <div className="flex items-center text-slate-300">
+                  <div className="w-10 h-10 rounded-lg bg-slate-800 flex items-center justify-center mr-3">
+                    <FiMapPin className="w-5 h-5 text-violet-400" />
+                  </div>
+                  <span className="text-sm">Nairobi, Kenya</span>
+                </div>
+              </div>
             </motion.div>
           </div>
-        </section>
-
-        {/* Main Content */}
-        <section ref={contentRef} className="py-20">
-          <div className="container">
-            <div className="max-w-4xl mx-auto">
-              {/* Introduction */}
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={contentInView ? { opacity: 1, y: 0 } : {}}
-                transition={{ duration: 0.5 }}
-                className="bg-white dark:bg-gray-800 rounded-2xl p-8 mb-12 shadow-xl border border-gray-100 dark:border-gray-700"
-              >
-                <div className="flex items-center mb-6">
-                  <div className="w-12 h-12 bg-gradient-to-r from-indigo-500 to-purple-500 rounded-xl flex items-center justify-center text-white mr-4">
-                    <FiFileText className="w-6 h-6" />
-                  </div>
-                  <h2 className="text-2xl font-bold text-gray-900 dark:text-white">
-                    Agreement to Terms
-                  </h2>
-                </div>
-                <p className="text-gray-600 dark:text-gray-300 mb-4 leading-relaxed">
-                  These Terms of Service constitute a legally binding agreement between you and Arrotech regarding your use of our services. By accessing or using our services, you agree to be bound by these terms.
-                </p>
-                <div className="flex items-center text-sm text-gray-500 dark:text-gray-400">
-                  <span className="w-2 h-2 bg-indigo-500 rounded-full mr-2"></span>
-                  Last updated: March 15, 2024
-                </div>
-              </motion.div>
-
-              {/* Terms Sections */}
-              <div className="space-y-6">
-                {sections.map((section, index) => (
-                  <motion.div
-                    key={index}
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={contentInView ? { opacity: 1, y: 0 } : {}}
-                    transition={{ duration: 0.5, delay: index * 0.1 }}
-                    className="bg-white dark:bg-gray-800 rounded-2xl shadow-lg overflow-hidden border border-gray-100 dark:border-gray-700"
-                  >
-                    <button
-                      onClick={() => setExpandedSection(expandedSection === index ? null : index)}
-                      className="w-full px-8 py-6 flex items-center justify-between text-left hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors"
-                    >
-                      <div className="flex items-center">
-                        <div className="w-12 h-12 bg-gradient-to-r from-indigo-500 to-purple-500 rounded-xl flex items-center justify-center text-white mr-4">
-                          {section.icon}
-                        </div>
-                        <h3 className="text-xl font-semibold text-gray-900 dark:text-white">
-                          {section.title}
-                        </h3>
-                      </div>
-                      {expandedSection === index ? (
-                        <FiChevronUp className="w-6 h-6 text-gray-500" />
-                      ) : (
-                        <FiChevronDown className="w-6 h-6 text-gray-500" />
-                      )}
-                    </button>
-                    {expandedSection === index && (
-                      <motion.div
-                        initial={{ height: 0, opacity: 0 }}
-                        animate={{ height: 'auto', opacity: 1 }}
-                        exit={{ height: 0, opacity: 0 }}
-                        transition={{ duration: 0.3 }}
-                        className="px-8 pb-6"
-                      >
-                        <ul className="space-y-3">
-                          {section.content.map((item, i) => (
-                            <li key={i} className="flex items-start text-gray-600 dark:text-gray-300">
-                              <span className="w-2 h-2 bg-indigo-500 rounded-full mt-2 mr-3"></span>
-                              {item}
-                            </li>
-                          ))}
-                        </ul>
-                      </motion.div>
-                    )}
-                  </motion.div>
-                ))}
-              </div>
-
-              {/* Contact Section */}
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={contentInView ? { opacity: 1, y: 0 } : {}}
-                transition={{ duration: 0.5, delay: 0.4 }}
-                className="bg-gradient-to-br from-indigo-600 to-purple-600 rounded-2xl p-8 mt-12 shadow-xl"
-              >
-                <h3 className="text-2xl font-semibold text-white mb-6">
-                  Need Clarification?
-                </h3>
-                <p className="text-indigo-100 mb-6">
-                  If you have any questions about our Terms of Service, please don't hesitate to contact us:
-                </p>
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                  <div className="flex items-center text-white">
-                    <FiMail className="w-6 h-6 mr-3" />
-                    <span>info@arrotechsolutions.com</span>
-                  </div>
-                  <div className="flex items-center text-white">
-                    <FiPhone className="w-6 h-6 mr-3" />
-                    <span>+254 711 371 265</span>
-                  </div>
-                  <div className="flex items-center text-white">
-                    <FiMapPin className="w-6 h-6 mr-3" />
-                    <span>Nairobi, Kenya</span>
-                  </div>
-                </div>
-              </motion.div>
-            </div>
-          </div>
-        </section>
-      </div>
-    </LazyMotion>
+        </div>
+      </section>
+    </div>
   );
 };
 
-export default Terms; 
+export default Terms;

@@ -1,8 +1,7 @@
 import { AnimatePresence, motion } from 'framer-motion';
 import { useEffect, useState } from 'react';
-import { FiChevronDown, FiMenu, FiX } from 'react-icons/fi';
+import { FiArrowRight, FiChevronDown, FiMenu, FiX } from 'react-icons/fi';
 import { Link, useLocation } from 'react-router-dom';
-import Button from './Button';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -19,6 +18,15 @@ const Navbar = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  // Close dropdown when clicking outside
+  useEffect(() => {
+    const handleClickOutside = () => setIsResourcesOpen(false);
+    if (isResourcesOpen) {
+      document.addEventListener('click', handleClickOutside);
+      return () => document.removeEventListener('click', handleClickOutside);
+    }
+  }, [isResourcesOpen]);
+
   const navigation = [
     { name: 'Home', href: '/' },
     { name: 'Products', href: '/products' },
@@ -34,48 +42,50 @@ const Navbar = () => {
 
   return (
     <nav
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
         isScrolled 
-          ? 'bg-white/95 dark:bg-gray-900/95 backdrop-blur-sm shadow-lg' 
+          ? 'bg-slate-950/90 backdrop-blur-xl border-b border-slate-800/50 shadow-lg shadow-slate-900/20' 
           : 'bg-transparent'
       }`}
     >
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-20">
           {/* Logo */}
-          <Link to="/" className="flex items-center space-x-2">
+          <Link to="/" className="flex items-center space-x-3 group">
             <motion.div
-              initial={{ scale: 0.8 }}
-              animate={{ scale: 1 }}
-              transition={{ duration: 0.3 }}
+              initial={{ scale: 0.8, rotate: -10 }}
+              animate={{ scale: 1, rotate: 0 }}
+              transition={{ duration: 0.5, type: 'spring' }}
               className="relative"
             >
-              <div className="w-10 h-10 bg-gradient-to-br from-indigo-600 to-purple-600 rounded-lg transform rotate-3 shadow-lg" />
-              <div className="absolute inset-0 w-10 h-10 bg-gradient-to-br from-indigo-400 to-purple-400 rounded-lg transform -rotate-3 shadow-lg" />
+              <div className="w-10 h-10 bg-gradient-to-br from-blue-500 via-violet-500 to-purple-600 rounded-xl transform rotate-3 shadow-lg shadow-violet-500/30 group-hover:rotate-6 transition-transform duration-300" />
+              <div className="absolute inset-0 w-10 h-10 bg-gradient-to-br from-cyan-400 to-blue-500 rounded-xl transform -rotate-3 opacity-60 group-hover:-rotate-6 transition-transform duration-300" />
             </motion.div>
-            <div className="flex flex-col">
-              <span className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-indigo-400 to-purple-400">
+            <div className="flex flex-col -space-y-1">
+              <span className="text-xl font-bold bg-gradient-to-r from-white to-slate-300 bg-clip-text text-transparent">
                 Arro
               </span>
-              <span className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-pink-400 -mt-1">
+              <span className="text-xl font-bold bg-gradient-to-r from-violet-400 to-cyan-400 bg-clip-text text-transparent">
                 tech
               </span>
             </div>
           </Link>
 
           {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center space-x-8">
+          <div className="hidden md:flex items-center space-x-1">
             {navigation.map((link) => (
               <Link
                 key={link.href}
                 to={link.href}
-                className={`text-gray-700 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-white transition-colors duration-300 relative group ${
-                  location.pathname === link.href ? 'text-indigo-600 dark:text-white' : ''
+                className={`relative px-4 py-2 text-sm font-medium transition-all duration-300 rounded-lg group ${
+                  location.pathname === link.href 
+                    ? 'text-white' 
+                    : 'text-slate-400 hover:text-white'
                 }`}
               >
                 {link.name}
-                <span className={`absolute bottom-0 left-0 h-0.5 bg-gradient-to-r from-indigo-600 to-purple-600 transition-all duration-300 ${
-                  location.pathname === link.href ? 'w-full' : 'w-0 group-hover:w-full'
+                <span className={`absolute bottom-1 left-4 right-4 h-0.5 bg-gradient-to-r from-violet-500 to-cyan-500 rounded-full transition-all duration-300 ${
+                  location.pathname === link.href ? 'opacity-100' : 'opacity-0 group-hover:opacity-100'
                 }`} />
               </Link>
             ))}
@@ -83,30 +93,38 @@ const Navbar = () => {
             {/* Resources Dropdown */}
             <div className="relative">
               <button
-                onClick={() => setIsResourcesOpen(!isResourcesOpen)}
-                className={`flex items-center text-gray-700 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-white transition-colors duration-300 ${
-                  resources.some(r => location.pathname === r.href) ? 'text-indigo-600 dark:text-white' : ''
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setIsResourcesOpen(!isResourcesOpen);
+                }}
+                className={`flex items-center px-4 py-2 text-sm font-medium transition-all duration-300 rounded-lg ${
+                  resources.some(r => location.pathname === r.href) 
+                    ? 'text-white' 
+                    : 'text-slate-400 hover:text-white'
                 }`}
               >
                 Resources
-                <FiChevronDown className={`ml-1 transition-transform duration-300 ${isResourcesOpen ? 'rotate-180' : ''}`} />
+                <FiChevronDown className={`ml-1 w-4 h-4 transition-transform duration-300 ${isResourcesOpen ? 'rotate-180' : ''}`} />
               </button>
 
               <AnimatePresence>
                 {isResourcesOpen && (
                   <motion.div
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: 10 }}
+                    initial={{ opacity: 0, y: 10, scale: 0.95 }}
+                    animate={{ opacity: 1, y: 0, scale: 1 }}
+                    exit={{ opacity: 0, y: 10, scale: 0.95 }}
                     transition={{ duration: 0.2 }}
-                    className="absolute top-full left-0 mt-2 w-48 bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-100 dark:border-gray-700 overflow-hidden"
+                    className="absolute top-full right-0 mt-2 w-48 bg-slate-900/95 backdrop-blur-xl rounded-xl shadow-xl border border-slate-800 overflow-hidden"
+                    onClick={(e) => e.stopPropagation()}
                   >
                     {resources.map((resource) => (
                       <Link
                         key={resource.href}
                         to={resource.href}
-                        className={`block px-4 py-3 text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors duration-300 ${
-                          location.pathname === resource.href ? 'bg-gray-50 dark:bg-gray-700' : ''
+                        className={`block px-4 py-3 text-sm transition-all duration-300 ${
+                          location.pathname === resource.href 
+                            ? 'bg-slate-800 text-white' 
+                            : 'text-slate-400 hover:bg-slate-800/50 hover:text-white'
                         }`}
                         onClick={() => setIsResourcesOpen(false)}
                       >
@@ -118,22 +136,22 @@ const Navbar = () => {
               </AnimatePresence>
             </div>
 
-            <Button
-              href="/contact"
-              variant="primary"
-              size="sm"
-              icon
+            {/* CTA Button */}
+            <Link
+              to="/contact"
+              className="ml-4 inline-flex items-center gap-2 px-5 py-2.5 bg-gradient-to-r from-violet-600 to-blue-600 text-white text-sm font-semibold rounded-xl hover:from-violet-500 hover:to-blue-500 transition-all duration-300 shadow-lg shadow-violet-500/25 hover:shadow-violet-500/40"
             >
               Get Started
-            </Button>
+              <FiArrowRight className="w-4 h-4" />
+            </Link>
           </div>
 
           {/* Mobile Menu Button */}
           <button
-            className="md:hidden text-gray-700 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-white transition-colors duration-300"
+            className="md:hidden w-10 h-10 flex items-center justify-center text-white bg-slate-800/50 rounded-lg border border-slate-700 hover:bg-slate-700 transition-colors"
             onClick={() => setIsOpen(!isOpen)}
           >
-            {isOpen ? <FiX size={24} /> : <FiMenu size={24} />}
+            {isOpen ? <FiX size={20} /> : <FiMenu size={20} />}
           </button>
         </div>
       </div>
@@ -146,16 +164,18 @@ const Navbar = () => {
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.3 }}
-            className="md:hidden bg-white dark:bg-gray-900/95 backdrop-blur-sm shadow-lg"
+            className="md:hidden bg-slate-950/95 backdrop-blur-xl border-t border-slate-800"
           >
-            <div className="container mx-auto px-4 py-4">
-              <div className="flex flex-col space-y-4">
+            <div className="container mx-auto px-4 py-6">
+              <div className="flex flex-col space-y-1">
                 {navigation.map((link) => (
                   <Link
                     key={link.href}
                     to={link.href}
-                    className={`text-gray-700 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-white transition-colors duration-300 py-2 ${
-                      location.pathname === link.href ? 'text-indigo-600 dark:text-white' : ''
+                    className={`px-4 py-3 rounded-lg text-sm font-medium transition-all duration-300 ${
+                      location.pathname === link.href 
+                        ? 'bg-slate-800 text-white' 
+                        : 'text-slate-400 hover:bg-slate-800/50 hover:text-white'
                     }`}
                     onClick={() => setIsOpen(false)}
                   >
@@ -164,33 +184,35 @@ const Navbar = () => {
                 ))}
 
                 {/* Mobile Resources Section */}
-                <div className="py-2">
-                  <div className="text-gray-700 dark:text-gray-300 font-medium mb-2">Resources</div>
-                  <div className="pl-4 space-y-2">
-                    {resources.map((resource) => (
-                      <Link
-                        key={resource.href}
-                        to={resource.href}
-                        className={`block text-gray-600 dark:text-gray-400 hover:text-indigo-600 dark:hover:text-white transition-colors duration-300 ${
-                          location.pathname === resource.href ? 'text-indigo-600 dark:text-white' : ''
-                        }`}
-                        onClick={() => setIsOpen(false)}
-                      >
-                        {resource.name}
-                      </Link>
-                    ))}
-                  </div>
+                <div className="pt-4 mt-4 border-t border-slate-800">
+                  <div className="text-xs font-semibold text-slate-500 uppercase tracking-wider px-4 mb-2">Resources</div>
+                  {resources.map((resource) => (
+                    <Link
+                      key={resource.href}
+                      to={resource.href}
+                      className={`block px-4 py-3 rounded-lg text-sm transition-all duration-300 ${
+                        location.pathname === resource.href 
+                          ? 'bg-slate-800 text-white' 
+                          : 'text-slate-400 hover:bg-slate-800/50 hover:text-white'
+                      }`}
+                      onClick={() => setIsOpen(false)}
+                    >
+                      {resource.name}
+                    </Link>
+                  ))}
                 </div>
 
-                <Button
-                  href="/contact"
-                  variant="primary"
-                  size="sm"
-                  icon
-                  fullWidth
-                >
-                  Get Started
-                </Button>
+                {/* Mobile CTA */}
+                <div className="pt-4 mt-4 border-t border-slate-800">
+                  <Link
+                    to="/contact"
+                    className="flex items-center justify-center gap-2 w-full px-5 py-3 bg-gradient-to-r from-violet-600 to-blue-600 text-white text-sm font-semibold rounded-xl hover:from-violet-500 hover:to-blue-500 transition-all duration-300"
+                    onClick={() => setIsOpen(false)}
+                  >
+                    Get Started
+                    <FiArrowRight className="w-4 h-4" />
+                  </Link>
+                </div>
               </div>
             </div>
           </motion.div>
@@ -200,4 +222,4 @@ const Navbar = () => {
   );
 };
 
-export default Navbar; 
+export default Navbar;

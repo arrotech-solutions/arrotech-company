@@ -1,7 +1,18 @@
 import emailjs from '@emailjs/browser';
-import { LazyMotion, domAnimation, motion } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { useCallback, useState } from 'react';
-import { FiCheckCircle, FiChevronDown, FiChevronUp, FiClock, FiMail, FiMapPin, FiMessageSquare, FiPhone, FiSend, FiUser } from 'react-icons/fi';
+import {
+  FiCheckCircle,
+  FiChevronDown,
+  FiChevronUp,
+  FiClock,
+  FiMail,
+  FiMapPin,
+  FiMessageSquare,
+  FiPhone,
+  FiSend,
+  FiUser
+} from 'react-icons/fi';
 import { useInView } from 'react-intersection-observer';
 
 // Check if EmailJS credentials are available
@@ -13,19 +24,12 @@ if (!EMAILJS_PUBLIC_KEY || !EMAILJS_SERVICE_ID || !EMAILJS_TEMPLATE_ID) {
   console.error('EmailJS credentials are missing. Please check your environment variables.');
 }
 
-// Initialize EmailJS with your public key
 emailjs.init(EMAILJS_PUBLIC_KEY || '');
 
 const Contact = () => {
-  const [formRef, formInView] = useInView({
-    triggerOnce: true,
-    threshold: 0.1,
-  });
-
-  const [faqRef, faqInView] = useInView({
-    triggerOnce: true,
-    threshold: 0.1,
-  });
+  const [heroRef, heroInView] = useInView({ triggerOnce: true, threshold: 0.1 });
+  const [formRef, formInView] = useInView({ triggerOnce: true, threshold: 0.1 });
+  const [faqRef, faqInView] = useInView({ triggerOnce: true, threshold: 0.1 });
 
   const [formData, setFormData] = useState({
     name: '',
@@ -77,7 +81,6 @@ const Contact = () => {
       return;
     }
 
-    // Check if EmailJS credentials are available
     if (!EMAILJS_PUBLIC_KEY || !EMAILJS_SERVICE_ID || !EMAILJS_TEMPLATE_ID) {
       setStatus('error');
       console.error('EmailJS credentials are missing');
@@ -87,7 +90,6 @@ const Contact = () => {
     setStatus('loading');
 
     try {
-      // Send email using EmailJS - all emails go to info@arrotechsolutions.com
       await emailjs.send(
         EMAILJS_SERVICE_ID,
         EMAILJS_TEMPLATE_ID,
@@ -119,7 +121,6 @@ const Contact = () => {
   const handleChange = useCallback((e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
     setFormData(prev => ({ ...prev, [name]: value }));
-    // Clear error when user starts typing
     if (errors[name]) {
       setErrors(prev => ({ ...prev, [name]: '' }));
     }
@@ -130,21 +131,25 @@ const Contact = () => {
       icon: <FiMapPin className="w-6 h-6" />,
       title: 'Our Location',
       content: 'Nairobi, Kenya',
+      gradient: 'from-violet-500 to-purple-600'
     },
     {
       icon: <FiPhone className="w-6 h-6" />,
       title: 'Phone Number',
       content: '+254 711 371 265',
+      gradient: 'from-blue-500 to-cyan-600'
     },
     {
       icon: <FiMail className="w-6 h-6" />,
       title: 'Email Address',
       content: 'info@arrotechsolutions.com',
+      gradient: 'from-emerald-500 to-teal-600'
     },
     {
       icon: <FiClock className="w-6 h-6" />,
       title: 'Working Hours',
       content: 'Mon - Fri: 9:00 AM - 6:00 PM',
+      gradient: 'from-amber-500 to-orange-600'
     },
   ];
 
@@ -168,296 +173,342 @@ const Contact = () => {
   ];
 
   return (
-    <LazyMotion features={domAnimation}>
-      <div className="pt-20">
-        {/* Hero Section */}
-        <section className="relative py-20 bg-gradient-to-br from-indigo-600 to-purple-600 text-white overflow-hidden">
-          <div className="absolute inset-0 bg-grid-white/[0.05] bg-grid-pattern"></div>
-          <div className="container relative">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5 }}
-              className="max-w-3xl mx-auto text-center"
-            >
-              <h1 className="text-5xl font-bold mb-6">Get in Touch</h1>
-              <p className="text-xl text-indigo-100 mb-8">
-                Have questions about our AI solutions? We're here to help.
-              </p>
-            </motion.div>
-          </div>
-        </section>
+    <div className="bg-slate-950 min-h-screen pt-20">
+      {/* Hero Section */}
+      <section ref={heroRef} className="relative py-24 overflow-hidden">
+        {/* Background */}
+        <div className="absolute inset-0">
+          <div className="absolute inset-0 bg-gradient-to-b from-slate-950 via-slate-900 to-slate-950" />
+          <div 
+            className="absolute inset-0 opacity-20"
+            style={{
+              backgroundImage: `
+                linear-gradient(rgba(99, 102, 241, 0.1) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(99, 102, 241, 0.1) 1px, transparent 1px)
+              `,
+              backgroundSize: '60px 60px'
+            }}
+          />
+          <div className="absolute top-1/4 left-1/4 w-[500px] h-[500px] bg-violet-600/20 rounded-full blur-[150px]" />
+          <div className="absolute bottom-1/4 right-1/4 w-[400px] h-[400px] bg-blue-600/20 rounded-full blur-[120px]" />
+        </div>
 
-        {/* Contact Information */}
-        <section className="py-20 bg-gray-50 dark:bg-gray-900">
-          <div className="container">
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-              {contactInfo.map((info, index) => (
-                <motion.div
-                  key={index}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={formInView ? { opacity: 1, y: 0 } : {}}
-                  transition={{ duration: 0.3, delay: index * 0.1 }}
-                  className="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1"
-                >
-                  <div className="w-12 h-12 bg-gradient-to-r from-indigo-500 to-purple-500 rounded-xl flex items-center justify-center text-white mb-4">
-                    {info.icon}
-                  </div>
-                  <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">
-                    {info.title}
-                  </h3>
-                  <p className="text-gray-600 dark:text-gray-300">
-                    {info.content}
-                  </p>
-                </motion.div>
-              ))}
+        <div className="container relative z-10">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={heroInView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.8 }}
+            className="max-w-4xl mx-auto text-center"
+          >
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 backdrop-blur-sm border border-white/10 mb-8">
+              <FiMessageSquare className="w-4 h-4 text-violet-400" />
+              <span className="text-slate-300 text-sm font-medium">Contact Us</span>
             </div>
-          </div>
-        </section>
 
-        {/* Contact Form */}
-        <section ref={formRef} className="py-20 bg-white dark:bg-gray-800">
-          <div className="container">
-            <div className="max-w-4xl mx-auto">
+            <h1 className="text-5xl md:text-7xl font-bold mb-6 leading-tight">
+              <span className="text-white">Get in</span>{' '}
+              <span className="bg-gradient-to-r from-violet-400 via-blue-400 to-cyan-400 bg-clip-text text-transparent">
+                Touch
+              </span>
+            </h1>
+
+            <p className="text-xl md:text-2xl text-slate-400 max-w-3xl mx-auto leading-relaxed">
+              Have questions about our AI solutions? We're here to help you transform your business.
+            </p>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Contact Information */}
+      <section className="py-16">
+        <div className="container">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {contactInfo.map((info, index) => (
               <motion.div
+                key={index}
                 initial={{ opacity: 0, y: 20 }}
-                animate={formInView ? { opacity: 1, y: 0 } : {}}
-                transition={{ duration: 0.5 }}
-                className="text-center mb-12"
+                animate={heroInView ? { opacity: 1, y: 0 } : {}}
+                transition={{ duration: 0.5, delay: index * 0.1 }}
+                className="bg-slate-900/50 backdrop-blur-sm border border-slate-800 rounded-2xl p-6 hover:border-slate-700 transition-all duration-300"
               >
-                <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-4">
-                  Send Us a Message
-                </h2>
-                <p className="text-gray-600 dark:text-gray-300">
-                  Fill out the form below and we'll get back to you as soon as possible.
+                <div className={`w-12 h-12 rounded-xl bg-gradient-to-br ${info.gradient} flex items-center justify-center text-white mb-4 shadow-lg`}>
+                  {info.icon}
+                </div>
+                <h3 className="text-lg font-semibold text-white mb-2">
+                  {info.title}
+                </h3>
+                <p className="text-slate-400 text-sm">
+                  {info.content}
                 </p>
               </motion.div>
-
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={formInView ? { opacity: 1, y: 0 } : {}}
-                transition={{ duration: 0.5, delay: 0.2 }}
-                className="bg-white dark:bg-gray-800 rounded-2xl shadow-xl p-8"
-              >
-                <form onSubmit={handleSubmit} className="space-y-6">
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div>
-                      <label htmlFor="name" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                        Your Name
-                      </label>
-                      <div className="relative">
-                        <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                          <FiUser className="h-5 w-5 text-gray-400" />
-                        </div>
-                        <input
-                          type="text"
-                          id="name"
-                          name="name"
-                          value={formData.name}
-                          onChange={handleChange}
-                          className={`w-full pl-10 px-4 py-2 rounded-lg border ${errors.name ? 'border-red-500' : 'border-gray-300 dark:border-gray-600'
-                            } focus:ring-2 focus:ring-indigo-500 dark:bg-gray-700 dark:text-white`}
-                          required
-                        />
-                      </div>
-                      {errors.name && (
-                        <p className="mt-1 text-sm text-red-500">{errors.name}</p>
-                      )}
-                    </div>
-                    <div>
-                      <label htmlFor="email" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                        Email Address
-                      </label>
-                      <div className="relative">
-                        <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                          <FiMail className="h-5 w-5 text-gray-400" />
-                        </div>
-                        <input
-                          type="email"
-                          id="email"
-                          name="email"
-                          value={formData.email}
-                          onChange={handleChange}
-                          className={`w-full pl-10 px-4 py-2 rounded-lg border ${errors.email ? 'border-red-500' : 'border-gray-300 dark:border-gray-600'
-                            } focus:ring-2 focus:ring-indigo-500 dark:bg-gray-700 dark:text-white`}
-                          required
-                        />
-                      </div>
-                      {errors.email && (
-                        <p className="mt-1 text-sm text-red-500">{errors.email}</p>
-                      )}
-                    </div>
-                  </div>
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div>
-                      <label htmlFor="phone" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                        Phone Number
-                      </label>
-                      <div className="relative">
-                        <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                          <FiPhone className="h-5 w-5 text-gray-400" />
-                        </div>
-                        <input
-                          type="tel"
-                          id="phone"
-                          name="phone"
-                          value={formData.phone}
-                          onChange={handleChange}
-                          className={`w-full pl-10 px-4 py-2 rounded-lg border ${errors.phone ? 'border-red-500' : 'border-gray-300 dark:border-gray-600'
-                            } focus:ring-2 focus:ring-indigo-500 dark:bg-gray-700 dark:text-white`}
-                        />
-                      </div>
-                      {errors.phone && (
-                        <p className="mt-1 text-sm text-red-500">{errors.phone}</p>
-                      )}
-                    </div>
-                    <div>
-                      <label htmlFor="subject" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                        Subject
-                      </label>
-                      <div className="relative">
-                        <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                          <FiMessageSquare className="h-5 w-5 text-gray-400" />
-                        </div>
-                        <select
-                          id="subject"
-                          name="subject"
-                          value={formData.subject}
-                          onChange={handleChange}
-                          className={`w-full pl-10 px-4 py-2 rounded-lg border ${errors.subject ? 'border-red-500' : 'border-gray-300 dark:border-gray-600'
-                            } focus:ring-2 focus:ring-indigo-500 dark:bg-gray-700 dark:text-white`}
-                          required
-                        >
-                          <option value="">Select a subject</option>
-                          <option value="general">General Inquiry</option>
-                          <option value="support">Technical Support</option>
-                          <option value="sales">Sales Inquiry</option>
-                          <option value="partnership">Partnership Opportunity</option>
-                        </select>
-                      </div>
-                      {errors.subject && (
-                        <p className="mt-1 text-sm text-red-500">{errors.subject}</p>
-                      )}
-                    </div>
-                  </div>
-                  <div>
-                    <label htmlFor="message" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                      Message
-                    </label>
-                    <textarea
-                      id="message"
-                      name="message"
-                      value={formData.message}
-                      onChange={handleChange}
-                      rows={6}
-                      className={`w-full px-4 py-2 rounded-lg border ${errors.message ? 'border-red-500' : 'border-gray-300 dark:border-gray-600'
-                        } focus:ring-2 focus:ring-indigo-500 dark:bg-gray-700 dark:text-white`}
-                      required
-                    ></textarea>
-                    {errors.message && (
-                      <p className="mt-1 text-sm text-red-500">{errors.message}</p>
-                    )}
-                  </div>
-                  <button
-                    type="submit"
-                    disabled={status === 'loading'}
-                    className={`w-full px-6 py-3 bg-gradient-to-r from-indigo-600 to-purple-600 text-white rounded-lg transition-all duration-300 flex items-center justify-center ${status === 'loading' ? 'opacity-50 cursor-not-allowed' : 'hover:from-indigo-700 hover:to-purple-700 transform hover:-translate-y-0.5'
-                      }`}
-                  >
-                    {status === 'loading' ? (
-                      'Sending...'
-                    ) : (
-                      <>
-                        <FiSend className="mr-2" />
-                        Send Message
-                      </>
-                    )}
-                  </button>
-                  {status === 'success' && (
-                    <motion.div
-                      initial={{ opacity: 0, y: 10 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      className="mt-4 p-4 bg-green-50 dark:bg-green-900/30 rounded-lg flex items-center text-green-600 dark:text-green-400"
-                    >
-                      <FiCheckCircle className="mr-2" />
-                      Message sent successfully! We'll get back to you soon.
-                    </motion.div>
-                  )}
-                  {status === 'error' && (
-                    <motion.div
-                      initial={{ opacity: 0, y: 10 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      className="mt-4 p-4 bg-red-50 dark:bg-red-900/30 rounded-lg flex items-center text-red-600 dark:text-red-400"
-                    >
-                      An error occurred. Please try again.
-                    </motion.div>
-                  )}
-                </form>
-              </motion.div>
-            </div>
+            ))}
           </div>
-        </section>
+        </div>
+      </section>
 
-        {/* FAQ Section */}
-        <section ref={faqRef} className="py-20 bg-gray-50 dark:bg-gray-900">
-          <div className="container">
+      {/* Contact Form */}
+      <section ref={formRef} className="py-24 relative">
+        <div className="container">
+          <div className="max-w-4xl mx-auto">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
-              animate={faqInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.5 }}
+              animate={formInView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.6 }}
               className="text-center mb-12"
             >
-              <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-4">
-                Frequently Asked Questions
+              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-emerald-500/10 border border-emerald-500/20 mb-6">
+                <FiSend className="w-4 h-4 text-emerald-400" />
+                <span className="text-emerald-400 text-sm font-medium">Send a Message</span>
+              </div>
+              <h2 className="text-4xl font-bold text-white mb-4">
+                Let's Start a <span className="bg-gradient-to-r from-emerald-400 to-cyan-400 bg-clip-text text-transparent">Conversation</span>
               </h2>
-              <p className="text-gray-600 dark:text-gray-300">
-                Find answers to common questions about our AI solutions
+              <p className="text-slate-400 text-lg">
+                Fill out the form below and we'll get back to you within 24 hours.
               </p>
             </motion.div>
 
-            <div className="max-w-3xl mx-auto space-y-4">
-              {faqs.map((faq, index) => (
-                <motion.div
-                  key={index}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={faqInView ? { opacity: 1, y: 0 } : {}}
-                  transition={{ duration: 0.3, delay: index * 0.1 }}
-                  className="bg-white dark:bg-gray-800 rounded-xl shadow-lg overflow-hidden"
-                >
-                  <button
-                    onClick={() => setExpandedFaq(expandedFaq === index ? null : index)}
-                    className="w-full px-6 py-4 flex items-center justify-between text-left hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors"
-                  >
-                    <span className="text-lg font-semibold text-gray-900 dark:text-white">
-                      {faq.question}
-                    </span>
-                    {expandedFaq === index ? (
-                      <FiChevronUp className="w-5 h-5 text-gray-500" />
-                    ) : (
-                      <FiChevronDown className="w-5 h-5 text-gray-500" />
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={formInView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.6, delay: 0.2 }}
+              className="bg-slate-900/50 backdrop-blur-sm border border-slate-800 rounded-3xl p-8 md:p-12"
+            >
+              <form onSubmit={handleSubmit} className="space-y-6">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div>
+                    <label htmlFor="name" className="block text-sm font-medium text-slate-300 mb-2">
+                      Your Name
+                    </label>
+                    <div className="relative">
+                      <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                        <FiUser className="h-5 w-5 text-slate-500" />
+                      </div>
+                      <input
+                        type="text"
+                        id="name"
+                        name="name"
+                        value={formData.name}
+                        onChange={handleChange}
+                        className={`w-full pl-12 pr-4 py-3 bg-slate-800/50 border ${errors.name ? 'border-red-500' : 'border-slate-700'} rounded-xl text-white placeholder-slate-500 focus:outline-none focus:border-violet-500 transition-colors`}
+                        placeholder="John Doe"
+                        required
+                      />
+                    </div>
+                    {errors.name && (
+                      <p className="mt-2 text-sm text-red-400">{errors.name}</p>
                     )}
-                  </button>
-                  {expandedFaq === index && (
-                    <motion.div
-                      initial={{ height: 0, opacity: 0 }}
-                      animate={{ height: 'auto', opacity: 1 }}
-                      exit={{ height: 0, opacity: 0 }}
-                      transition={{ duration: 0.3 }}
-                      className="px-6 pb-4"
-                    >
-                      <p className="text-gray-600 dark:text-gray-300">
-                        {faq.answer}
-                      </p>
-                    </motion.div>
+                  </div>
+                  <div>
+                    <label htmlFor="email" className="block text-sm font-medium text-slate-300 mb-2">
+                      Email Address
+                    </label>
+                    <div className="relative">
+                      <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                        <FiMail className="h-5 w-5 text-slate-500" />
+                      </div>
+                      <input
+                        type="email"
+                        id="email"
+                        name="email"
+                        value={formData.email}
+                        onChange={handleChange}
+                        className={`w-full pl-12 pr-4 py-3 bg-slate-800/50 border ${errors.email ? 'border-red-500' : 'border-slate-700'} rounded-xl text-white placeholder-slate-500 focus:outline-none focus:border-violet-500 transition-colors`}
+                        placeholder="john@example.com"
+                        required
+                      />
+                    </div>
+                    {errors.email && (
+                      <p className="mt-2 text-sm text-red-400">{errors.email}</p>
+                    )}
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div>
+                    <label htmlFor="phone" className="block text-sm font-medium text-slate-300 mb-2">
+                      Phone Number <span className="text-slate-500">(Optional)</span>
+                    </label>
+                    <div className="relative">
+                      <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                        <FiPhone className="h-5 w-5 text-slate-500" />
+                      </div>
+                      <input
+                        type="tel"
+                        id="phone"
+                        name="phone"
+                        value={formData.phone}
+                        onChange={handleChange}
+                        className={`w-full pl-12 pr-4 py-3 bg-slate-800/50 border ${errors.phone ? 'border-red-500' : 'border-slate-700'} rounded-xl text-white placeholder-slate-500 focus:outline-none focus:border-violet-500 transition-colors`}
+                        placeholder="+254 711 371 265"
+                      />
+                    </div>
+                    {errors.phone && (
+                      <p className="mt-2 text-sm text-red-400">{errors.phone}</p>
+                    )}
+                  </div>
+                  <div>
+                    <label htmlFor="subject" className="block text-sm font-medium text-slate-300 mb-2">
+                      Subject
+                    </label>
+                    <div className="relative">
+                      <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                        <FiMessageSquare className="h-5 w-5 text-slate-500" />
+                      </div>
+                      <select
+                        id="subject"
+                        name="subject"
+                        value={formData.subject}
+                        onChange={handleChange}
+                        className={`w-full pl-12 pr-4 py-3 bg-slate-800/50 border ${errors.subject ? 'border-red-500' : 'border-slate-700'} rounded-xl text-white focus:outline-none focus:border-violet-500 transition-colors appearance-none`}
+                        required
+                      >
+                        <option value="" className="bg-slate-800">Select a subject</option>
+                        <option value="general" className="bg-slate-800">General Inquiry</option>
+                        <option value="support" className="bg-slate-800">Technical Support</option>
+                        <option value="sales" className="bg-slate-800">Sales Inquiry</option>
+                        <option value="partnership" className="bg-slate-800">Partnership Opportunity</option>
+                      </select>
+                    </div>
+                    {errors.subject && (
+                      <p className="mt-2 text-sm text-red-400">{errors.subject}</p>
+                    )}
+                  </div>
+                </div>
+
+                <div>
+                  <label htmlFor="message" className="block text-sm font-medium text-slate-300 mb-2">
+                    Message
+                  </label>
+                  <textarea
+                    id="message"
+                    name="message"
+                    value={formData.message}
+                    onChange={handleChange}
+                    rows={6}
+                    className={`w-full px-4 py-3 bg-slate-800/50 border ${errors.message ? 'border-red-500' : 'border-slate-700'} rounded-xl text-white placeholder-slate-500 focus:outline-none focus:border-violet-500 transition-colors resize-none`}
+                    placeholder="Tell us about your project..."
+                    required
+                  ></textarea>
+                  {errors.message && (
+                    <p className="mt-2 text-sm text-red-400">{errors.message}</p>
                   )}
-                </motion.div>
-              ))}
-            </div>
+                </div>
+
+                <button
+                  type="submit"
+                  disabled={status === 'loading'}
+                  className={`w-full px-8 py-4 bg-gradient-to-r from-violet-600 to-blue-600 text-white rounded-xl font-semibold transition-all duration-300 flex items-center justify-center ${
+                    status === 'loading' 
+                      ? 'opacity-50 cursor-not-allowed' 
+                      : 'hover:from-violet-500 hover:to-blue-500 shadow-lg shadow-violet-500/25 hover:shadow-violet-500/40'
+                  }`}
+                >
+                  {status === 'loading' ? (
+                    <span className="flex items-center gap-2">
+                      <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                      Sending...
+                    </span>
+                  ) : (
+                    <span className="flex items-center gap-2">
+                      <FiSend className="w-5 h-5" />
+                      Send Message
+                    </span>
+                  )}
+                </button>
+
+                {status === 'success' && (
+                  <motion.div
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    className="p-4 bg-emerald-500/10 border border-emerald-500/20 rounded-xl flex items-center gap-3 text-emerald-400"
+                  >
+                    <FiCheckCircle className="w-5 h-5 flex-shrink-0" />
+                    <span>Message sent successfully! We'll get back to you within 24 hours.</span>
+                  </motion.div>
+                )}
+
+                {status === 'error' && (
+                  <motion.div
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    className="p-4 bg-red-500/10 border border-red-500/20 rounded-xl flex items-center gap-3 text-red-400"
+                  >
+                    <span>An error occurred. Please try again or email us directly.</span>
+                  </motion.div>
+                )}
+              </form>
+            </motion.div>
           </div>
-        </section>
-      </div>
-    </LazyMotion>
+        </div>
+      </section>
+
+      {/* FAQ Section */}
+      <section ref={faqRef} className="py-24 relative overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-b from-slate-950 via-slate-900 to-slate-950" />
+        
+        <div className="container relative z-10">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={faqInView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.6 }}
+            className="text-center mb-16"
+          >
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-amber-500/10 border border-amber-500/20 mb-6">
+              <span className="text-amber-400 text-sm font-medium">FAQ</span>
+            </div>
+            <h2 className="text-4xl font-bold text-white mb-4">
+              Frequently Asked <span className="bg-gradient-to-r from-amber-400 to-orange-400 bg-clip-text text-transparent">Questions</span>
+            </h2>
+            <p className="text-slate-400 text-lg max-w-2xl mx-auto">
+              Find answers to common questions about our AI solutions
+            </p>
+          </motion.div>
+
+          <div className="max-w-3xl mx-auto space-y-4">
+            {faqs.map((faq, index) => (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, y: 20 }}
+                animate={faqInView ? { opacity: 1, y: 0 } : {}}
+                transition={{ duration: 0.5, delay: index * 0.1 }}
+                className="bg-slate-900/50 backdrop-blur-sm border border-slate-800 rounded-2xl overflow-hidden"
+              >
+                <button
+                  onClick={() => setExpandedFaq(expandedFaq === index ? null : index)}
+                  className="w-full px-6 py-5 flex items-center justify-between text-left hover:bg-slate-800/50 transition-colors"
+                >
+                  <span className="text-lg font-medium text-white pr-4">
+                    {faq.question}
+                  </span>
+                  <div className={`w-8 h-8 rounded-lg bg-slate-800 flex items-center justify-center flex-shrink-0 transition-transform duration-300 ${expandedFaq === index ? 'rotate-180' : ''}`}>
+                    {expandedFaq === index ? (
+                      <FiChevronUp className="w-5 h-5 text-slate-400" />
+                    ) : (
+                      <FiChevronDown className="w-5 h-5 text-slate-400" />
+                    )}
+                  </div>
+                </button>
+                {expandedFaq === index && (
+                  <motion.div
+                    initial={{ height: 0, opacity: 0 }}
+                    animate={{ height: 'auto', opacity: 1 }}
+                    exit={{ height: 0, opacity: 0 }}
+                    transition={{ duration: 0.3 }}
+                    className="px-6 pb-5"
+                  >
+                    <p className="text-slate-400 leading-relaxed">
+                      {faq.answer}
+                    </p>
+                  </motion.div>
+                )}
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+    </div>
   );
 };
 
-export default Contact; 
+export default Contact;
