@@ -40,5 +40,6 @@ jobs:
       platform: 'vercel'
       environment: 'production'
       vercel-deploy-mode: 'promote'
+      vercel-deployment-url: ${{ needs.deploy-preview.outputs.deployment-url }}
     secrets:
       VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
