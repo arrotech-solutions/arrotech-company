@@ -1,4 +1,4 @@
-name: Deploy Frontend
+name: Deploy to Vercel
 
 on:
   push:
@@ -7,35 +7,38 @@ on:
     branches: [main]
 
 jobs:
+  # Step 1: Quality checks
   quality:
     uses: arrotech-solutions/arrotech-solutions-actions/.github/workflows/ci-code-quality.yml@main
     with:
       language: 'node'
-      node-version: '20'
 
-  test:
+  # Step 2: Deploy to preview
+  deploy-preview:
     needs: quality
-    uses: arrotech-solutions/arrotech-solutions-actions/.github/workflows/ci-test.yml@main
-    with:
-      language: 'node'
-      node-version: '20'
-
-  deploy-staging:
-    needs: test
-    if: github.ref == 'refs/heads/develop' && github.event_name == 'push'
     uses: arrotech-solutions/arrotech-solutions-actions/.github/workflows/cd-deploy.yml@main
     with:
-      environment: 'staging'
       platform: 'vercel'
+      environment: 'staging'
+      vercel-deploy-mode: 'preview'
     secrets:
       VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
 
-  deploy-production:
-    needs: test
+  # Step 3: Run tests against preview
+  test:
+    needs: deploy-preview
+    uses: arrotech-solutions/arrotech-solutions-actions/.github/workflows/ci-test.yml@main
+    with:
+      language: 'node'
+
+  # Step 4: Promote to production (main only)
+  promote:
+    needs: [deploy-preview, test]
     if: github.ref == 'refs/heads/main' && github.event_name == 'push'
     uses: arrotech-solutions/arrotech-solutions-actions/.github/workflows/cd-deploy.yml@main
     with:
-      environment: 'production'
       platform: 'vercel'
+      environment: 'production'
+      vercel-deploy-mode: 'promote'
     secrets:
       VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
