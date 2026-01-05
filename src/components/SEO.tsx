@@ -57,7 +57,6 @@ const SEO = ({
         "alternateName": ["Arrotech Solutions", "Arrotech AI"],
         "url": siteUrl
     };
-
     return (
         <Helmet>
             {/* Standard Meta Tags */}
