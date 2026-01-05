@@ -2,6 +2,7 @@ import { motion } from 'framer-motion';
 import { FiArrowLeft, FiArrowRight, FiCalendar, FiClock, FiUser } from 'react-icons/fi';
 import { useInView } from 'react-intersection-observer';
 import { Link, useNavigate, useParams } from 'react-router-dom';
+import SEO from '../components/SEO';
 
 const posts = [
   {
@@ -188,12 +189,19 @@ const BlogPost = () => {
 
   return (
     <div className="bg-slate-950 min-h-screen pt-20">
+      <SEO
+        title={post.title}
+        description={post.excerpt}
+        ogType="article"
+        publishedTime={post.date}
+        canonical={`/blog/${post.id}`}
+      />
       {/* Hero Section */}
       <section ref={heroRef} className="relative py-24 overflow-hidden">
         {/* Background */}
         <div className="absolute inset-0">
           <div className="absolute inset-0 bg-gradient-to-b from-slate-950 via-slate-900 to-slate-950" />
-          <div 
+          <div
             className="absolute inset-0 opacity-20"
             style={{
               backgroundImage: `

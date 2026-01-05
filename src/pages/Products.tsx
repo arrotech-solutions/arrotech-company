@@ -21,6 +21,7 @@ import {
 } from 'react-icons/fi';
 import { useInView } from 'react-intersection-observer';
 import { Link } from 'react-router-dom';
+import SEO from '../components/SEO';
 
 const Products = () => {
   const [heroRef, heroInView] = useInView({ triggerOnce: true, threshold: 0.1 });
@@ -97,12 +98,17 @@ const Products = () => {
 
   return (
     <div className="bg-slate-950 min-h-screen pt-20">
+      <SEO
+        title="Our Products"
+        description="Explore Arrotech's AI-powered platforms: Mini-Hub for business automation, WholeSaleHub for global imports, and TSC Swap for teacher transfers."
+        canonical="/products"
+      />
       {/* Hero Section */}
       <section ref={heroRef} className="relative py-24 overflow-hidden">
         {/* Background */}
         <div className="absolute inset-0">
           <div className="absolute inset-0 bg-gradient-to-b from-slate-950 via-slate-900 to-slate-950" />
-          <div 
+          <div
             className="absolute inset-0 opacity-20"
             style={{
               backgroundImage: `
@@ -333,7 +339,7 @@ const Products = () => {
       <section className="py-24 relative overflow-hidden">
         <div className="absolute inset-0">
           <div className="absolute inset-0 bg-gradient-to-br from-violet-600/20 via-blue-600/20 to-cyan-600/20" />
-          <div 
+          <div
             className="absolute inset-0 opacity-30"
             style={{
               backgroundImage: `radial-gradient(circle at 2px 2px, rgba(255,255,255,0.1) 1px, transparent 0)`,
