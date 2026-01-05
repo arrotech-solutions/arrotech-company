@@ -14,6 +14,7 @@ import {
   FiUser
 } from 'react-icons/fi';
 import { useInView } from 'react-intersection-observer';
+import SEO from '../components/SEO';
 
 // Check if EmailJS credentials are available
 const EMAILJS_PUBLIC_KEY = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
@@ -174,12 +175,17 @@ const Contact = () => {
 
   return (
     <div className="bg-slate-950 min-h-screen pt-20">
+      <SEO
+        title="Contact Us"
+        description="Get in touch with Arrotech for custom AI solutions, support, or partnership opportunities. We're here to help you transform your business."
+        canonical="/contact"
+      />
       {/* Hero Section */}
       <section ref={heroRef} className="relative py-24 overflow-hidden">
         {/* Background */}
         <div className="absolute inset-0">
           <div className="absolute inset-0 bg-gradient-to-b from-slate-950 via-slate-900 to-slate-950" />
-          <div 
+          <div
             className="absolute inset-0 opacity-20"
             style={{
               backgroundImage: `
@@ -398,11 +404,10 @@ const Contact = () => {
                 <button
                   type="submit"
                   disabled={status === 'loading'}
-                  className={`w-full px-8 py-4 bg-gradient-to-r from-violet-600 to-blue-600 text-white rounded-xl font-semibold transition-all duration-300 flex items-center justify-center ${
-                    status === 'loading' 
-                      ? 'opacity-50 cursor-not-allowed' 
+                  className={`w-full px-8 py-4 bg-gradient-to-r from-violet-600 to-blue-600 text-white rounded-xl font-semibold transition-all duration-300 flex items-center justify-center ${status === 'loading'
+                      ? 'opacity-50 cursor-not-allowed'
                       : 'hover:from-violet-500 hover:to-blue-500 shadow-lg shadow-violet-500/25 hover:shadow-violet-500/40'
-                  }`}
+                    }`}
                 >
                   {status === 'loading' ? (
                     <span className="flex items-center gap-2">
@@ -446,7 +451,7 @@ const Contact = () => {
       {/* FAQ Section */}
       <section ref={faqRef} className="py-24 relative overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-b from-slate-950 via-slate-900 to-slate-950" />
-        
+
         <div className="container relative z-10">
           <motion.div
             initial={{ opacity: 0, y: 20 }}

@@ -12,6 +12,7 @@ import {
   FiXCircle
 } from 'react-icons/fi';
 import { useInView } from 'react-intersection-observer';
+import SEO from '../components/SEO';
 
 const Terms = () => {
   const [expandedSection, setExpandedSection] = useState<number | null>(null);
@@ -67,12 +68,17 @@ const Terms = () => {
 
   return (
     <div className="bg-slate-950 min-h-screen pt-20">
+      <SEO
+        title="Terms of Service"
+        description="Read Arrotech's Terms of Service to understand the agreement for using our AI solutions and services."
+        canonical="/terms"
+      />
       {/* Hero Section */}
       <section ref={heroRef} className="relative py-24 overflow-hidden">
         {/* Background */}
         <div className="absolute inset-0">
           <div className="absolute inset-0 bg-gradient-to-b from-slate-950 via-slate-900 to-slate-950" />
-          <div 
+          <div
             className="absolute inset-0 opacity-20"
             style={{
               backgroundImage: `

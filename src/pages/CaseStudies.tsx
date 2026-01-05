@@ -2,6 +2,7 @@ import { motion } from 'framer-motion';
 import { FiArrowRight, FiAward, FiLayers } from 'react-icons/fi';
 import { useInView } from 'react-intersection-observer';
 import { Link } from 'react-router-dom';
+import SEO from '../components/SEO';
 
 const CaseStudies = () => {
   const [heroRef, heroInView] = useInView({ triggerOnce: true, threshold: 0.1 });
@@ -9,12 +10,17 @@ const CaseStudies = () => {
 
   return (
     <div className="bg-slate-950 min-h-screen pt-20">
+      <SEO
+        title="Case Studies"
+        description="See how Arrotech's AI solutions have transformed businesses. Real-world success stories of AI automation and intelligence."
+        canonical="/case-studies"
+      />
       {/* Hero Section */}
       <section ref={heroRef} className="relative py-24 overflow-hidden">
         {/* Background */}
         <div className="absolute inset-0">
           <div className="absolute inset-0 bg-gradient-to-b from-slate-950 via-slate-900 to-slate-950" />
-          <div 
+          <div
             className="absolute inset-0 opacity-20"
             style={{
               backgroundImage: `
@@ -67,11 +73,11 @@ const CaseStudies = () => {
               <div className="w-20 h-20 mx-auto mb-8 rounded-2xl bg-gradient-to-br from-violet-600 to-blue-600 flex items-center justify-center shadow-lg shadow-violet-500/20">
                 <FiLayers className="w-10 h-10 text-white" />
               </div>
-              
+
               <h2 className="text-3xl font-bold text-white mb-4">
                 Our First Success Stories Coming Soon
               </h2>
-              
+
               <p className="text-slate-400 text-lg mb-8 leading-relaxed">
                 We're working on exciting projects that will showcase the power of our AI solutions. Stay tuned for real-world examples of how we're helping businesses transform their operations.
               </p>
