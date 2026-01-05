@@ -16,6 +16,7 @@ import {
 } from 'react-icons/fi';
 import { useInView } from 'react-intersection-observer';
 import { Link } from 'react-router-dom';
+import SEO from '../components/SEO';
 
 const CTASection = lazy(() => import('../components/CTASection'));
 
@@ -134,12 +135,16 @@ const Home = () => {
 
   return (
     <div className="bg-slate-950 min-h-screen">
+      <SEO
+        title="Home"
+        description="Arrotech transforms businesses with cutting-edge AI solutions. Explore our AI-powered platforms like Mini-Hub and WholeSaleHub."
+      />
       {/* Hero Section */}
       <section ref={heroRef} className="relative min-h-screen flex items-center pt-20 overflow-hidden">
         {/* Background */}
         <div className="absolute inset-0">
           <div className="absolute inset-0 bg-gradient-to-b from-slate-950 via-slate-900 to-slate-950" />
-          <div 
+          <div
             className="absolute inset-0 opacity-20"
             style={{
               backgroundImage: `
@@ -214,7 +219,7 @@ const Home = () => {
         </div>
 
         {/* Scroll Indicator */}
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 1.5 }}
@@ -274,7 +279,7 @@ const Home = () => {
       {/* Live Products Section */}
       <section ref={productsRef} className="py-24 relative overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-b from-slate-950 via-slate-900 to-slate-950" />
-        
+
         <div className="container relative z-10">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -327,7 +332,7 @@ const Home = () => {
                   <p className="text-slate-400 mb-4 text-sm leading-relaxed">
                     {product.description}
                   </p>
-                  
+
                   <div className="flex flex-wrap gap-2">
                     {product.stats.map((stat, statIndex) => (
                       <span
@@ -393,7 +398,7 @@ const Home = () => {
       {/* Pricing Section */}
       <section ref={pricingRef} className="py-24 relative overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-b from-slate-950 via-slate-900 to-slate-950" />
-        
+
         <div className="container relative z-10">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -420,11 +425,10 @@ const Home = () => {
                 initial={{ opacity: 0, y: 30 }}
                 animate={pricingInView ? { opacity: 1, y: 0 } : {}}
                 transition={{ duration: 0.6, delay: index * 0.1 }}
-                className={`relative bg-slate-900/50 backdrop-blur-sm border rounded-2xl p-8 ${
-                  plan.popular 
-                    ? 'border-violet-500 shadow-lg shadow-violet-500/20' 
-                    : 'border-slate-800'
-                }`}
+                className={`relative bg-slate-900/50 backdrop-blur-sm border rounded-2xl p-8 ${plan.popular
+                  ? 'border-violet-500 shadow-lg shadow-violet-500/20'
+                  : 'border-slate-800'
+                  }`}
               >
                 {plan.popular && (
                   <div className="absolute -top-4 left-1/2 transform -translate-x-1/2">
@@ -451,11 +455,10 @@ const Home = () => {
 
                 <Link
                   to="/contact"
-                  className={`block w-full py-3 rounded-xl font-semibold text-center transition-all ${
-                    plan.popular
-                      ? 'bg-gradient-to-r from-violet-600 to-blue-600 text-white hover:from-violet-500 hover:to-blue-500'
-                      : 'bg-slate-800 text-white hover:bg-slate-700'
-                  }`}
+                  className={`block w-full py-3 rounded-xl font-semibold text-center transition-all ${plan.popular
+                    ? 'bg-gradient-to-r from-violet-600 to-blue-600 text-white hover:from-violet-500 hover:to-blue-500'
+                    : 'bg-slate-800 text-white hover:bg-slate-700'
+                    }`}
                 >
                   Get Started
                 </Link>

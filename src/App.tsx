@@ -1,5 +1,6 @@
 import { Suspense, lazy } from 'react';
 import { Route, BrowserRouter as Router, Routes } from 'react-router-dom';
+import { HelmetProvider } from 'react-helmet-async';
 import AIAssistant from './components/AIAssistant';
 import Footer from './components/Footer';
 import LoadingSpinner from './components/LoadingSpinner';
@@ -21,31 +22,33 @@ const Terms = lazy(() => import('./pages/Terms'));
 
 const App = () => {
   return (
-    <Router>
-      <div className="min-h-screen flex flex-col bg-white dark:bg-gray-900 transition-colors duration-300">
-        <Navbar />
-        <ThemeToggle />
-        <main className="flex-grow">
-          <Suspense fallback={<LoadingSpinner />}>
-            <Routes>
-              <Route path="/" element={<Home />} />
-              <Route path="/products" element={<Products />} />
-              <Route path="/about" element={<About />} />
-              <Route path="/services" element={<Services />} />
-              <Route path="/contact" element={<Contact />} />
-              <Route path="/blog" element={<Blog />} />
-              <Route path="/blog/:id" element={<BlogPost />} />
-              <Route path="/case-studies" element={<CaseStudies />} />
-              <Route path="/privacy" element={<Privacy />} />
-              <Route path="/terms" element={<Terms />} />
-            </Routes>
-          </Suspense>
-        </main>
-        <ScrollToTop />
-        <Footer />
-        <AIAssistant />
-      </div>
-    </Router>
+    <HelmetProvider>
+      <Router>
+        <div className="min-h-screen flex flex-col bg-white dark:bg-gray-900 transition-colors duration-300">
+          <Navbar />
+          <ThemeToggle />
+          <main className="flex-grow">
+            <Suspense fallback={<LoadingSpinner />}>
+              <Routes>
+                <Route path="/" element={<Home />} />
+                <Route path="/products" element={<Products />} />
+                <Route path="/about" element={<About />} />
+                <Route path="/services" element={<Services />} />
+                <Route path="/contact" element={<Contact />} />
+                <Route path="/blog" element={<Blog />} />
+                <Route path="/blog/:id" element={<BlogPost />} />
+                <Route path="/case-studies" element={<CaseStudies />} />
+                <Route path="/privacy" element={<Privacy />} />
+                <Route path="/terms" element={<Terms />} />
+              </Routes>
+            </Suspense>
+          </main>
+          <ScrollToTop />
+          <Footer />
+          <AIAssistant />
+        </div>
+      </Router>
+    </HelmetProvider>
   );
 };
 

@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { FiArrowRight, FiCalendar, FiClock, FiSearch, FiUser } from 'react-icons/fi';
 import { useInView } from 'react-intersection-observer';
 import { Link } from 'react-router-dom';
+import SEO from '../components/SEO';
 
 const Blog = () => {
   const [searchQuery, setSearchQuery] = useState('');
@@ -84,19 +85,24 @@ const Blog = () => {
 
   const filteredPosts = posts.filter(post => {
     const matchesSearch = post.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                         post.excerpt.toLowerCase().includes(searchQuery.toLowerCase());
+      post.excerpt.toLowerCase().includes(searchQuery.toLowerCase());
     const matchesCategory = selectedCategory === 'All' || !selectedCategory || post.category === selectedCategory;
     return matchesSearch && matchesCategory;
   });
 
   return (
     <div className="bg-slate-950 min-h-screen pt-20">
+      <SEO
+        title="Our Blog"
+        description="Stay informed about the latest developments in AI, machine learning, and technology through Arrotech's expert insights."
+        canonical="/blog"
+      />
       {/* Hero Section */}
       <section ref={heroRef} className="relative py-24 overflow-hidden">
         {/* Background */}
         <div className="absolute inset-0">
           <div className="absolute inset-0 bg-gradient-to-b from-slate-950 via-slate-900 to-slate-950" />
-          <div 
+          <div
             className="absolute inset-0 opacity-20"
             style={{
               backgroundImage: `
@@ -168,11 +174,10 @@ const Blog = () => {
                   <button
                     key={category}
                     onClick={() => setSelectedCategory(category === 'All' ? null : category)}
-                    className={`px-4 py-2 rounded-xl text-sm font-medium transition-all ${
-                      selectedCategory === (category === 'All' ? null : category)
-                        ? 'bg-gradient-to-r from-violet-600 to-blue-600 text-white'
-                        : 'bg-slate-800 text-slate-400 hover:bg-slate-700'
-                    }`}
+                    className={`px-4 py-2 rounded-xl text-sm font-medium transition-all ${selectedCategory === (category === 'All' ? null : category)
+                      ? 'bg-gradient-to-r from-violet-600 to-blue-600 text-white'
+                      : 'bg-slate-800 text-slate-400 hover:bg-slate-700'
+                      }`}
                   >
                     {category}
                   </button>
