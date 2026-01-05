@@ -63,7 +63,7 @@ const Footer = () => {
           <div className="lg:col-span-2">
             <Link to="/" className="flex items-center mb-6">
               <img
-                src="/src/assets/logo/fulllogo_transparent_nobuffer.png"
+                src="/logo.png"
                 alt="Arrotech Logo"
                 className="h-10 w-auto hover:scale-105 transition-transform duration-300"
               />

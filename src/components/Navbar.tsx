@@ -42,18 +42,17 @@ const Navbar = () => {
 
   return (
     <nav
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
-        isScrolled 
-          ? 'bg-slate-950/90 backdrop-blur-xl border-b border-slate-800/50 shadow-lg shadow-slate-900/20' 
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${isScrolled
+          ? 'bg-slate-950/90 backdrop-blur-xl border-b border-slate-800/50 shadow-lg shadow-slate-900/20'
           : 'bg-transparent'
-      }`}
+        }`}
     >
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-20">
           {/* Logo */}
           <Link to="/" className="flex items-center group">
             <motion.img
-              src="/src/assets/logo/fulllogo_transparent_nobuffer.png"
+              src="/logo.png"
               alt="Arrotech Logo"
               initial={{ scale: 0.9, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
@@ -68,16 +67,14 @@ const Navbar = () => {
               <Link
                 key={link.href}
                 to={link.href}
-                className={`relative px-4 py-2 text-sm font-medium transition-all duration-300 rounded-lg group ${
-                  location.pathname === link.href 
-                    ? 'text-white' 
+                className={`relative px-4 py-2 text-sm font-medium transition-all duration-300 rounded-lg group ${location.pathname === link.href
+                    ? 'text-white'
                     : 'text-slate-400 hover:text-white'
-                }`}
+                  }`}
               >
                 {link.name}
-                <span className={`absolute bottom-1 left-4 right-4 h-0.5 bg-gradient-to-r from-violet-500 to-cyan-500 rounded-full transition-all duration-300 ${
-                  location.pathname === link.href ? 'opacity-100' : 'opacity-0 group-hover:opacity-100'
-                }`} />
+                <span className={`absolute bottom-1 left-4 right-4 h-0.5 bg-gradient-to-r from-violet-500 to-cyan-500 rounded-full transition-all duration-300 ${location.pathname === link.href ? 'opacity-100' : 'opacity-0 group-hover:opacity-100'
+                  }`} />
               </Link>
             ))}
 
@@ -88,11 +85,10 @@ const Navbar = () => {
                   e.stopPropagation();
                   setIsResourcesOpen(!isResourcesOpen);
                 }}
-                className={`flex items-center px-4 py-2 text-sm font-medium transition-all duration-300 rounded-lg ${
-                  resources.some(r => location.pathname === r.href) 
-                    ? 'text-white' 
+                className={`flex items-center px-4 py-2 text-sm font-medium transition-all duration-300 rounded-lg ${resources.some(r => location.pathname === r.href)
+                    ? 'text-white'
                     : 'text-slate-400 hover:text-white'
-                }`}
+                  }`}
               >
                 Resources
                 <FiChevronDown className={`ml-1 w-4 h-4 transition-transform duration-300 ${isResourcesOpen ? 'rotate-180' : ''}`} />
@@ -112,11 +108,10 @@ const Navbar = () => {
                       <Link
                         key={resource.href}
                         to={resource.href}
-                        className={`block px-4 py-3 text-sm transition-all duration-300 ${
-                          location.pathname === resource.href 
-                            ? 'bg-slate-800 text-white' 
+                        className={`block px-4 py-3 text-sm transition-all duration-300 ${location.pathname === resource.href
+                            ? 'bg-slate-800 text-white'
                             : 'text-slate-400 hover:bg-slate-800/50 hover:text-white'
-                        }`}
+                          }`}
                         onClick={() => setIsResourcesOpen(false)}
                       >
                         {resource.name}
@@ -163,11 +158,10 @@ const Navbar = () => {
                   <Link
                     key={link.href}
                     to={link.href}
-                    className={`px-4 py-3 rounded-lg text-sm font-medium transition-all duration-300 ${
-                      location.pathname === link.href 
-                        ? 'bg-slate-800 text-white' 
+                    className={`px-4 py-3 rounded-lg text-sm font-medium transition-all duration-300 ${location.pathname === link.href
+                        ? 'bg-slate-800 text-white'
                         : 'text-slate-400 hover:bg-slate-800/50 hover:text-white'
-                    }`}
+                      }`}
                     onClick={() => setIsOpen(false)}
                   >
                     {link.name}
@@ -181,11 +175,10 @@ const Navbar = () => {
                     <Link
                       key={resource.href}
                       to={resource.href}
-                      className={`block px-4 py-3 rounded-lg text-sm transition-all duration-300 ${
-                        location.pathname === resource.href 
-                          ? 'bg-slate-800 text-white' 
+                      className={`block px-4 py-3 rounded-lg text-sm transition-all duration-300 ${location.pathname === resource.href
+                          ? 'bg-slate-800 text-white'
                           : 'text-slate-400 hover:bg-slate-800/50 hover:text-white'
-                      }`}
+                        }`}
                       onClick={() => setIsOpen(false)}
                     >
                       {resource.name}
