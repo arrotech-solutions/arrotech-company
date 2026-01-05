@@ -42,7 +42,7 @@ const Footer = () => {
     <footer className="relative bg-slate-950 border-t border-slate-800">
       {/* Background Grid */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div 
+        <div
           className="absolute inset-0 opacity-5"
           style={{
             backgroundImage: `
@@ -61,17 +61,14 @@ const Footer = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-12 mb-12">
           {/* Brand Column */}
           <div className="lg:col-span-2">
-            <Link to="/" className="flex items-center space-x-3 mb-6">
-              <div className="relative">
-                <div className="w-10 h-10 bg-gradient-to-br from-blue-500 via-violet-500 to-purple-600 rounded-xl transform rotate-3 shadow-lg shadow-violet-500/30" />
-                <div className="absolute inset-0 w-10 h-10 bg-gradient-to-br from-cyan-400 to-blue-500 rounded-xl transform -rotate-3 opacity-60" />
-              </div>
-              <div className="flex flex-col -space-y-1">
-                <span className="text-xl font-bold text-white">Arro</span>
-                <span className="text-xl font-bold bg-gradient-to-r from-violet-400 to-cyan-400 bg-clip-text text-transparent">tech</span>
-              </div>
+            <Link to="/" className="flex items-center mb-6">
+              <img
+                src="/src/assets/logo/fulllogo_transparent_nobuffer.png"
+                alt="Arrotech Logo"
+                className="h-10 w-auto hover:scale-105 transition-transform duration-300"
+              />
             </Link>
-            
+
             <p className="text-slate-400 mb-6 max-w-sm leading-relaxed">
               Building intelligent AI solutions that transform businesses. We bridge the gap between cutting-edge technology and real-world impact.
             </p>
@@ -190,7 +187,7 @@ const Footer = () => {
             <p className="text-slate-500 text-sm">
               © {new Date().getFullYear()} Arrotech Solutions. All rights reserved.
             </p>
-            
+
             <motion.button
               onClick={scrollToTop}
               whileHover={{ scale: 1.05 }}
