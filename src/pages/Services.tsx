@@ -17,6 +17,7 @@ import {
 } from 'react-icons/fi';
 import { useInView } from 'react-intersection-observer';
 import { Link, useLocation } from 'react-router-dom';
+import SEO from '../components/SEO';
 
 const Services = () => {
   const [heroRef, heroInView] = useInView({ triggerOnce: true, threshold: 0.1 });
@@ -111,12 +112,17 @@ const Services = () => {
 
   return (
     <div className="pt-20 bg-slate-950 min-h-screen">
+      <SEO
+        title="Our Services"
+        description="Discover how Arrotech's AI services—Automation, Conversational AI, and Research Intelligence—can transform your business efficiency."
+        canonical="/services"
+      />
       {/* Hero Section - Dark Futuristic */}
       <section ref={heroRef} className="relative min-h-[80vh] flex items-center overflow-hidden pt-16 md:pt-20">
         {/* Animated Grid Background */}
         <div className="absolute inset-0">
           <div className="absolute inset-0 bg-gradient-to-b from-slate-950 via-slate-900 to-slate-950" />
-          <div 
+          <div
             className="absolute inset-0 opacity-20"
             style={{
               backgroundImage: `
@@ -206,7 +212,7 @@ const Services = () => {
         </div>
 
         {/* Scroll Indicator */}
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 1.5 }}
@@ -253,7 +259,7 @@ const Services = () => {
                 <div className="relative h-full bg-slate-900/50 backdrop-blur-sm border border-slate-800 rounded-2xl p-8 hover:border-slate-700 transition-all duration-500 overflow-hidden">
                   {/* Gradient Glow on Hover */}
                   <div className={`absolute inset-0 bg-gradient-to-br ${service.gradient} opacity-0 group-hover:opacity-5 transition-opacity duration-500`} />
-                  
+
                   {/* Icon & Stats Row */}
                   <div className="flex items-start justify-between mb-6 relative z-10">
                     <div className={`w-14 h-14 rounded-xl bg-gradient-to-br ${service.gradient} flex items-center justify-center text-white shadow-lg`}>
@@ -311,7 +317,7 @@ const Services = () => {
       <section ref={processRef} className="py-24 relative overflow-hidden">
         {/* Background */}
         <div className="absolute inset-0 bg-gradient-to-b from-slate-950 via-slate-900 to-slate-950" />
-        
+
         <div className="container relative z-10">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -408,7 +414,7 @@ const Services = () => {
         {/* Background */}
         <div className="absolute inset-0">
           <div className="absolute inset-0 bg-gradient-to-br from-blue-600/20 via-violet-600/20 to-cyan-600/20" />
-          <div 
+          <div
             className="absolute inset-0 opacity-30"
             style={{
               backgroundImage: `radial-gradient(circle at 2px 2px, rgba(255,255,255,0.1) 1px, transparent 0)`,
