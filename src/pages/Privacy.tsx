@@ -12,6 +12,7 @@ import {
   FiUser
 } from 'react-icons/fi';
 import { useInView } from 'react-intersection-observer';
+import SEO from '../components/SEO';
 
 const Privacy = () => {
   const [expandedSection, setExpandedSection] = useState<number | null>(null);
@@ -67,12 +68,17 @@ const Privacy = () => {
 
   return (
     <div className="bg-slate-950 min-h-screen pt-20">
+      <SEO
+        title="Privacy Policy"
+        description="Read Arrotech's Privacy Policy to understand how we collect, use, and safeguard your personal information."
+        canonical="/privacy"
+      />
       {/* Hero Section */}
       <section ref={heroRef} className="relative py-24 overflow-hidden">
         {/* Background */}
         <div className="absolute inset-0">
           <div className="absolute inset-0 bg-gradient-to-b from-slate-950 via-slate-900 to-slate-950" />
-          <div 
+          <div
             className="absolute inset-0 opacity-20"
             style={{
               backgroundImage: `
