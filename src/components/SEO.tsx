@@ -30,7 +30,7 @@ const SEO = ({
     const fullCanonical = canonical ? `${siteUrl}${canonical}` : siteUrl;
 
     // JSON-LD Structured Data
-    const schemaOrgJSONLD = {
+    const organizationSchema = {
         "@context": "https://schema.org",
         "@type": "Organization",
         "name": "Arrotech",
@@ -50,6 +50,13 @@ const SEO = ({
         "description": description
     };
 
+    const websiteSchema = {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        "name": "Arrotech",
+        "alternateName": ["Arrotech Solutions", "Arrotech AI"],
+        "url": siteUrl
+    };
     return (
         <Helmet>
             {/* Standard Meta Tags */}
@@ -79,7 +86,10 @@ const SEO = ({
 
             {/* Structured Data */}
             <script type="application/ld+json">
-                {JSON.stringify(schemaOrgJSONLD)}
+                {JSON.stringify(organizationSchema)}
+            </script>
+            <script type="application/ld+json">
+                {JSON.stringify(websiteSchema)}
             </script>
         </Helmet>
     );
