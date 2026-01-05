@@ -138,6 +138,7 @@ const Home = () => {
       <SEO
         title="Home"
         description="Arrotech transforms businesses with cutting-edge AI solutions. Explore our AI-powered platforms like Mini-Hub and WholeSaleHub."
+        canonical="/"
       />
       {/* Hero Section */}
       <section ref={heroRef} className="relative min-h-screen flex items-center pt-20 overflow-hidden">
