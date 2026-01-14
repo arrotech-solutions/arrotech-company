@@ -2,20 +2,13 @@ import { motion } from 'framer-motion';
 import {
   FiArrowRight,
   FiAward,
-  FiCheck,
   FiClock,
   FiCpu,
   FiExternalLink,
-  FiFileText,
-  FiGlobe,
   FiGrid,
   FiLayers,
-  FiMapPin,
-  FiMessageSquare,
-  FiRefreshCw,
   FiShield,
   FiTarget,
-  FiTruck,
   FiUsers,
   FiZap
 } from 'react-icons/fi';
@@ -30,7 +23,7 @@ const Products = () => {
   const products = [
     {
       id: 'mini-hub',
-      name: 'Mini-Hub',
+      name: 'Arrotech Hub',
       tagline: 'Enterprise AI-Powered Marketing & Business Automation',
       description: 'A production-grade, AI-augmented full-stack platform implementing the Model Context Protocol (MCP) for seamless integration between Large Language Models and enterprise business tools.',
       url: 'https://hub.arrotechsolutions.com/',
@@ -39,60 +32,15 @@ const Products = () => {
       features: [
         { icon: <FiLayers className="w-5 h-5" />, title: 'Multi-LLM Support', description: 'OpenAI, Anthropic, Gemini, Ollama & more' },
         { icon: <FiZap className="w-5 h-5" />, title: 'Workflow Automation', description: 'NLP to workflow conversion with conditional logic' },
-        { icon: <FiGrid className="w-5 h-5" />, title: '15+ Platform Integrations', description: 'HubSpot, Slack, Salesforce, Teams, Asana, GA4' },
+        { icon: <FiGrid className="w-5 h-5" />, title: '50+ Platform Integrations', description: 'HubSpot, Slack, Salesforce, Teams, Asana, GA4' },
         { icon: <FiTarget className="w-5 h-5" />, title: 'Autonomous Agents', description: 'Self-executing workflows with monitoring' }
       ],
       stats: [
-        { value: '15+', label: 'Integrations' },
+        { value: '50+', label: 'Integrations' },
         { value: '6+', label: 'LLM Providers' },
         { value: '50+', label: 'API Endpoints' },
         { value: '24/7', label: 'Automation' }
       ],
-      techStack: ['Python', 'FastAPI', 'React', 'TypeScript', 'PostgreSQL', 'Redis', 'Docker']
-    },
-    {
-      id: 'wholesalehub',
-      name: 'WholeSaleHub',
-      tagline: 'Crowdsource Global Imports',
-      description: 'The first crowdsourcing platform that lets businesses pool their import orders to reach factory minimums, share container costs, and unlock wholesale pricing on global imports.',
-      url: 'http://crowdsource.arrotechsolutions.com/',
-      gradient: 'from-emerald-500 to-teal-600',
-      icon: <FiGlobe className="w-8 h-8" />,
-      features: [
-        { icon: <FiUsers className="w-5 h-5" />, title: 'Crowdsourced Group Buys', description: 'Pool orders to hit factory MOQs together' },
-        { icon: <FiShield className="w-5 h-5" />, title: 'Secure Escrow Payments', description: '100% payment protection on all transactions' },
-        { icon: <FiTruck className="w-5 h-5" />, title: 'Shared Container Shipping', description: 'Save 30-50% on freight costs' },
-        { icon: <FiCheck className="w-5 h-5" />, title: 'Verified Factories', description: 'Audited suppliers from 50+ countries' }
-      ],
-      stats: [
-        { value: '500+', label: 'Group Buys' },
-        { value: '$2.5M', label: 'Saved' },
-        { value: '1000+', label: 'Factories' },
-        { value: '50+', label: 'Countries' }
-      ],
-      categories: ['Electronics', 'Fashion & Apparel', 'Home & Garden', 'Health & Beauty']
-    },
-    {
-      id: 'tscswap',
-      name: 'TSC Swap',
-      tagline: 'Find the Right TSC Swap Without Cold-Calling',
-      description: 'A streamlined platform for Kenyan teachers to find compatible swap partners, complete TSC-compliant transfers, and follow guided steps to submit paperwork correctly.',
-      url: 'https://www.tscswap.com/',
-      gradient: 'from-amber-500 to-orange-600',
-      icon: <FiRefreshCw className="w-8 h-8" />,
-      features: [
-        { icon: <FiTarget className="w-5 h-5" />, title: 'Smart Match Engine', description: 'Find compatible swaps across all 47 counties' },
-        { icon: <FiFileText className="w-5 h-5" />, title: 'TSC-Compliant', description: 'Guided paperwork and policy checks' },
-        { icon: <FiMapPin className="w-5 h-5" />, title: '47 Counties Covered', description: 'Nationwide coverage for teacher transfers' },
-        { icon: <FiMessageSquare className="w-5 h-5" />, title: '24/7 Human Support', description: 'Always available to assist you' }
-      ],
-      stats: [
-        { value: '500+', label: 'Swaps' },
-        { value: '7 days', label: 'Avg Match' },
-        { value: '98%', label: 'Approval' },
-        { value: '47', label: 'Counties' }
-      ],
-      process: ['Create Profile', 'Find Match', 'Complete Swap']
     }
   ];
 
@@ -100,7 +48,7 @@ const Products = () => {
     <div className="bg-slate-950 min-h-screen pt-20">
       <SEO
         title="Our Products"
-        description="Explore Arrotech's AI-powered platforms: Mini-Hub for business automation, WholeSaleHub for global imports, and TSC Swap for teacher transfers."
+        description="Explore Arrotech's AI-powered platforms, including our flagship Arrotech Hub for business automation and model connectivity."
         canonical="/products"
       />
       {/* Hero Section */}
@@ -266,67 +214,9 @@ const Products = () => {
                       ))}
                     </div>
 
-                    {/* Tech Stack */}
-                    {product.techStack && (
-                      <div className="mt-10 pt-8 border-t border-slate-800">
-                        <h4 className="text-sm font-semibold text-slate-500 uppercase tracking-wider mb-4">
-                          Built With
-                        </h4>
-                        <div className="flex flex-wrap gap-2">
-                          {product.techStack.map((tech, techIndex) => (
-                            <span
-                              key={techIndex}
-                              className="px-4 py-2 rounded-lg bg-slate-800 text-slate-300 text-sm font-medium"
-                            >
-                              {tech}
-                            </span>
-                          ))}
-                        </div>
-                      </div>
-                    )}
 
-                    {/* Categories */}
-                    {product.categories && (
-                      <div className="mt-10 pt-8 border-t border-slate-800">
-                        <h4 className="text-sm font-semibold text-slate-500 uppercase tracking-wider mb-4">
-                          Popular Categories
-                        </h4>
-                        <div className="flex flex-wrap gap-2">
-                          {product.categories.map((category, catIndex) => (
-                            <span
-                              key={catIndex}
-                              className="px-4 py-2 rounded-lg bg-slate-800 text-slate-300 text-sm font-medium"
-                            >
-                              {category}
-                            </span>
-                          ))}
-                        </div>
-                      </div>
-                    )}
 
-                    {/* Process */}
-                    {product.process && (
-                      <div className="mt-10 pt-8 border-t border-slate-800">
-                        <h4 className="text-sm font-semibold text-slate-500 uppercase tracking-wider mb-4">
-                          Simple 3-Step Process
-                        </h4>
-                        <div className="flex flex-wrap items-center gap-4">
-                          {product.process.map((step, stepIndex) => (
-                            <div key={stepIndex} className="flex items-center gap-3">
-                              <span className={`w-8 h-8 rounded-full bg-gradient-to-r ${product.gradient} text-white text-sm font-bold flex items-center justify-center`}>
-                                {stepIndex + 1}
-                              </span>
-                              <span className="text-slate-300 font-medium">
-                                {step}
-                              </span>
-                              {stepIndex < product.process.length - 1 && (
-                                <FiArrowRight className="w-5 h-5 text-slate-600 hidden sm:block" />
-                              )}
-                            </div>
-                          ))}
-                        </div>
-                      </div>
-                    )}
+
                   </div>
                 </div>
               </motion.div>
