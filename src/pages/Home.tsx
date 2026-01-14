@@ -5,9 +5,7 @@ import {
   FiCheck,
   FiCpu,
   FiExternalLink,
-  FiGlobe,
   FiLayers,
-  FiRefreshCw,
   FiShield,
   FiStar,
   FiTrendingUp,
@@ -27,35 +25,7 @@ const Home = () => {
   const [statsRef, statsInView] = useInView({ triggerOnce: true, threshold: 0.1 });
   const [pricingRef, pricingInView] = useInView({ triggerOnce: true, threshold: 0.1 });
 
-  const liveProducts = [
-    {
-      name: 'Mini-Hub',
-      tagline: 'AI-Powered Business Automation',
-      description: 'Enterprise platform with Model Context Protocol (MCP) for seamless LLM integration with 15+ business tools.',
-      url: 'https://hub.arrotechsolutions.com/',
-      gradient: 'from-violet-500 to-indigo-600',
-      icon: <FiCpu className="w-6 h-6" />,
-      stats: ['15+ Integrations', '6+ LLM Providers', '24/7 Automation']
-    },
-    {
-      name: 'WholeSaleHub',
-      tagline: 'Crowdsource Global Imports',
-      description: 'Pool orders with businesses worldwide to hit factory MOQs and save 30-50% on shipping costs.',
-      url: 'http://crowdsource.arrotechsolutions.com/',
-      gradient: 'from-emerald-500 to-teal-600',
-      icon: <FiGlobe className="w-6 h-6" />,
-      stats: ['500+ Group Buys', '1000+ Factories', '50+ Countries']
-    },
-    {
-      name: 'TSC Swap',
-      tagline: 'Teacher Transfer Platform',
-      description: 'Smart matching engine for Kenyan teachers to find compatible TSC swaps across all 47 counties.',
-      url: 'https://www.tscswap.com/',
-      gradient: 'from-amber-500 to-orange-600',
-      icon: <FiRefreshCw className="w-6 h-6" />,
-      stats: ['500+ Swaps', '98% Approval', '47 Counties']
-    }
-  ];
+
 
   const features = [
     {
@@ -137,7 +107,7 @@ const Home = () => {
     <div className="bg-slate-950 min-h-screen">
       <SEO
         title="Home"
-        description="Arrotech transforms businesses with cutting-edge AI solutions. Explore our AI-powered platforms like Mini-Hub and WholeSaleHub."
+        description="Arrotech transforms businesses with cutting-edge AI solutions. Explore our AI-powered platforms like Arrotech Hub."
         canonical="/"
       />
       {/* Hero Section */}
@@ -277,95 +247,60 @@ const Home = () => {
         </div>
       </section>
 
-      {/* Live Products Section */}
+      {/* Arrotech Hub Section */}
       <section ref={productsRef} className="py-24 relative overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-b from-slate-950 via-slate-900 to-slate-950" />
 
         <div className="container relative z-10">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={productsInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.6 }}
-            className="text-center mb-16"
-          >
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-emerald-500/10 border border-emerald-500/20 mb-6">
-              <span className="w-2 h-2 bg-emerald-400 rounded-full animate-pulse" />
-              <span className="text-emerald-400 text-sm font-medium">Live Products</span>
-            </div>
-            <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">
-              Our AI-Powered <span className="bg-gradient-to-r from-emerald-400 to-cyan-400 bg-clip-text text-transparent">Platforms</span>
-            </h2>
-            <p className="text-xl text-slate-400 max-w-2xl mx-auto">
-              Production-ready solutions transforming businesses across industries
-            </p>
-          </motion.div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {liveProducts.map((product, index) => (
-              <motion.a
-                key={product.name}
-                href={product.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                initial={{ opacity: 0, y: 30 }}
-                animate={productsInView ? { opacity: 1, y: 0 } : {}}
-                transition={{ duration: 0.6, delay: index * 0.15 }}
-                className="group relative bg-slate-900/50 backdrop-blur-sm border border-slate-800 rounded-2xl overflow-hidden hover:border-slate-700 transition-all duration-500"
-              >
-                {/* Gradient Header */}
-                <div className={`p-6 bg-gradient-to-r ${product.gradient}`}>
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-3">
-                      <div className="w-12 h-12 bg-white/20 backdrop-blur-sm rounded-xl flex items-center justify-center text-white">
-                        {product.icon}
-                      </div>
-                      <div>
-                        <h3 className="text-xl font-bold text-white">{product.name}</h3>
-                        <p className="text-white/80 text-sm">{product.tagline}</p>
-                      </div>
-                    </div>
-                    <FiExternalLink className="w-5 h-5 text-white/60 group-hover:text-white transition-colors" />
-                  </div>
-                </div>
-
-                {/* Content */}
-                <div className="p-6">
-                  <p className="text-slate-400 mb-4 text-sm leading-relaxed">
-                    {product.description}
-                  </p>
-
-                  <div className="flex flex-wrap gap-2">
-                    {product.stats.map((stat, statIndex) => (
-                      <span
-                        key={statIndex}
-                        className="px-3 py-1 rounded-full text-xs font-medium bg-slate-800 text-slate-300"
-                      >
-                        {stat}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-
-                {/* Hover Indicator */}
-                <div className={`absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r ${product.gradient} transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300`} />
-              </motion.a>
-            ))}
-          </div>
-
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={productsInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.6, delay: 0.5 }}
-            className="text-center mt-12"
-          >
-            <Link
-              to="/products"
-              className="inline-flex items-center gap-2 text-violet-400 hover:text-violet-300 font-semibold transition-colors"
+          <div className="max-w-4xl mx-auto">
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={productsInView ? { opacity: 1, scale: 1 } : {}}
+              transition={{ duration: 0.8 }}
+              className="relative bg-slate-900/50 backdrop-blur-sm border border-slate-800 rounded-3xl overflow-hidden shadow-2xl shadow-violet-500/10"
             >
-              View All Products
-              <FiArrowRight className="w-4 h-4" />
-            </Link>
-          </motion.div>
+              <div className="absolute inset-0 bg-gradient-to-br from-violet-500/10 to-indigo-600/10" />
+
+              <div className="relative p-8 md:p-12 text-center">
+                <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-gradient-to-br from-violet-500 to-indigo-600 text-white mb-8 shadow-lg shadow-violet-500/30">
+                  <FiCpu className="w-8 h-8" />
+                </div>
+
+                <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
+                  Meet <span className="bg-gradient-to-r from-violet-400 to-indigo-400 bg-clip-text text-transparent">Arrotech Hub</span>
+                </h2>
+
+                <p className="text-xl md:text-2xl text-slate-300 font-medium mb-4">
+                  The Central Nervous System for Your Business
+                </p>
+
+                <p className="text-lg text-slate-400 mb-10 max-w-2xl mx-auto leading-relaxed">
+                  Connect your AI models to 50+ business tools with our Arrotech Hub MCP Server.
+                  Seamlessly bridge the gap between intelligence and action.
+                </p>
+
+                <div className="flex flex-wrap justify-center gap-4 mb-10">
+                  {['50+ Integrations', '6+ LLM Providers', '24/7 Automation'].map((stat) => (
+                    <span key={stat} className="px-4 py-2 rounded-full bg-slate-800/50 border border-slate-700 text-slate-300 text-sm font-medium">
+                      {stat}
+                    </span>
+                  ))}
+                </div>
+
+                <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
+                  <a
+                    href="https://hub.arrotechsolutions.com/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 px-8 py-4 bg-white text-slate-950 rounded-xl font-bold text-lg hover:bg-slate-100 transition-colors shadow-xl shadow-white/10"
+                  >
+                    Explore Arrotech Hub
+                    <FiExternalLink className="w-5 h-5" />
+                  </a>
+                </motion.div>
+              </div>
+            </motion.div>
+          </div>
         </div>
       </section>
 
