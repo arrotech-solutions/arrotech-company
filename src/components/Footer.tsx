@@ -9,9 +9,7 @@ const Footer = () => {
 
   const footerLinks = {
     products: [
-      { name: 'Mini-Hub', href: 'https://hub.arrotechsolutions.com/', external: true },
-      { name: 'WholeSaleHub', href: 'http://crowdsource.arrotechsolutions.com/', external: true },
-      { name: 'TSC Swap', href: 'https://www.tscswap.com/', external: true },
+      { name: 'Arrotech Hub', href: 'https://hub.arrotechsolutions.com/', external: true },
     ],
     services: [
       { name: 'AI Automation', href: '/services#ai-automation' },
@@ -34,7 +32,7 @@ const Footer = () => {
   const socialLinks = [
     { icon: <FiFacebook className="w-5 h-5" />, href: 'https://web.facebook.com/gachanjaharun/', label: 'Facebook' },
     { icon: <FiTwitter className="w-5 h-5" />, href: 'https://x.com/ArrotechAI', label: 'Twitter' },
-    { icon: <FiLinkedin className="w-5 h-5" />, href: 'https://www.linkedin.com/search/results/all/?fetchDeterministicClustersOnly=true&heroEntityKey=urn%3Ali%3Aorganization%3A107302594&keywords=arrotech%20ai&origin=RICH_QUERY_TYPEAHEAD_HISTORY&position=0&searchId=859e46c2-9dc4-47c4-b1c8-9791c9ca7f0f&sid=yje&spellCorrectionEnabled=true', label: 'LinkedIn' },
+    { icon: <FiLinkedin className="w-5 h-5" />, href: 'https://www.linkedin.com/company/arrotech-solutions', label: 'LinkedIn' },
     { icon: <FiInstagram className="w-5 h-5" />, href: 'https://www.instagram.com/arrotech/#', label: 'Instagram' },
   ];
 
