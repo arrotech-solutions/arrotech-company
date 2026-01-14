@@ -38,7 +38,7 @@ const SEO = ({
         "logo": `${siteUrl}/logo.png`,
         "sameAs": [
             "https://x.com/ArrotechAI",
-            "https://www.linkedin.com/company/arrotech-ai",
+            "https://www.linkedin.com/company/arrotech-solutions",
             "https://www.instagram.com/arrotech/"
         ],
         "contactPoint": {
