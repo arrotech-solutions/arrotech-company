@@ -1,336 +1,427 @@
-import { motion } from 'framer-motion';
-import { FiArrowLeft, FiArrowRight, FiCalendar, FiClock, FiUser } from 'react-icons/fi';
-import { useInView } from 'react-intersection-observer';
-import { Link, useNavigate, useParams } from 'react-router-dom';
+import React, { useState, useEffect, useMemo, useCallback } from 'react';
+import { useParams, Link } from 'react-router-dom';
+import { ArrowLeft, Clock, Eye, Calendar, Share2, Copy, Check, ChevronRight } from 'lucide-react';
+import { BlogPost } from '../data/blogData';
+import { apiService } from '../api/blog';
 import SEO from '../components/SEO';
 
-const posts = [
-  {
-    id: 1,
-    title: 'The Future of AI in Healthcare',
-    excerpt: 'Exploring how artificial intelligence is revolutionizing healthcare delivery and patient care.',
-    content: `Artificial intelligence is revolutionizing healthcare in unprecedented ways. From diagnostic tools to treatment planning, AI is becoming an integral part of modern healthcare delivery.
+/* ── Simple Markdown to HTML ───────────────────────────── */
+const renderMarkdown = (md: string): string => {
+  return md
+    // Headers
+    .replace(/^### (.*$)/gim, '<h3 class="text-xl font-bold text-gray-900 mt-8 mb-3">$1</h3>')
+    .replace(/^## (.*$)/gim, '<h2 class="text-2xl font-bold text-gray-900 mt-10 mb-4" id="$1">$1</h2>')
+    .replace(/^# (.*$)/gim, '<h1 class="text-3xl font-bold text-gray-900 mt-10 mb-5">$1</h1>')
+    // Bold & Italic
+    .replace(/\*\*\*(.*?)\*\*\*/gim, '<strong><em>$1</em></strong>')
+    .replace(/\*\*(.*?)\*\*/gim, '<strong class="font-semibold text-gray-900">$1</strong>')
+    .replace(/\*(.*?)\*/gim, '<em>$1</em>')
+    // Blockquotes
+    .replace(/^> (.*$)/gim, '<blockquote class="border-l-4 border-purple-500 pl-4 py-1 my-4 text-gray-600 italic bg-purple-50/50 rounded-r-lg pr-4">$1</blockquote>')
+    // Unordered lists
+    .replace(/^- (.*$)/gim, '<li class="ml-6 mb-1.5 text-gray-700 list-disc">$1</li>')
+    // Ordered lists
+    .replace(/^\d+\. (.*$)/gim, '<li class="ml-6 mb-1.5 text-gray-700 list-decimal">$1</li>')
+    // Table rows
+    .replace(/^\|(.+)\|$/gim, (match) => {
+      const cells = match.split('|').filter(c => c.trim());
+      if (cells.every(c => /^[\s-:]+$/.test(c))) return '';
+      const cellTags = cells.map(c => `<td class="px-4 py-2.5 border-b border-gray-100">${c.trim()}</td>`).join('');
+      return `<tr class="hover:bg-gray-50 transition-colors">${cellTags}</tr>`;
+    })
+    // Emojis in checkmarks
+    .replace(/^- ✅ (.*$)/gim, '<li class="ml-6 mb-1.5 text-green-700 list-none flex items-center gap-2">✅ $1</li>')
+    .replace(/^- ❌ (.*$)/gim, '<li class="ml-6 mb-1.5 text-red-600 list-none flex items-center gap-2">❌ $1</li>')
+    // Code blocks
+    .replace(/```([\s\S]*?)```/gim, '<pre class="bg-gray-900 text-gray-100 rounded-xl p-5 my-6 overflow-x-auto text-sm leading-relaxed font-mono"><code>$1</code></pre>')
+    .replace(/`(.*?)`/gim, '<code class="px-1.5 py-0.5 bg-gray-100 text-purple-600 rounded text-sm font-mono">$1</code>')
+    // Links
+    .replace(/\[([^\]]*)\]\(([^)]*)\)/gim, '<a href="$2" class="text-purple-600 underline underline-offset-2 hover:text-purple-700 transition-colors" target="_blank" rel="noopener">$1</a>')
+    // Paragraphs (lines not already tagged)
+    .replace(/^(?!<[hlupbtoar])(.+)$/gim, '<p class="text-gray-700 leading-relaxed mb-4">$1</p>');
+};
 
-    One of the most significant impacts of AI in healthcare is its ability to analyze vast amounts of medical data quickly and accurately. Machine learning algorithms can identify patterns and make predictions that would be impossible for human doctors to process in a reasonable timeframe.
-
-    Key areas where AI is making a difference:
-
-    1. Medical Imaging Analysis
-    AI algorithms can analyze medical images with remarkable accuracy, helping radiologists detect abnormalities and make more accurate diagnoses.
-
-    2. Predictive Analytics
-    By analyzing patient data, AI can predict potential health issues before they become serious, enabling preventive care.
-
-    3. Personalized Medicine
-    AI helps create personalized treatment plans based on a patient's unique genetic makeup and medical history.
-
-    4. Administrative Efficiency
-    AI streamlines administrative tasks, reducing paperwork and allowing healthcare providers to focus more on patient care.`,
-    image: 'https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=800&q=80&auto=format&fit=crop',
-    category: 'AI & Machine Learning',
-    author: 'Dr. Sarah Chen',
-    date: 'March 15, 2024',
-    readTime: '5 min read'
-  },
-  {
-    id: 2,
-    title: 'Big Data Analytics: A Game Changer',
-    excerpt: 'Understanding the impact of big data analytics on business decision-making and strategy.',
-    content: `In today's digital age, big data analytics has emerged as a transformative force in business decision-making. The ability to process and analyze vast amounts of data has opened new possibilities for organizations across industries.
-
-    The Power of Big Data Analytics:
-
-    1. Enhanced Decision Making
-    Organizations can now make data-driven decisions based on real-time insights and predictive analytics.
-
-    2. Customer Insights
-    Big data analytics enables businesses to understand customer behavior patterns, preferences, and needs at an unprecedented level.
-
-    3. Operational Efficiency
-    By analyzing operational data, companies can identify bottlenecks, optimize processes, and reduce costs.
-
-    4. Risk Management
-    Advanced analytics helps in identifying potential risks and fraud patterns, enabling proactive risk management.`,
-    image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&q=80&auto=format&fit=crop',
-    category: 'Data Science',
-    author: 'Michael Rodriguez',
-    date: 'March 12, 2024',
-    readTime: '4 min read'
-  },
-  {
-    id: 3,
-    title: 'Cloud Security Best Practices',
-    excerpt: 'Essential security measures for protecting your cloud infrastructure and data.',
-    content: `As organizations increasingly migrate to cloud environments, ensuring robust security measures has become more critical than ever.
-
-    Essential Cloud Security Measures:
-
-    1. Identity and Access Management (IAM)
-    Implement strong authentication mechanisms and role-based access control.
-
-    2. Data Encryption
-    Encrypt data both in transit and at rest using strong encryption algorithms.
-
-    3. Network Security
-    Implement proper network segmentation, use firewalls, and monitor network traffic.
-
-    4. Regular Security Audits
-    Conduct regular security assessments and penetration testing.`,
-    image: 'https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=800&q=80&auto=format&fit=crop',
-    category: 'Cloud Computing',
-    author: 'Emma Thompson',
-    date: 'March 10, 2024',
-    readTime: '6 min read'
-  },
-  {
-    id: 4,
-    title: 'Machine Learning in Finance',
-    excerpt: 'How machine learning is transforming financial services and risk management.',
-    content: `Machine learning is transforming the financial services industry, revolutionizing how institutions operate and serve their customers.
-
-    Key Applications of ML in Finance:
-
-    1. Risk Assessment and Credit Scoring
-    Machine learning algorithms can analyze vast amounts of data to assess credit risk more accurately.
-
-    2. Fraud Detection
-    ML systems can detect unusual patterns and potential fraud in real-time.
-
-    3. Algorithmic Trading
-    Machine learning enables more sophisticated trading strategies by analyzing market data.
-
-    4. Customer Service and Personalization
-    AI-powered chatbots and recommendation systems provide personalized financial advice.`,
-    image: 'https://images.unsplash.com/photo-1559526324-593bc073d938?w=800&q=80&auto=format&fit=crop',
-    category: 'AI & Machine Learning',
-    author: 'David Kim',
-    date: 'March 8, 2024',
-    readTime: '5 min read'
-  },
-  {
-    id: 5,
-    title: 'Cybersecurity Trends 2024',
-    excerpt: 'The latest trends and challenges in cybersecurity for the coming year.',
-    content: `The cybersecurity landscape continues to evolve rapidly, with new threats and challenges emerging alongside technological advancements.
-
-    Emerging Cybersecurity Trends:
-
-    1. AI-Powered Security
-    Artificial intelligence is being increasingly used to detect and respond to threats in real-time.
-
-    2. Zero Trust Architecture
-    The zero trust model is becoming the standard for modern security frameworks.
-
-    3. Cloud Security
-    As cloud adoption grows, securing cloud environments becomes more critical.
-
-    4. Supply Chain Security
-    Organizations are focusing more on securing their supply chains and third-party relationships.`,
-    image: 'https://images.unsplash.com/photo-1563986768609-322da13575f3?w=800&q=80&auto=format&fit=crop',
-    category: 'Cybersecurity',
-    author: 'Lisa Wang',
-    date: 'March 5, 2024',
-    readTime: '4 min read'
-  },
-  {
-    id: 6,
-    title: 'Business Intelligence Tools',
-    excerpt: 'A comprehensive guide to modern BI tools and their applications.',
-    content: `Modern business intelligence (BI) tools have revolutionized how organizations analyze and utilize their data.
-
-    Key Features of Modern BI Tools:
-
-    1. Data Visualization
-    Advanced visualization capabilities help users understand complex data through interactive charts and dashboards.
-
-    2. Real-time Analytics
-    Modern BI tools provide real-time insights, allowing organizations to make timely decisions.
-
-    3. Self-service BI
-    User-friendly interfaces enable non-technical users to create reports and analyze data.
-
-    4. Advanced Analytics
-    Integration with machine learning provides deeper insights and forecasting.`,
-    image: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&q=80&auto=format&fit=crop',
-    category: 'Business Intelligence',
-    author: 'James Wilson',
-    date: 'March 3, 2024',
-    readTime: '7 min read'
+/* ── Extract headings for ToC ──────────────────────────── */
+const extractHeadings = (content: string): { id: string; text: string; level: number }[] => {
+  const headings: { id: string; text: string; level: number }[] = [];
+  const regex = /^(#{1,3}) (.+)$/gm;
+  let match;
+  while ((match = regex.exec(content)) !== null) {
+    headings.push({
+      id: match[2].trim(),
+      text: match[2].trim(),
+      level: match[1].length,
+    });
   }
-];
+  return headings;
+};
 
-const BlogPost = () => {
-  const { id } = useParams();
-  const navigate = useNavigate();
-  const post = posts.find(p => p.id === Number(id));
+const BlogPostPage: React.FC = () => {
+  const { id } = useParams<{ id: string }>(); // arrotech-company route uses :id instead of :slug in App.tsx
+  const slug = id;
+  const [post, setPost] = useState<BlogPost | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
+  const [readProgress, setReadProgress] = useState(0);
+  const [copied, setCopied] = useState(false);
+  const [relatedPosts, setRelatedPosts] = useState<BlogPost[]>([]);
 
-  const [heroRef, heroInView] = useInView({ triggerOnce: true, threshold: 0.1 });
-  const [contentRef, contentInView] = useInView({ triggerOnce: true, threshold: 0.1 });
+  // Fetch post
+  useEffect(() => {
+    const fetchPost = async () => {
+      setIsLoading(true);
+      try {
+        const res = await apiService.getBlogPost(slug || '');
+        if (res?.post) {
+          const p = res.post;
+          setPost({
+            id: p.id,
+            slug: p.slug,
+            title: p.title,
+            description: p.description,
+            content: p.content,
+            cover_image: p.cover_image,
+            author: p.author_name,
+            author_avatar: p.author_avatar,
+            date: p.published_at ? new Date(p.published_at).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }) : '',
+            readTime: p.read_time,
+            tags: p.tags || [],
+            category: p.category,
+            category_color: p.category_color,
+            is_featured: p.is_featured,
+            views_count: p.views_count,
+          });
+        } else {
+          throw new Error('Not found');
+        }
+      } catch (err) {
+        console.error('Failed to fetch post:', err);
+        setPost(null);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+    fetchPost();
+  }, [slug]);
 
-  if (!post) {
+  // Related posts
+  useEffect(() => {
+    // TODO: Fetch related posts from API
+    setRelatedPosts([]);
+  }, [post]);
+
+  // Reading progress
+  useEffect(() => {
+    const handleScroll = () => {
+      const totalHeight = document.documentElement.scrollHeight - window.innerHeight;
+      const progress = totalHeight > 0 ? (window.scrollY / totalHeight) * 100 : 0;
+      setReadProgress(Math.min(100, progress));
+    };
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  const headings = useMemo(() => post ? extractHeadings(post.content) : [], [post]);
+  const htmlContent = useMemo(() => post ? renderMarkdown(post.content) : '', [post]);
+
+  const handleCopyLink = useCallback(() => {
+    navigator.clipboard.writeText(window.location.href).then(() => {
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    });
+  }, []);
+
+  const handleShareTwitter = useCallback(() => {
+    if (post) window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(post.title)}&url=${encodeURIComponent(window.location.href)}`, '_blank');
+  }, [post]);
+
+  const handleShareLinkedIn = useCallback(() => {
+    window.open(`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(window.location.href)}`, '_blank');
+  }, []);
+
+  // Loading
+  if (isLoading) {
     return (
-      <div className="bg-slate-950 min-h-screen pt-20 flex items-center justify-center">
-        <div className="text-center p-8 bg-slate-900/50 backdrop-blur-sm border border-slate-800 rounded-2xl">
-          <h1 className="text-4xl font-bold text-white mb-4">Post Not Found</h1>
-          <p className="text-slate-400 mb-8">The blog post you're looking for doesn't exist.</p>
-          <button
-            onClick={() => navigate('/blog')}
-            className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-violet-600 to-blue-600 text-white rounded-xl font-semibold hover:from-violet-500 hover:to-blue-500 transition-all"
-          >
-            <FiArrowLeft className="w-4 h-4" />
-            Back to Blog
-          </button>
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+        <div className="animate-pulse space-y-6 max-w-3xl w-full px-4">
+          <div className="bg-gray-200 h-8 w-64 rounded-lg" />
+          <div className="bg-gray-200 h-12 w-full rounded-lg" />
+          <div className="bg-gray-200 h-80 w-full rounded-2xl" />
         </div>
       </div>
     );
   }
 
-  const relatedPosts = posts.filter(p => p.id !== post.id && p.category === post.category).slice(0, 2);
+  // Not found
+  if (!post) {
+    return (
+      <div className="min-h-screen bg-gray-50 flex flex-col items-center justify-center text-center px-4">
+        <h2 className="text-3xl font-bold text-gray-900 mb-3">Post not found</h2>
+        <p className="text-gray-500 mb-6">The article you're looking for doesn't exist or has been removed.</p>
+        <Link to="/blog" className="inline-flex items-center gap-2 px-5 py-2.5 bg-purple-600 text-white rounded-xl font-medium text-sm hover:bg-purple-700 transition-colors">
+          <ArrowLeft size={16} /> Back to Blog
+        </Link>
+      </div>
+    );
+  }
 
   return (
-    <div className="bg-slate-950 min-h-screen pt-20">
+    <>
       <SEO
-        title={post.title}
-        description={post.excerpt}
+        title={`${post.title} — Arrotech Solutions`}
+        description={post.description}
         ogType="article"
         publishedTime={post.date}
-        canonical={`/blog/${post.id}`}
+        canonical={`/blog/${post.slug}`}
       />
-      {/* Hero Section */}
-      <section ref={heroRef} className="relative py-24 overflow-hidden">
-        {/* Background */}
-        <div className="absolute inset-0">
-          <div className="absolute inset-0 bg-gradient-to-b from-slate-950 via-slate-900 to-slate-950" />
-          <div
-            className="absolute inset-0 opacity-20"
-            style={{
-              backgroundImage: `
-                linear-gradient(rgba(99, 102, 241, 0.1) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(99, 102, 241, 0.1) 1px, transparent 1px)
-              `,
-              backgroundSize: '60px 60px'
-            }}
-          />
-          <div className="absolute top-1/4 left-1/4 w-[500px] h-[500px] bg-violet-600/20 rounded-full blur-[150px]" />
-          <div className="absolute bottom-1/4 right-1/4 w-[400px] h-[400px] bg-blue-600/20 rounded-full blur-[120px]" />
-        </div>
 
-        <div className="container relative z-10">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={heroInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.8 }}
-            className="max-w-4xl mx-auto"
-          >
-            <button
-              onClick={() => navigate('/blog')}
-              className="inline-flex items-center gap-2 px-4 py-2 text-slate-400 hover:text-white mb-8 transition-colors"
+      {/* Reading progress bar */}
+      <div className="fixed top-0 left-0 right-0 z-50 h-1 bg-gray-200/50">
+        <div
+          className="h-full bg-gradient-to-r from-purple-500 via-indigo-500 to-purple-600 transition-all duration-150"
+          style={{ width: `${readProgress}%` }}
+        />
+      </div>
+
+      <div className="min-h-screen bg-gray-50 pt-16">
+        {/* ── Hero Header ── */}
+        <header className="relative bg-gradient-to-br from-gray-900 via-purple-900 to-indigo-900 overflow-hidden">
+          {/* Cover image background */}
+          {post.cover_image && (
+            <div className="absolute inset-0">
+              <img src={post.cover_image} alt="" className="w-full h-full object-cover opacity-20 blur-sm" />
+              <div className="absolute inset-0 bg-gradient-to-t from-gray-900 via-gray-900/80 to-gray-900/60" />
+            </div>
+          )}
+
+          <div className="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16 lg:py-24">
+            {/* Back link */}
+            <Link
+              to="/blog"
+              className="inline-flex items-center gap-2 text-sm text-purple-300 hover:text-white transition-colors mb-8"
             >
-              <FiArrowLeft className="w-4 h-4" />
-              Back to Blog
-            </button>
+              <ArrowLeft size={16} /> Back to Blog
+            </Link>
 
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-violet-600/20 border border-violet-600/30 text-violet-400 text-sm font-medium mb-6">
-              {post.category}
+            {/* Category + Tags */}
+            <div className="flex flex-wrap items-center gap-2 mb-5">
+              {post.category && (
+                <span
+                  className="px-3 py-1 rounded-full text-xs font-semibold text-white"
+                  style={{ backgroundColor: `${post.category_color || '#7C3AED'}cc` }}
+                >
+                  {post.category}
+                </span>
+              )}
+              {post.tags.map(tag => (
+                <span key={tag} className="px-2.5 py-1 rounded-full text-xs text-purple-300 border border-purple-500/30 backdrop-blur-sm">
+                  {tag}
+                </span>
+              ))}
             </div>
 
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight">
+            {/* Title */}
+            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white leading-tight tracking-tight mb-6">
               {post.title}
             </h1>
 
-            <div className="flex flex-wrap items-center gap-6 text-slate-400">
-              <div className="flex items-center gap-2">
-                <FiUser className="w-4 h-4" />
-                {post.author}
-              </div>
-              <div className="flex items-center gap-2">
-                <FiCalendar className="w-4 h-4" />
-                {post.date}
-              </div>
-              <div className="flex items-center gap-2">
-                <FiClock className="w-4 h-4" />
-                {post.readTime}
-              </div>
-            </div>
-          </motion.div>
-        </div>
-      </section>
+            {/* Description */}
+            <p className="text-lg text-gray-300 leading-relaxed max-w-2xl mb-8">
+              {post.description}
+            </p>
 
-      {/* Content Section */}
-      <section ref={contentRef} className="py-16">
-        <div className="container">
-          <div className="max-w-4xl mx-auto">
-            <div className="bg-slate-900/50 backdrop-blur-sm border border-slate-800 rounded-3xl overflow-hidden">
-              {/* Featured Image */}
-              <div className="relative h-[400px] md:h-[500px]">
-                <img
-                  src={post.image}
-                  alt={post.title}
-                  className="w-full h-full object-cover"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 to-transparent" />
-              </div>
-
-              {/* Content */}
-              <div className="p-8 md:p-12">
-                <div className="prose prose-lg prose-invert max-w-none">
-                  {post.content.split('\n\n').map((paragraph, index) => (
-                    <p key={index} className="mb-6 text-slate-300 leading-relaxed">
-                      {paragraph}
-                    </p>
-                  ))}
+            {/* Meta row */}
+            <div className="flex flex-wrap items-center gap-5 text-sm text-gray-400">
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 rounded-full bg-gradient-to-br from-purple-500 to-indigo-500 flex items-center justify-center text-white font-bold text-sm">
+                  {post.author.charAt(0)}
+                </div>
+                <div>
+                  <p className="text-white font-medium">{post.author}</p>
+                  <p className="text-xs text-gray-400">Author</p>
                 </div>
               </div>
+              <span className="w-px h-6 bg-gray-700" />
+              <span className="flex items-center gap-1.5"><Calendar size={14} />{post.date}</span>
+              <span className="flex items-center gap-1.5"><Clock size={14} />{post.readTime}</span>
+              {post.views_count && (
+                <span className="flex items-center gap-1.5"><Eye size={14} />{post.views_count.toLocaleString()} views</span>
+              )}
             </div>
+          </div>
+        </header>
 
-            {/* Related Posts */}
-            {relatedPosts.length > 0 && (
-              <div className="mt-16">
-                <h2 className="text-2xl font-bold text-white mb-8">
-                  Related Posts
-                </h2>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  {relatedPosts.map((relatedPost) => (
-                    <motion.div
-                      key={relatedPost.id}
-                      initial={{ opacity: 0, y: 20 }}
-                      animate={contentInView ? { opacity: 1, y: 0 } : {}}
-                      transition={{ duration: 0.5 }}
-                      className="group bg-slate-900/50 backdrop-blur-sm border border-slate-800 rounded-2xl overflow-hidden hover:border-slate-700 transition-all"
-                    >
-                      <div className="relative h-48">
-                        <img
-                          src={relatedPost.image}
-                          alt={relatedPost.title}
-                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                        />
-                        <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 to-transparent" />
-                      </div>
-                      <div className="p-6">
-                        <h3 className="text-lg font-semibold text-white mb-2 group-hover:text-violet-400 transition-colors">
-                          {relatedPost.title}
-                        </h3>
-                        <p className="text-slate-400 text-sm mb-4">
-                          {relatedPost.excerpt}
-                        </p>
-                        <Link
-                          to={`/blog/${relatedPost.id}`}
-                          className="inline-flex items-center gap-2 text-violet-400 hover:text-violet-300 text-sm font-medium transition-colors"
+        {/* ── Main Content Area ── */}
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+          <div className="grid grid-cols-1 lg:grid-cols-[1fr_280px] gap-12">
+            {/* Article body */}
+            <article className="max-w-none w-full overflow-hidden">
+              {/* Mobile TOC */}
+              <div className="lg:hidden mb-8">
+                <details className="group bg-white rounded-xl border border-gray-200/80 p-4 open:shadow-lg transition-all duration-300">
+                  <summary className="flex items-center justify-between font-semibold text-gray-900 cursor-pointer list-none">
+                    <span>Table of Contents</span>
+                    <ChevronRight size={16} className="transition-transform group-open:rotate-90 text-gray-400" />
+                  </summary>
+                  <nav className="mt-4 pt-4 border-t border-gray-100 space-y-1">
+                    {headings.length > 0 ? headings.map((h, idx) => (
+                      <a
+                        key={idx}
+                        href={`#${h.id}`}
+                        className={`block text-sm py-1.5 text-gray-600 hover:text-purple-600 ${h.level > 1 ? 'pl-4' : ''}`}
+                      >
+                        {h.text}
+                      </a>
+                    )) : <p className="text-sm text-gray-400 italic">No headings found in this article.</p>}
+                  </nav>
+                </details>
+              </div>
+
+              <div
+                className="prose-custom bg-white rounded-2xl border border-gray-200/80 p-6 sm:p-10 lg:p-12 shadow-sm w-full"
+                dangerouslySetInnerHTML={{ __html: htmlContent }}
+              />
+
+              {/* Share bar */}
+              <div className="flex flex-col sm:flex-row items-center gap-4 mt-8 p-5 bg-white rounded-2xl border border-gray-200/80">
+                <div className="flex items-center gap-2 w-full sm:w-auto">
+                  <Share2 size={18} className="text-gray-500" />
+                  <span className="text-sm text-gray-600 font-medium">Share this article</span>
+                </div>
+                <div className="flex-1 hidden sm:block" />
+                <div className="flex items-center gap-2 w-full sm:w-auto overflow-x-auto no-scrollbar pb-1">
+                  <button
+                    onClick={handleCopyLink}
+                    className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium text-gray-600 bg-gray-100 rounded-lg hover:bg-gray-200 transition-colors whitespace-nowrap"
+                  >
+                    {copied ? <><Check size={12} className="text-green-500" /> Copied!</> : <><Copy size={12} /> Copy Link</>}
+                  </button>
+                  <button
+                    onClick={handleShareTwitter}
+                    className="px-3 py-1.5 text-xs font-medium text-gray-600 bg-gray-100 rounded-lg hover:bg-gray-200 transition-colors whitespace-nowrap"
+                  >
+                    𝕏 / Twitter
+                  </button>
+                  <button
+                    onClick={handleShareLinkedIn}
+                    className="px-3 py-1.5 text-xs font-medium text-gray-600 bg-gray-100 rounded-lg hover:bg-gray-200 transition-colors whitespace-nowrap"
+                  >
+                    LinkedIn
+                  </button>
+                </div>
+              </div>
+
+              {/* Author card */}
+              <div className="mt-8 p-6 bg-white rounded-2xl border border-gray-200/80 flex items-start gap-5">
+                <div className="w-14 h-14 rounded-full bg-gradient-to-br from-purple-500 to-indigo-500 flex items-center justify-center text-white font-bold text-xl flex-shrink-0">
+                  {post.author.charAt(0)}
+                </div>
+                <div>
+                  <p className="font-semibold text-gray-900 text-lg">{post.author}</p>
+                  <p className="text-sm text-gray-500 mt-1 leading-relaxed">
+                    Building the future of artificial intelligence and digital solutions at Arrotech.
+                  </p>
+                </div>
+              </div>
+            </article>
+
+            {/* Sidebar — Table of Contents */}
+            <aside className="hidden lg:block">
+              <div className="sticky top-20">
+                {headings.length > 0 && (
+                  <div className="bg-white rounded-2xl border border-gray-200/80 p-6">
+                    <h4 className="text-sm font-semibold text-gray-900 mb-4 uppercase tracking-wider">On this page</h4>
+                    <nav className="space-y-1">
+                      {headings.map((h, idx) => (
+                        <a
+                          key={idx}
+                          href={`#${h.id}`}
+                          className={`block text-sm py-1.5 transition-colors hover:text-purple-600 ${h.level === 1 ? 'font-medium text-gray-800' :
+                            h.level === 2 ? 'pl-3 text-gray-600 border-l-2 border-gray-200 hover:border-purple-500' :
+                              'pl-6 text-gray-500 text-xs'
+                            }`}
                         >
-                          Read More
-                          <FiArrowRight className="w-4 h-4" />
-                        </Link>
-                      </div>
-                    </motion.div>
-                  ))}
+                          {h.text}
+                        </a>
+                      ))}
+                    </nav>
+                  </div>
+                )}
+
+                {/* CTA card */}
+                <div className="mt-6 bg-gradient-to-br from-purple-600 to-indigo-600 rounded-2xl p-6 text-white">
+                  <h4 className="font-bold text-lg mb-2">Transform your business</h4>
+                  <p className="text-sm text-purple-200 mb-4 leading-relaxed">
+                    Discover how our custom software solutions can accelerate your growth.
+                  </p>
+                  <Link
+                    to="/contact"
+                    className="inline-flex items-center gap-2 px-4 py-2 bg-white text-purple-700 rounded-lg text-sm font-semibold hover:bg-purple-50 transition-colors"
+                  >
+                    Get in touch <ChevronRight size={14} />
+                  </Link>
                 </div>
               </div>
-            )}
+            </aside>
           </div>
         </div>
-      </section>
-    </div>
+
+        {/* ── Related Posts ── */}
+        {relatedPosts.length > 0 && (
+          <section className="bg-white border-t border-gray-200/80 py-16">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+              <h2 className="text-2xl font-bold text-gray-900 mb-8">Related Articles</h2>
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+                {relatedPosts.map(rp => (
+                  <Link
+                    key={rp.slug}
+                    to={`/blog/${rp.slug}`}
+                    className="group bg-gray-50 rounded-2xl border border-gray-200/80 overflow-hidden hover:shadow-lg hover:-translate-y-1 transition-all duration-300"
+                  >
+                    {rp.cover_image && (
+                      <div className="h-40 overflow-hidden">
+                        <img src={rp.cover_image} alt={rp.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy" />
+                      </div>
+                    )}
+                    <div className="p-5">
+                      <h3 className="font-semibold text-gray-900 mb-2 group-hover:text-purple-700 transition-colors line-clamp-2">{rp.title}</h3>
+                      <p className="text-sm text-gray-500 line-clamp-2">{rp.description}</p>
+                      <div className="flex items-center gap-2 mt-3 text-xs text-gray-400">
+                        <Clock size={11} />{rp.readTime}
+                      </div>
+                    </div>
+                  </Link>
+                ))}
+              </div>
+            </div>
+          </section>
+        )}
+
+        {/* ── CTA Banner ── */}
+        <section className="bg-gradient-to-r from-purple-600 via-purple-700 to-indigo-700 py-16">
+          <div className="max-w-3xl mx-auto px-4 text-center">
+            <h2 className="text-3xl font-bold text-white mb-4">Ready to accelerate your growth?</h2>
+            <p className="text-purple-200 mb-8 max-w-lg mx-auto">
+              Join other leading businesses utilizing Arrotech Solutions for their software needs.
+            </p>
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+              <Link
+                to="/contact"
+                className="px-8 py-3.5 bg-white text-purple-700 rounded-xl font-semibold hover:bg-purple-50 transition-all hover:shadow-lg"
+              >
+                Contact Sales
+              </Link>
+              <Link
+                to="/services"
+                className="px-8 py-3.5 border border-white/30 text-white rounded-xl font-medium hover:bg-white/10 transition-all"
+              >
+                View Our Services
+              </Link>
+            </div>
+          </div>
+        </section>
+      </div>
+    </>
   );
 };
 
-export default BlogPost;
+export default BlogPostPage;
