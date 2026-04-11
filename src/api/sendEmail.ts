@@ -1,11 +1,13 @@
 import nodemailer from 'nodemailer';
 
-// Create a transporter using Gmail SMTP
+// Create a transporter using Zoho Mail SMTP
 const transporter = nodemailer.createTransport({
-  service: 'gmail',
+  host: 'smtppro.zoho.com',
+  port: 465,
+  secure: true, // SSL
   auth: {
-    user: process.env.GMAIL_USER,
-    pass: process.env.GMAIL_APP_PASSWORD, // Use App Password for Gmail
+    user: process.env.ZOHO_SMTP_USER || 'info@arrotechsolutions.com',
+    pass: process.env.ZOHO_SMTP_PASSWORD,
   },
 });
 
@@ -33,7 +35,7 @@ export const sendEmail = async (formData: {
   const { name, email, phone, subject, message } = formData;
 
   const mailOptions = {
-    from: process.env.GMAIL_USER,
+    from: process.env.ZOHO_SMTP_USER || 'info@arrotechsolutions.com',
     to: getRecipientEmail(subject),
     subject: `New Contact Form Submission: ${subject}`,
     html: `
