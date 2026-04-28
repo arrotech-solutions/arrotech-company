@@ -63,6 +63,17 @@ const Privacy = () => {
         'Opt-out of marketing communications',
         'Data portability rights'
       ]
+    },
+    {
+      title: 'Google API Services Disclosure',
+      icon: <FiShield className="w-6 h-6" />,
+      gradient: 'from-blue-600 to-indigo-600',
+      content: [
+        'Our app only accesses and uses Google user data as necessary to provide core features.',
+        'We do not share, transfer, or disclose Google user data to third parties for advertising or marketing.',
+        'All information received from Google APIs adheres to the Google API Service User Data Policy, including Limited Use requirements.',
+        'We do not sell Google user data to any third parties.'
+      ]
     }
   ];
 
@@ -142,7 +153,7 @@ const Privacy = () => {
               </p>
               <div className="flex items-center text-sm text-slate-500">
                 <span className="w-2 h-2 bg-violet-500 rounded-full mr-2"></span>
-                Last updated: March 15, 2024
+                Last updated: April 28, 2026
               </div>
             </motion.div>
 
