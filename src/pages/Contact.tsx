@@ -1,4 +1,3 @@
-import emailjs from '@emailjs/browser';
 import { motion } from 'framer-motion';
 import { useCallback, useState } from 'react';
 import {
@@ -16,16 +15,7 @@ import {
 import { useInView } from 'react-intersection-observer';
 import SEO from '../components/SEO';
 
-// Check if EmailJS credentials are available
-const EMAILJS_PUBLIC_KEY = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
-const EMAILJS_SERVICE_ID = import.meta.env.VITE_EMAILJS_SERVICE_ID;
-const EMAILJS_TEMPLATE_ID = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
-
-if (!EMAILJS_PUBLIC_KEY || !EMAILJS_SERVICE_ID || !EMAILJS_TEMPLATE_ID) {
-  console.error('EmailJS credentials are missing. Please check your environment variables.');
-}
-
-emailjs.init(EMAILJS_PUBLIC_KEY || '');
+const API_BASE_URL = import.meta.env.VITE_API_URL || 'https://prod.api.arrotechsolutions.com';
 
 const Contact = () => {
   const [heroRef, heroInView] = useInView({ triggerOnce: true, threshold: 0.1 });
@@ -38,11 +28,13 @@ const Contact = () => {
     phone: '',
     subject: '',
     message: '',
+    honeypot: '',  // Hidden spam trap
   });
 
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
   const [expandedFaq, setExpandedFaq] = useState<number | null>(null);
+  const [ticketId, setTicketId] = useState('');
 
   const validateForm = useCallback(() => {
     const newErrors: Record<string, string> = {};
@@ -82,39 +74,47 @@ const Contact = () => {
       return;
     }
 
-    if (!EMAILJS_PUBLIC_KEY || !EMAILJS_SERVICE_ID || !EMAILJS_TEMPLATE_ID) {
-      setStatus('error');
-      console.error('EmailJS credentials are missing');
-      return;
-    }
-
     setStatus('loading');
 
     try {
-      await emailjs.send(
-        EMAILJS_SERVICE_ID,
-        EMAILJS_TEMPLATE_ID,
-        {
-          to_email: 'info@arrotechsolutions.com',
-          from_name: formData.name,
-          from_email: formData.email,
+      const response = await fetch(`${API_BASE_URL}/api/public/contact`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name: formData.name,
+          email: formData.email,
           phone: formData.phone,
-          subject: formData.subject,
+          category: formData.subject,
+          subject: formData.subject === 'general' ? 'General Inquiry' :
+                   formData.subject === 'support' ? 'Technical Support' :
+                   formData.subject === 'sales' ? 'Sales Inquiry' :
+                   formData.subject === 'partnership' ? 'Partnership Opportunity' :
+                   formData.subject === 'billing' ? 'Billing Inquiry' : 'General Inquiry',
           message: formData.message,
-        }
-      );
-
-      setStatus('success');
-      setFormData({
-        name: '',
-        email: '',
-        phone: '',
-        subject: '',
-        message: '',
+          source_site: 'arrotechsolutions.com',
+          honeypot: formData.honeypot,
+        }),
       });
-      setErrors({});
+
+      const data = await response.json();
+
+      if (response.ok && data.success) {
+        setStatus('success');
+        setTicketId(data.ticket_id || '');
+        setFormData({
+          name: '',
+          email: '',
+          phone: '',
+          subject: '',
+          message: '',
+          honeypot: '',
+        });
+        setErrors({});
+      } else {
+        setStatus('error');
+      }
     } catch (error) {
-      console.error('Error sending email:', error);
+      console.error('Error submitting form:', error);
       setStatus('error');
     }
   }, [formData, validateForm]);
@@ -374,6 +374,7 @@ const Contact = () => {
                         <option value="support" className="bg-slate-800">Technical Support</option>
                         <option value="sales" className="bg-slate-800">Sales Inquiry</option>
                         <option value="partnership" className="bg-slate-800">Partnership Opportunity</option>
+                        <option value="billing" className="bg-slate-800">Billing & Payments</option>
                       </select>
                     </div>
                     {errors.subject && (
@@ -401,6 +402,18 @@ const Contact = () => {
                   )}
                 </div>
 
+                {/* Honeypot field — hidden from humans, bots will fill it */}
+                <div style={{ position: 'absolute', left: '-9999px', opacity: 0, height: 0 }} aria-hidden="true">
+                  <input
+                    type="text"
+                    name="honeypot"
+                    value={formData.honeypot}
+                    onChange={handleChange}
+                    tabIndex={-1}
+                    autoComplete="off"
+                  />
+                </div>
+
                 <button
                   type="submit"
                   disabled={status === 'loading'}
@@ -426,10 +439,16 @@ const Contact = () => {
                   <motion.div
                     initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
-                    className="p-4 bg-emerald-500/10 border border-emerald-500/20 rounded-xl flex items-center gap-3 text-emerald-400"
+                    className="p-4 bg-emerald-500/10 border border-emerald-500/20 rounded-xl flex items-start gap-3 text-emerald-400"
                   >
-                    <FiCheckCircle className="w-5 h-5 flex-shrink-0" />
-                    <span>Message sent successfully! We'll get back to you within 24 hours.</span>
+                    <FiCheckCircle className="w-5 h-5 flex-shrink-0 mt-0.5" />
+                    <div>
+                      <span className="block font-medium">Message sent successfully!</span>
+                      <span className="block text-sm text-emerald-400/80 mt-1">
+                        We'll get back to you within 24 hours.
+                        {ticketId && <> Your reference: <code className="bg-emerald-500/10 px-1.5 py-0.5 rounded text-xs font-mono">{ticketId}</code></>}
+                      </span>
+                    </div>
                   </motion.div>
                 )}
 

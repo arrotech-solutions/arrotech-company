@@ -5,12 +5,17 @@ import { BLOG_POSTS, BLOG_CATEGORIES, BlogPost } from '../data/blogData';
 import { apiService } from '../api/blog';
 import SEO from '../components/SEO';
 
+const API_BASE_URL = import.meta.env.VITE_API_URL || 'https://prod.api.arrotechsolutions.com';
+
 const Blog: React.FC = () => {
   const [posts, setPosts] = useState<BlogPost[]>(BLOG_POSTS);
   const [activeCategory, setActiveCategory] = useState('all');
   const [searchQuery, setSearchQuery] = useState('');
   const [isLoading, setIsLoading] = useState(true);
   const [hoveredCard, setHoveredCard] = useState<string | null>(null);
+  const [nlEmail, setNlEmail] = useState('');
+  const [nlStatus, setNlStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
+  const [nlMessage, setNlMessage] = useState('');
 
   // Attempt API fetch, fallback to local data
   useEffect(() => {
@@ -322,17 +327,59 @@ const Blog: React.FC = () => {
             <p className="text-purple-200 mb-8 max-w-xl mx-auto">
               Get the latest insights on AI, custom software development, and digital transformation delivered to your inbox every week.
             </p>
-            <div className="flex flex-col sm:flex-row items-center gap-3 max-w-md mx-auto">
+            <form
+              onSubmit={async (e) => {
+                e.preventDefault();
+                if (!nlEmail.trim() || nlStatus === 'loading') return;
+                setNlStatus('loading');
+                try {
+                  const res = await fetch(`${API_BASE_URL}/api/public/subscribe`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email: nlEmail, source_site: 'arrotechsolutions.com', honeypot: '' }),
+                  });
+                  const data = await res.json();
+                  if (res.ok && data.success) {
+                    setNlStatus('success');
+                    setNlMessage(data.message || 'Subscribed successfully!');
+                    setNlEmail('');
+                  } else {
+                    setNlStatus('error');
+                    setNlMessage('Something went wrong. Please try again.');
+                  }
+                } catch {
+                  setNlStatus('error');
+                  setNlMessage('Network error. Please try again.');
+                }
+              }}
+              className="flex flex-col sm:flex-row items-center gap-3 max-w-md mx-auto"
+            >
               <input
                 type="email"
                 placeholder="you@company.com"
+                value={nlEmail}
+                onChange={(e) => { setNlEmail(e.target.value); if (nlStatus !== 'idle') setNlStatus('idle'); }}
                 className="w-full px-5 py-3 rounded-xl bg-white/10 border border-white/20 text-white placeholder-purple-300 focus:outline-none focus:ring-2 focus:ring-white/30 backdrop-blur-sm"
+                required
+                disabled={nlStatus === 'loading'}
               />
-              <button className="w-full sm:w-auto px-6 py-3 bg-white text-purple-700 rounded-xl font-semibold text-sm hover:bg-purple-50 transition-all hover:shadow-lg whitespace-nowrap">
-                Subscribe
+              <button
+                type="submit"
+                disabled={nlStatus === 'loading'}
+                className="w-full sm:w-auto px-6 py-3 bg-white text-purple-700 rounded-xl font-semibold text-sm hover:bg-purple-50 transition-all hover:shadow-lg whitespace-nowrap disabled:opacity-50"
+              >
+                {nlStatus === 'loading' ? 'Subscribing...' : 'Subscribe'}
               </button>
-            </div>
-            <p className="text-xs text-purple-300 mt-4">No spam. Unsubscribe anytime.</p>
+            </form>
+            {nlStatus === 'success' && (
+              <p className="text-sm text-emerald-300 mt-3 font-medium">✅ {nlMessage}</p>
+            )}
+            {nlStatus === 'error' && (
+              <p className="text-sm text-red-300 mt-3 font-medium">❌ {nlMessage}</p>
+            )}
+            {nlStatus === 'idle' && (
+              <p className="text-xs text-purple-300 mt-4">No spam. Unsubscribe anytime.</p>
+            )}
           </div>
         </section>
       </div>
