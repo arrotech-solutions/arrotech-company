@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion';
-import { FiArrowUp, FiFacebook, FiInstagram, FiLinkedin, FiMail, FiMapPin, FiTwitter } from 'react-icons/fi';
+import { FiArrowUp, FiFacebook, FiInstagram, FiLinkedin, FiMail, FiMapPin, FiTwitter, FiYoutube } from 'react-icons/fi';
+import { FaTiktok } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 
 const Footer = () => {
@@ -30,10 +31,11 @@ const Footer = () => {
   };
 
   const socialLinks = [
-    { icon: <FiFacebook className="w-5 h-5" />, href: 'https://web.facebook.com/gachanjaharun/', label: 'Facebook' },
-    { icon: <FiTwitter className="w-5 h-5" />, href: 'https://x.com/ArrotechAI', label: 'Twitter' },
-    { icon: <FiLinkedin className="w-5 h-5" />, href: 'https://www.linkedin.com/company/arrotech-solutions', label: 'LinkedIn' },
-    { icon: <FiInstagram className="w-5 h-5" />, href: 'https://www.instagram.com/arrotech/#', label: 'Instagram' },
+    { icon: <FiFacebook className="w-5 h-5" />, href: 'https://www.facebook.com/gachanjaharun', label: 'Facebook' },
+    { icon: <FiTwitter className="w-5 h-5" />, href: 'https://twitter.com/ArrotechAI', label: 'Twitter' },
+    { icon: <FiInstagram className="w-5 h-5" />, href: 'https://instagram.com/arrotech', label: 'Instagram' },
+    { icon: <FaTiktok className="w-4 h-4" />, href: 'https://tiktok.com/@arrotech_ai', label: 'TikTok' },
+    { icon: <FiYoutube className="w-5 h-5" />, href: 'https://youtube.com/@arrotech_ai', label: 'YouTube' },
   ];
 
   return (

@@ -222,7 +222,7 @@ const Terms = () => {
                   <div className="w-10 h-10 rounded-lg bg-slate-800 flex items-center justify-center mr-3">
                     <FiPhone className="w-5 h-5 text-violet-400" />
                   </div>
-                  <span className="text-sm">+254 711 371 265</span>
+                  <span className="text-sm">+254 797 568564</span>
                 </div>
                 <div className="flex items-center text-slate-300">
                   <div className="w-10 h-10 rounded-lg bg-slate-800 flex items-center justify-center mr-3">
