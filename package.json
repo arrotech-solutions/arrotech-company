@@ -11,14 +11,13 @@
     "test": "vitest run",
     "test:watch": "vitest",
     "test:coverage": "vitest run --coverage",
-    "postbuild": "react-snap"
+    "postbuild": "node prerender.mjs"
   },
   "dependencies": {
     "@emailjs/browser": "^4.4.1",
     "@types/nodemailer": "^6.4.17",
     "cors": "^2.8.5",
     "dotenv": "^16.5.0",
-    "express": "^5.1.0",
     "framer-motion": "^11.0.3",
     "lucide-react": "^0.575.0",
     "nodemailer": "^7.0.3",
@@ -43,23 +42,14 @@
     "eslint": "^8.55.0",
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-react-refresh": "^0.4.5",
+    "express": "^5.2.1",
     "happy-dom": "^20.0.11",
     "jsdom": "^27.0.1",
     "postcss": "^8.4.33",
-    "react-snap": "^1.23.0",
+    "puppeteer": "^25.7.0",
     "tailwindcss": "^3.4.1",
     "typescript": "^5.2.2",
     "vite": "^5.0.8",
     "vitest": "^4.0.16"
-  },
-  "react-snap": {
-    "source": "dist",
-    "include": [
-      "/404"
-    ],
-    "puppeteerArgs": [
-      "--no-sandbox",
-      "--disable-setuid-sandbox"
-    ]
   }
 }
