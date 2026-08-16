@@ -4,11 +4,10 @@
   "buildCommand": "npm run build",
   "outputDirectory": "dist",
   "framework": "vite",
-  "build": {
-    "env": {
-      "VITE_EMAILJS_PUBLIC_KEY": "NTxFunGm_KV6TOYSQ",
-      "VITE_EMAILJS_SERVICE_ID": "service_rs7beym",
-      "VITE_EMAILJS_TEMPLATE_ID": "template_so6igvi"
+  "rewrites": [
+    {
+      "source": "/(.*)",
+      "destination": "/index.html"
     }
-  }
+  ]
 } 
