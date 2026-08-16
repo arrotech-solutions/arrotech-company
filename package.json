@@ -10,8 +10,7 @@
     "preview": "vite preview",
     "test": "vitest run",
     "test:watch": "vitest",
-    "test:coverage": "vitest run --coverage",
-    "postbuild": "node prerender.mjs"
+    "test:coverage": "vitest run --coverage"
   },
   "dependencies": {
     "@emailjs/browser": "^4.4.1",
