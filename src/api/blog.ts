@@ -1,4 +1,4 @@
-const API_URL = import.meta.env.VITE_API_URL || 'https://mini-hub.fly.dev';
+const API_URL = import.meta.env.VITE_API_URL || 'https://prod.api.arrotechsolutions.com';
 
 export const apiService = {
     getBlogPosts: async (params?: { page?: number; per_page?: number; category?: string; search?: string; featured?: boolean }) => {
