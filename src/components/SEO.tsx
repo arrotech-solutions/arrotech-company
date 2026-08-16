@@ -37,13 +37,16 @@ const SEO = ({
         "url": siteUrl,
         "logo": `${siteUrl}/logo.png`,
         "sameAs": [
-            "https://x.com/ArrotechAI",
-            "https://www.linkedin.com/company/arrotech-solutions",
-            "https://www.instagram.com/arrotech/"
+            "https://twitter.com/ArrotechAI",
+            "https://instagram.com/arrotech",
+            "https://tiktok.com/@arrotech_ai",
+            "https://www.facebook.com/gachanjaharun",
+            "https://youtube.com/@arrotech_ai"
         ],
         "contactPoint": {
             "@type": "ContactPoint",
             "email": "info@arrotechsolutions.com",
+            "telephone": "+254-797-568564",
             "contactType": "customer service",
             "areaServed": "KE"
         },
