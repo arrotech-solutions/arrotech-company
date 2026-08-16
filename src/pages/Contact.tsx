@@ -137,7 +137,7 @@ const Contact = () => {
     {
       icon: <FiPhone className="w-6 h-6" />,
       title: 'Phone Number',
-      content: '+254 711 371 265',
+      content: '+254 797 568564',
       gradient: 'from-blue-500 to-cyan-600'
     },
     {
@@ -346,7 +346,7 @@ const Contact = () => {
                         value={formData.phone}
                         onChange={handleChange}
                         className={`w-full pl-12 pr-4 py-3 bg-slate-800/50 border ${errors.phone ? 'border-red-500' : 'border-slate-700'} rounded-xl text-white placeholder-slate-500 focus:outline-none focus:border-violet-500 transition-colors`}
-                        placeholder="+254 711 371 265"
+                        placeholder="+254 797 568564"
                       />
                     </div>
                     {errors.phone && (
