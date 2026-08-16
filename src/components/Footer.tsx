@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { FiArrowUp, FiFacebook, FiInstagram, FiLinkedin, FiMail, FiMapPin, FiTwitter, FiYoutube } from 'react-icons/fi';
+import { FiArrowUp, FiFacebook, FiInstagram, FiMail, FiMapPin, FiTwitter, FiYoutube } from 'react-icons/fi';
 import { FaTiktok } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 
