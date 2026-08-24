@@ -1,8 +1,22 @@
-# Robots.txt for arrotechsolutions.com
-
 User-agent: *
+Disallow: /unified/
+Disallow: /unified
+Disallow: /connections
+Disallow: /workflows
+Disallow: /agents
+Disallow: /whatsapp
+Disallow: /tiktok
+Disallow: /marketplace
+Disallow: /settings
+Disallow: /profile
+Disallow: /chat
+Disallow: /admin
+Disallow: /activity
+Disallow: /payments
+Disallow: /favorites
+Disallow: /creator-profile
+Disallow: /productivity
+Disallow: /apps/
 Allow: /
 
-# Sitemap location
-Sitemap: https://arrotechsolutions.com/sitemap.xml
-
+Sitemap: https://hub.arrotechsolutions.com/sitemap.xml

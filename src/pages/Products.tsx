@@ -45,7 +45,7 @@ const Products = () => {
   ];
 
   return (
-    <div className="bg-slate-950 min-h-screen pt-20">
+    <div className="bg-white dark:bg-slate-950 min-h-screen pt-20">
       <SEO
         title="Our Products"
         description="Explore Arrotech's AI-powered platforms, including our flagship Arrotech Hub for business automation and model connectivity."
@@ -55,7 +55,7 @@ const Products = () => {
       <section ref={heroRef} className="relative py-24 overflow-hidden">
         {/* Background */}
         <div className="absolute inset-0">
-          <div className="absolute inset-0 bg-gradient-to-b from-slate-950 via-slate-900 to-slate-950" />
+          <div className="absolute inset-0 bg-gradient-to-b from-slate-50 dark:from-slate-950 via-white dark:via-slate-900 to-slate-50 dark:to-slate-950" />
           <div
             className="absolute inset-0 opacity-20"
             style={{
@@ -77,20 +77,20 @@ const Products = () => {
             transition={{ duration: 0.8 }}
             className="max-w-4xl mx-auto text-center"
           >
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 backdrop-blur-sm border border-white/10 mb-8">
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-slate-100 dark:bg-white/5 backdrop-blur-sm border border-slate-200 dark:border-white/10 mb-8">
               <span className="w-2 h-2 bg-emerald-400 rounded-full animate-pulse" />
-              <span className="text-slate-300 text-sm font-medium">Live Products</span>
+              <span className="text-slate-700 dark:text-slate-300 text-sm font-medium">Live Products</span>
             </div>
 
             <h1 className="text-5xl md:text-7xl font-bold mb-6 leading-tight">
-              <span className="text-white">Our AI-Powered</span>
+              <span className="text-slate-900 dark:text-white">Our AI-Powered</span>
               <br />
               <span className="bg-gradient-to-r from-violet-400 via-blue-400 to-cyan-400 bg-clip-text text-transparent">
                 Solutions
               </span>
             </h1>
 
-            <p className="text-xl md:text-2xl text-slate-400 mb-10 max-w-3xl mx-auto leading-relaxed">
+            <p className="text-xl md:text-2xl text-slate-600 dark:text-slate-400 mb-10 max-w-3xl mx-auto leading-relaxed">
               Discover our suite of production-ready platforms transforming businesses across industries
             </p>
 
@@ -124,7 +124,7 @@ const Products = () => {
                 transition={{ duration: 0.8, delay: index * 0.2 }}
                 className="scroll-mt-24"
               >
-                <div className="bg-slate-900/50 backdrop-blur-sm border border-slate-800 rounded-3xl overflow-hidden">
+                <div className="bg-slate-50/80 dark:bg-slate-900/50 backdrop-blur-sm border border-slate-200 dark:border-slate-800 rounded-3xl overflow-hidden">
                   {/* Header */}
                   <div className={`relative p-8 md:p-12 bg-gradient-to-r ${product.gradient}`}>
                     <div className="absolute inset-0 opacity-10">
@@ -136,14 +136,14 @@ const Products = () => {
 
                     <div className="relative z-10 flex flex-col md:flex-row md:items-center md:justify-between gap-6">
                       <div className="flex items-center gap-4">
-                        <div className="w-16 h-16 bg-white/20 backdrop-blur-sm rounded-2xl flex items-center justify-center text-white">
+                        <div className="w-16 h-16 bg-white/20 backdrop-blur-sm rounded-2xl flex items-center justify-center text-slate-900 dark:text-white">
                           {product.icon}
                         </div>
                         <div>
-                          <h2 className="text-3xl md:text-4xl font-bold text-white mb-1">
+                          <h2 className="text-3xl md:text-4xl font-bold text-slate-900 dark:text-white mb-1">
                             {product.name}
                           </h2>
-                          <p className="text-white/80 text-lg">
+                          <p className="text-slate-900 dark:text-white/80 text-lg">
                             {product.tagline}
                           </p>
                         </div>
@@ -165,7 +165,7 @@ const Products = () => {
 
                   {/* Content */}
                   <div className="p-8 md:p-12">
-                    <p className="text-slate-400 text-lg mb-10 max-w-3xl leading-relaxed">
+                    <p className="text-slate-600 dark:text-slate-400 text-lg mb-10 max-w-3xl leading-relaxed">
                       {product.description}
                     </p>
 
@@ -177,12 +177,12 @@ const Products = () => {
                           initial={{ opacity: 0, scale: 0.9 }}
                           animate={productsInView ? { opacity: 1, scale: 1 } : {}}
                           transition={{ duration: 0.5, delay: 0.3 + statIndex * 0.1 }}
-                          className="p-5 rounded-2xl bg-slate-800/50 text-center"
+                          className="p-5 rounded-2xl bg-slate-100/80 dark:bg-slate-800/50 text-center"
                         >
                           <div className={`text-2xl md:text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r ${product.gradient} mb-1`}>
                             {stat.value}
                           </div>
-                          <div className="text-sm text-slate-500">
+                          <div className="text-sm text-slate-500 dark:text-slate-400">
                             {stat.label}
                           </div>
                         </motion.div>
@@ -197,16 +197,16 @@ const Products = () => {
                           initial={{ opacity: 0, x: -20 }}
                           animate={productsInView ? { opacity: 1, x: 0 } : {}}
                           transition={{ duration: 0.5, delay: 0.4 + featureIndex * 0.1 }}
-                          className="flex items-start gap-4 p-5 rounded-2xl bg-slate-800/30 border border-slate-700/50 hover:border-slate-600 transition-all duration-300"
+                          className="flex items-start gap-4 p-5 rounded-2xl bg-slate-800/30 border border-slate-300 dark:border-slate-700/50 hover:border-slate-600 transition-all duration-300"
                         >
                           <div className={`w-12 h-12 rounded-xl bg-gradient-to-br ${product.gradient} flex items-center justify-center text-white flex-shrink-0 shadow-lg`}>
                             {feature.icon}
                           </div>
                           <div>
-                            <h4 className="font-semibold text-white mb-1">
+                            <h4 className="font-semibold text-slate-900 dark:text-white mb-1">
                               {feature.title}
                             </h4>
-                            <p className="text-sm text-slate-500">
+                            <p className="text-sm text-slate-500 dark:text-slate-400">
                               {feature.description}
                             </p>
                           </div>
@@ -246,16 +246,16 @@ const Products = () => {
             transition={{ duration: 0.8 }}
             className="max-w-4xl mx-auto text-center"
           >
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 backdrop-blur-sm border border-white/20 text-white/90 text-sm font-medium mb-6">
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 backdrop-blur-sm border border-slate-300 dark:border-white/20 text-slate-900 dark:text-white/90 text-sm font-medium mb-6">
               <FiAward className="w-4 h-4" />
               Custom Solutions Available
             </div>
 
-            <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
+            <h2 className="text-4xl md:text-5xl font-bold text-slate-900 dark:text-white mb-6">
               Need a Custom AI Solution?
             </h2>
 
-            <p className="text-xl text-slate-300 mb-10 max-w-2xl mx-auto">
+            <p className="text-xl text-slate-700 dark:text-slate-300 mb-10 max-w-2xl mx-auto">
               We specialize in building tailored AI platforms for your unique business needs.
             </p>
 
@@ -273,7 +273,7 @@ const Products = () => {
               <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
                 <Link
                   to="/services"
-                  className="inline-flex items-center gap-2 px-8 py-4 bg-white/10 backdrop-blur-sm border border-white/20 text-white rounded-xl font-semibold hover:bg-white/20 transition-all duration-300"
+                  className="inline-flex items-center gap-2 px-8 py-4 bg-white/10 backdrop-blur-sm border border-slate-300 dark:border-white/20 text-slate-900 dark:text-white rounded-xl font-semibold hover:bg-white/20 transition-all duration-300"
                 >
                   View Services
                 </Link>
@@ -294,9 +294,9 @@ const Products = () => {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.5, delay: index * 0.1 }}
-                  className="flex flex-col items-center gap-2 text-slate-400"
+                  className="flex flex-col items-center gap-2 text-slate-600 dark:text-slate-400"
                 >
-                  <div className="w-12 h-12 rounded-xl bg-slate-800 flex items-center justify-center">
+                  <div className="w-12 h-12 rounded-xl bg-slate-100 dark:bg-slate-800 flex items-center justify-center">
                     {item.icon}
                   </div>
                   <span className="text-sm font-medium">{item.label}</span>

@@ -111,7 +111,7 @@ const Services = () => {
   ];
 
   return (
-    <div className="pt-20 bg-slate-950 min-h-screen">
+    <div className="pt-20 bg-white dark:bg-slate-950 min-h-screen">
       <SEO
         title="Our Services"
         description="Discover how Arrotech's AI services—Automation, Conversational AI, and Research Intelligence—can transform your business efficiency."
@@ -121,7 +121,7 @@ const Services = () => {
       <section ref={heroRef} className="relative min-h-[80vh] flex items-center overflow-hidden pt-16 md:pt-20">
         {/* Animated Grid Background */}
         <div className="absolute inset-0">
-          <div className="absolute inset-0 bg-gradient-to-b from-slate-950 via-slate-900 to-slate-950" />
+          <div className="absolute inset-0 bg-gradient-to-b from-slate-50 dark:from-slate-950 via-white dark:via-slate-900 to-slate-50 dark:to-slate-950" />
           <div
             className="absolute inset-0 opacity-20"
             style={{
@@ -146,20 +146,20 @@ const Services = () => {
               transition={{ duration: 0.8 }}
             >
               {/* Badge */}
-              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 backdrop-blur-sm border border-white/10 mb-8">
+              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-slate-100 dark:bg-white/5 backdrop-blur-sm border border-slate-200 dark:border-white/10 mb-8">
                 <span className="w-2 h-2 bg-emerald-400 rounded-full animate-pulse" />
-                <span className="text-slate-300 text-sm font-medium">AI-Powered Solutions</span>
+                <span className="text-slate-700 dark:text-slate-300 text-sm font-medium">AI-Powered Solutions</span>
               </div>
 
               <h1 className="text-5xl md:text-7xl font-bold mb-6 leading-tight">
-                <span className="text-white">Build the Future</span>
+                <span className="text-slate-900 dark:text-white">Build the Future</span>
                 <br />
                 <span className="bg-gradient-to-r from-cyan-400 via-blue-500 to-violet-500 bg-clip-text text-transparent">
                   with Intelligent AI
                 </span>
               </h1>
 
-              <p className="text-xl md:text-2xl text-slate-400 mb-10 max-w-2xl mx-auto leading-relaxed">
+              <p className="text-xl md:text-2xl text-slate-600 dark:text-slate-400 mb-10 max-w-2xl mx-auto leading-relaxed">
                 We design and deploy custom AI solutions that automate, optimize, and transform your business operations.
               </p>
 
@@ -177,7 +177,7 @@ const Services = () => {
                 <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
                   <Link
                     to="/products"
-                    className="inline-flex items-center gap-2 px-8 py-4 bg-white/5 backdrop-blur-sm border border-white/10 text-white rounded-xl font-semibold hover:bg-white/10 transition-all"
+                    className="inline-flex items-center gap-2 px-8 py-4 bg-slate-100 dark:bg-white/5 backdrop-blur-sm border border-slate-200 dark:border-white/10 text-slate-900 dark:text-white rounded-xl font-semibold hover:bg-white/10 transition-all"
                   >
                     <FiPlay className="w-5 h-5" />
                     View Our Products
@@ -193,7 +193,7 @@ const Services = () => {
               transition={{ duration: 0.8, delay: 0.4 }}
               className="mt-16"
             >
-              <p className="text-slate-500 text-sm uppercase tracking-widest mb-4">Technologies We Use</p>
+              <p className="text-slate-500 dark:text-slate-400 text-sm uppercase tracking-widest mb-4">Technologies We Use</p>
               <div className="flex flex-wrap justify-center gap-3">
                 {techStack.map((tech, index) => (
                   <motion.span
@@ -201,7 +201,7 @@ const Services = () => {
                     initial={{ opacity: 0, scale: 0.8 }}
                     animate={heroInView ? { opacity: 1, scale: 1 } : {}}
                     transition={{ duration: 0.3, delay: 0.5 + index * 0.05 }}
-                    className="px-4 py-2 bg-white/5 backdrop-blur-sm border border-white/10 rounded-lg text-slate-300 text-sm hover:bg-white/10 hover:border-white/20 transition-all cursor-default"
+                    className="px-4 py-2 bg-slate-100 dark:bg-white/5 backdrop-blur-sm border border-slate-200 dark:border-white/10 rounded-lg text-slate-700 dark:text-slate-300 text-sm hover:bg-white/10 hover:border-slate-300 dark:border-white/20 transition-all cursor-default"
                   >
                     {tech}
                   </motion.span>
@@ -218,7 +218,7 @@ const Services = () => {
           transition={{ delay: 1.5 }}
           className="absolute bottom-8 left-1/2 -translate-x-1/2"
         >
-          <div className="w-6 h-10 rounded-full border-2 border-white/20 flex items-start justify-center p-2">
+          <div className="w-6 h-10 rounded-full border-2 border-slate-300 dark:border-white/20 flex items-start justify-center p-2">
             <motion.div
               animate={{ y: [0, 8, 0] }}
               transition={{ duration: 1.5, repeat: Infinity }}
@@ -237,10 +237,10 @@ const Services = () => {
             transition={{ duration: 0.6 }}
             className="text-center mb-16"
           >
-            <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">
+            <h2 className="text-4xl md:text-5xl font-bold text-slate-900 dark:text-white mb-4">
               What We <span className="bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent">Build</span>
             </h2>
-            <p className="text-xl text-slate-400 max-w-2xl mx-auto">
+            <p className="text-xl text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">
               End-to-end AI solutions designed for real business impact
             </p>
           </motion.div>
@@ -256,7 +256,7 @@ const Services = () => {
                 transition={{ duration: 0.6, delay: index * 0.1 }}
                 className="group relative scroll-mt-24"
               >
-                <div className="relative h-full bg-slate-900/50 backdrop-blur-sm border border-slate-800 rounded-2xl p-8 hover:border-slate-700 transition-all duration-500 overflow-hidden">
+                <div className="relative h-full bg-slate-50/80 dark:bg-slate-900/50 backdrop-blur-sm border border-slate-200 dark:border-slate-800 rounded-2xl p-8 hover:border-slate-300 dark:border-slate-700 transition-all duration-500 overflow-hidden">
                   {/* Gradient Glow on Hover */}
                   <div className={`absolute inset-0 bg-gradient-to-br ${service.gradient} opacity-0 group-hover:opacity-5 transition-opacity duration-500`} />
 
@@ -269,28 +269,28 @@ const Services = () => {
                       <div className={`text-3xl font-bold bg-gradient-to-r ${service.gradient} bg-clip-text text-transparent`}>
                         {service.stats.value}
                       </div>
-                      <div className="text-slate-500 text-sm">{service.stats.label}</div>
+                      <div className="text-slate-500 dark:text-slate-400 text-sm">{service.stats.label}</div>
                     </div>
                   </div>
 
                   {/* Content */}
                   <div className="relative z-10">
-                    <div className="text-slate-500 text-sm font-medium uppercase tracking-wider mb-2">
+                    <div className="text-slate-500 dark:text-slate-400 text-sm font-medium uppercase tracking-wider mb-2">
                       {service.subtitle}
                     </div>
                     <h3 className="text-2xl font-bold text-white mb-3 group-hover:text-transparent group-hover:bg-gradient-to-r group-hover:from-white group-hover:to-slate-300 group-hover:bg-clip-text transition-all">
                       {service.title}
                     </h3>
-                    <p className="text-slate-400 mb-6 leading-relaxed">
+                    <p className="text-slate-600 dark:text-slate-400 mb-6 leading-relaxed">
                       {service.description}
                     </p>
 
                     {/* Capabilities */}
                     <div className="grid grid-cols-2 gap-3 mb-6">
                       {service.capabilities.map((cap, capIndex) => (
-                        <div key={capIndex} className="flex items-center gap-2 text-slate-300 text-sm">
+                        <div key={capIndex} className="flex items-center gap-2 text-slate-700 dark:text-slate-300 text-sm">
                           <FiCheck className={`w-4 h-4 flex-shrink-0 bg-gradient-to-r ${service.gradient} bg-clip-text text-transparent`} style={{ color: 'inherit' }} />
-                          <span className="text-slate-400">{cap}</span>
+                          <span className="text-slate-600 dark:text-slate-400">{cap}</span>
                         </div>
                       ))}
                     </div>
@@ -316,7 +316,7 @@ const Services = () => {
       {/* Process Section - Horizontal Timeline */}
       <section ref={processRef} className="py-24 relative overflow-hidden">
         {/* Background */}
-        <div className="absolute inset-0 bg-gradient-to-b from-slate-950 via-slate-900 to-slate-950" />
+        <div className="absolute inset-0 bg-gradient-to-b from-slate-50 dark:from-slate-950 via-white dark:via-slate-900 to-slate-50 dark:to-slate-950" />
 
         <div className="container relative z-10">
           <motion.div
@@ -329,10 +329,10 @@ const Services = () => {
               <FiDatabase className="w-4 h-4 text-emerald-400" />
               <span className="text-emerald-400 text-sm font-medium">Our Process</span>
             </div>
-            <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">
+            <h2 className="text-4xl md:text-5xl font-bold text-slate-900 dark:text-white mb-4">
               How We <span className="bg-gradient-to-r from-emerald-400 to-cyan-400 bg-clip-text text-transparent">Work</span>
             </h2>
-            <p className="text-xl text-slate-400 max-w-2xl mx-auto">
+            <p className="text-xl text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">
               A proven methodology that delivers results
             </p>
           </motion.div>
@@ -347,7 +347,7 @@ const Services = () => {
                 transition={{ duration: 0.6, delay: index * 0.15 }}
                 className="relative group"
               >
-                <div className="relative h-full bg-slate-900/50 backdrop-blur-sm border border-slate-800 rounded-2xl p-6 hover:border-emerald-500/30 transition-all duration-500">
+                <div className="relative h-full bg-slate-50/80 dark:bg-slate-900/50 backdrop-blur-sm border border-slate-200 dark:border-slate-800 rounded-2xl p-6 hover:border-emerald-500/30 transition-all duration-500">
                   {/* Step Number */}
                   <div className="text-6xl font-bold text-slate-800 absolute top-4 right-4 group-hover:text-slate-700 transition-colors">
                     {step.step}
@@ -358,10 +358,10 @@ const Services = () => {
                     {step.icon}
                   </div>
 
-                  <h3 className="text-xl font-bold text-white mb-2 relative z-10">
+                  <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-2 relative z-10">
                     {step.title}
                   </h3>
-                  <p className="text-slate-400 text-sm leading-relaxed relative z-10">
+                  <p className="text-slate-600 dark:text-slate-400 text-sm leading-relaxed relative z-10">
                     {step.description}
                   </p>
                 </div>
@@ -397,10 +397,10 @@ const Services = () => {
                 <div className="w-14 h-14 mx-auto mb-4 rounded-xl bg-gradient-to-br from-blue-600 to-violet-600 flex items-center justify-center text-white shadow-lg shadow-blue-500/20 group-hover:scale-110 transition-transform">
                   {stat.icon}
                 </div>
-                <div className="text-4xl md:text-5xl font-bold text-white mb-1">
+                <div className="text-4xl md:text-5xl font-bold text-slate-900 dark:text-white mb-1">
                   {stat.value}
                 </div>
-                <div className="text-slate-500 text-sm">
+                <div className="text-slate-500 dark:text-slate-400 text-sm">
                   {stat.label}
                 </div>
               </motion.div>
@@ -430,10 +430,10 @@ const Services = () => {
             transition={{ duration: 0.8 }}
             className="max-w-3xl mx-auto text-center"
           >
-            <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
+            <h2 className="text-4xl md:text-5xl font-bold text-slate-900 dark:text-white mb-6">
               Ready to Transform Your Business?
             </h2>
-            <p className="text-xl text-slate-300 mb-10">
+            <p className="text-xl text-slate-700 dark:text-slate-300 mb-10">
               Let's discuss how AI can solve your specific challenges and drive measurable results.
             </p>
 
@@ -451,7 +451,7 @@ const Services = () => {
               <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
                 <Link
                   to="/products"
-                  className="inline-flex items-center gap-2 px-10 py-5 bg-white/10 backdrop-blur-sm border border-white/20 text-white rounded-xl font-bold text-lg hover:bg-white/20 transition-all"
+                  className="inline-flex items-center gap-2 px-10 py-5 bg-white/10 backdrop-blur-sm border border-slate-300 dark:border-white/20 text-slate-900 dark:text-white rounded-xl font-bold text-lg hover:bg-white/20 transition-all"
                 >
                   Explore Products
                 </Link>
@@ -461,7 +461,7 @@ const Services = () => {
             {/* Trust Badges */}
             <div className="mt-16 flex flex-wrap items-center justify-center gap-8">
               {['Enterprise Ready', 'SOC 2 Compliant', 'GDPR Ready', '99.9% Uptime'].map((badge) => (
-                <div key={badge} className="flex items-center gap-2 text-slate-400">
+                <div key={badge} className="flex items-center gap-2 text-slate-600 dark:text-slate-400">
                   <FiCheck className="w-5 h-5 text-emerald-400" />
                   <span className="text-sm">{badge}</span>
                 </div>

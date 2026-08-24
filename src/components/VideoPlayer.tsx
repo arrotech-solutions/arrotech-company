@@ -21,7 +21,7 @@ const VideoPlayer = ({ videoUrl, title }: VideoPlayerProps) => {
             onClick={handlePlayClick}
             className="w-20 h-20 bg-indigo-600 rounded-full flex items-center justify-center cursor-pointer hover:bg-indigo-700 transition-colors duration-300"
           >
-            <FiPlay className="w-10 h-10 text-white" />
+            <FiPlay className="w-10 h-10 text-slate-900 dark:text-white" />
           </button>
         </div>
       )}

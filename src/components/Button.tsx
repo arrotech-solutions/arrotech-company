@@ -29,8 +29,8 @@ const Button = ({
   
   const variants = {
     primary: 'bg-gradient-to-r from-violet-600 to-blue-600 text-white hover:from-violet-500 hover:to-blue-500 shadow-lg shadow-violet-500/25 hover:shadow-violet-500/40',
-    secondary: 'bg-white/10 backdrop-blur-sm border border-white/20 text-white hover:bg-white/20',
-    outline: 'bg-transparent text-slate-300 border border-slate-700 hover:bg-slate-800 hover:text-white hover:border-slate-600',
+    secondary: 'bg-white/10 backdrop-blur-sm border border-slate-300 dark:border-white/20 text-slate-900 dark:text-white hover:bg-white/20',
+    outline: 'bg-transparent text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 hover:bg-slate-100 dark:bg-slate-800 hover:text-slate-900 dark:hover:text-slate-900 dark:text-white hover:border-slate-600',
   };
 
   const sizes = {
