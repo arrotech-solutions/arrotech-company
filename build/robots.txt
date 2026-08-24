@@ -1,0 +1,8 @@
+# Robots.txt for arrotechsolutions.com
+
+User-agent: *
+Allow: /
+
+# Sitemap location
+Sitemap: https://arrotechsolutions.com/sitemap.xml
+

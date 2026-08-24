@@ -4,7 +4,7 @@ import SEO from '../components/SEO';
 
 const NotFound = () => {
   return (
-    <div className="min-h-[70vh] bg-slate-950 flex flex-col items-center justify-center text-center px-4">
+    <div className="min-h-[70vh] bg-white dark:bg-slate-950 flex flex-col items-center justify-center text-center px-4">
       <SEO 
         title="404 - Page Not Found" 
         description="The page you are looking for does not exist." 
@@ -12,8 +12,8 @@ const NotFound = () => {
       <h1 className="text-9xl font-black bg-gradient-to-r from-violet-500 to-blue-500 bg-clip-text text-transparent mb-4">
         404
       </h1>
-      <h2 className="text-3xl font-bold text-white mb-6">Page Not Found</h2>
-      <p className="text-slate-400 mb-8 max-w-md">
+      <h2 className="text-3xl font-bold text-slate-900 dark:text-white mb-6">Page Not Found</h2>
+      <p className="text-slate-600 dark:text-slate-400 mb-8 max-w-md">
         The page you are looking for might have been removed, had its name changed, or is temporarily unavailable.
       </p>
       <Link
