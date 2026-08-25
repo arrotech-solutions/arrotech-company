@@ -1,7 +1,7 @@
 import { Suspense, lazy } from 'react';
 import { Route, BrowserRouter as Router, Routes } from 'react-router-dom';
 import { HelmetProvider } from 'react-helmet-async';
-import AIAssistant from './components/AIAssistant';
+import FloatingActionMenu from './components/FloatingActionMenu';
 import Footer from './components/Footer';
 import LoadingSpinner from './components/LoadingSpinner';
 import Navbar from './components/Navbar';
@@ -47,7 +47,7 @@ const App = () => {
           </main>
           <ScrollToTop />
           <Footer />
-          <AIAssistant />
+          <FloatingActionMenu />
         </div>
       </Router>
     </HelmetProvider>

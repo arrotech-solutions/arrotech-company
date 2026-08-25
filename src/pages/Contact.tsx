@@ -174,7 +174,7 @@ const Contact = () => {
   ];
 
   return (
-    <div className="bg-slate-950 min-h-screen pt-20">
+    <div className="bg-white dark:bg-slate-950 min-h-screen pt-20">
       <SEO
         title="Contact Us"
         description="Get in touch with Arrotech for custom AI solutions, support, or partnership opportunities. We're here to help you transform your business."
@@ -184,7 +184,7 @@ const Contact = () => {
       <section ref={heroRef} className="relative py-24 overflow-hidden">
         {/* Background */}
         <div className="absolute inset-0">
-          <div className="absolute inset-0 bg-gradient-to-b from-slate-950 via-slate-900 to-slate-950" />
+          <div className="absolute inset-0 bg-gradient-to-b from-slate-50 dark:from-slate-950 via-white dark:via-slate-900 to-slate-50 dark:to-slate-950" />
           <div
             className="absolute inset-0 opacity-20"
             style={{
@@ -206,19 +206,19 @@ const Contact = () => {
             transition={{ duration: 0.8 }}
             className="max-w-4xl mx-auto text-center"
           >
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 backdrop-blur-sm border border-white/10 mb-8">
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-slate-100 dark:bg-white/5 backdrop-blur-sm border border-slate-200 dark:border-white/10 mb-8">
               <FiMessageSquare className="w-4 h-4 text-violet-400" />
-              <span className="text-slate-300 text-sm font-medium">Contact Us</span>
+              <span className="text-slate-700 dark:text-slate-300 text-sm font-medium">Contact Us</span>
             </div>
 
             <h1 className="text-5xl md:text-7xl font-bold mb-6 leading-tight">
-              <span className="text-white">Get in</span>{' '}
+              <span className="text-slate-900 dark:text-white">Get in</span>{' '}
               <span className="bg-gradient-to-r from-violet-400 via-blue-400 to-cyan-400 bg-clip-text text-transparent">
                 Touch
               </span>
             </h1>
 
-            <p className="text-xl md:text-2xl text-slate-400 max-w-3xl mx-auto leading-relaxed">
+            <p className="text-xl md:text-2xl text-slate-600 dark:text-slate-400 max-w-3xl mx-auto leading-relaxed">
               Have questions about our AI solutions? We're here to help you transform your business.
             </p>
           </motion.div>
@@ -235,15 +235,15 @@ const Contact = () => {
                 initial={{ opacity: 0, y: 20 }}
                 animate={heroInView ? { opacity: 1, y: 0 } : {}}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
-                className="bg-slate-900/50 backdrop-blur-sm border border-slate-800 rounded-2xl p-6 hover:border-slate-700 transition-all duration-300"
+                className="bg-slate-50/80 dark:bg-slate-900/50 backdrop-blur-sm border border-slate-200 dark:border-slate-800 rounded-2xl p-6 hover:border-slate-300 dark:border-slate-700 transition-all duration-300"
               >
                 <div className={`w-12 h-12 rounded-xl bg-gradient-to-br ${info.gradient} flex items-center justify-center text-white mb-4 shadow-lg`}>
                   {info.icon}
                 </div>
-                <h3 className="text-lg font-semibold text-white mb-2">
+                <h3 className="text-lg font-semibold text-slate-900 dark:text-white mb-2">
                   {info.title}
                 </h3>
-                <p className="text-slate-400 text-sm">
+                <p className="text-slate-600 dark:text-slate-400 text-sm">
                   {info.content}
                 </p>
               </motion.div>
@@ -266,10 +266,10 @@ const Contact = () => {
                 <FiSend className="w-4 h-4 text-emerald-400" />
                 <span className="text-emerald-400 text-sm font-medium">Send a Message</span>
               </div>
-              <h2 className="text-4xl font-bold text-white mb-4">
+              <h2 className="text-4xl font-bold text-slate-900 dark:text-white mb-4">
                 Let's Start a <span className="bg-gradient-to-r from-emerald-400 to-cyan-400 bg-clip-text text-transparent">Conversation</span>
               </h2>
-              <p className="text-slate-400 text-lg">
+              <p className="text-slate-600 dark:text-slate-400 text-lg">
                 Fill out the form below and we'll get back to you within 24 hours.
               </p>
             </motion.div>
@@ -278,17 +278,17 @@ const Contact = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={formInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.6, delay: 0.2 }}
-              className="bg-slate-900/50 backdrop-blur-sm border border-slate-800 rounded-3xl p-8 md:p-12"
+              className="bg-slate-50/80 dark:bg-slate-900/50 backdrop-blur-sm border border-slate-200 dark:border-slate-800 rounded-3xl p-8 md:p-12"
             >
               <form onSubmit={handleSubmit} className="space-y-6">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div>
-                    <label htmlFor="name" className="block text-sm font-medium text-slate-300 mb-2">
+                    <label htmlFor="name" className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
                       Your Name
                     </label>
                     <div className="relative">
                       <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-                        <FiUser className="h-5 w-5 text-slate-500" />
+                        <FiUser className="h-5 w-5 text-slate-500 dark:text-slate-400" />
                       </div>
                       <input
                         type="text"
@@ -296,7 +296,7 @@ const Contact = () => {
                         name="name"
                         value={formData.name}
                         onChange={handleChange}
-                        className={`w-full pl-12 pr-4 py-3 bg-slate-800/50 border ${errors.name ? 'border-red-500' : 'border-slate-700'} rounded-xl text-white placeholder-slate-500 focus:outline-none focus:border-violet-500 transition-colors`}
+                        className={`w-full pl-12 pr-4 py-3 bg-slate-100/80 dark:bg-slate-800/50 border ${errors.name ? 'border-red-500' : 'border-slate-300 dark:border-slate-700'} rounded-xl text-slate-900 dark:text-white placeholder-slate-500 focus:outline-none focus:border-violet-500 transition-colors`}
                         placeholder="John Doe"
                         required
                       />
@@ -306,12 +306,12 @@ const Contact = () => {
                     )}
                   </div>
                   <div>
-                    <label htmlFor="email" className="block text-sm font-medium text-slate-300 mb-2">
+                    <label htmlFor="email" className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
                       Email Address
                     </label>
                     <div className="relative">
                       <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-                        <FiMail className="h-5 w-5 text-slate-500" />
+                        <FiMail className="h-5 w-5 text-slate-500 dark:text-slate-400" />
                       </div>
                       <input
                         type="email"
@@ -319,7 +319,7 @@ const Contact = () => {
                         name="email"
                         value={formData.email}
                         onChange={handleChange}
-                        className={`w-full pl-12 pr-4 py-3 bg-slate-800/50 border ${errors.email ? 'border-red-500' : 'border-slate-700'} rounded-xl text-white placeholder-slate-500 focus:outline-none focus:border-violet-500 transition-colors`}
+                        className={`w-full pl-12 pr-4 py-3 bg-slate-100/80 dark:bg-slate-800/50 border ${errors.email ? 'border-red-500' : 'border-slate-300 dark:border-slate-700'} rounded-xl text-slate-900 dark:text-white placeholder-slate-500 focus:outline-none focus:border-violet-500 transition-colors`}
                         placeholder="john@example.com"
                         required
                       />
@@ -332,12 +332,12 @@ const Contact = () => {
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div>
-                    <label htmlFor="phone" className="block text-sm font-medium text-slate-300 mb-2">
-                      Phone Number <span className="text-slate-500">(Optional)</span>
+                    <label htmlFor="phone" className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
+                      Phone Number <span className="text-slate-500 dark:text-slate-400">(Optional)</span>
                     </label>
                     <div className="relative">
                       <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-                        <FiPhone className="h-5 w-5 text-slate-500" />
+                        <FiPhone className="h-5 w-5 text-slate-500 dark:text-slate-400" />
                       </div>
                       <input
                         type="tel"
@@ -345,7 +345,7 @@ const Contact = () => {
                         name="phone"
                         value={formData.phone}
                         onChange={handleChange}
-                        className={`w-full pl-12 pr-4 py-3 bg-slate-800/50 border ${errors.phone ? 'border-red-500' : 'border-slate-700'} rounded-xl text-white placeholder-slate-500 focus:outline-none focus:border-violet-500 transition-colors`}
+                        className={`w-full pl-12 pr-4 py-3 bg-slate-100/80 dark:bg-slate-800/50 border ${errors.phone ? 'border-red-500' : 'border-slate-300 dark:border-slate-700'} rounded-xl text-slate-900 dark:text-white placeholder-slate-500 focus:outline-none focus:border-violet-500 transition-colors`}
                         placeholder="+254 797 568564"
                       />
                     </div>
@@ -354,27 +354,27 @@ const Contact = () => {
                     )}
                   </div>
                   <div>
-                    <label htmlFor="subject" className="block text-sm font-medium text-slate-300 mb-2">
+                    <label htmlFor="subject" className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
                       Subject
                     </label>
                     <div className="relative">
                       <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-                        <FiMessageSquare className="h-5 w-5 text-slate-500" />
+                        <FiMessageSquare className="h-5 w-5 text-slate-500 dark:text-slate-400" />
                       </div>
                       <select
                         id="subject"
                         name="subject"
                         value={formData.subject}
                         onChange={handleChange}
-                        className={`w-full pl-12 pr-4 py-3 bg-slate-800/50 border ${errors.subject ? 'border-red-500' : 'border-slate-700'} rounded-xl text-white focus:outline-none focus:border-violet-500 transition-colors appearance-none`}
+                        className={`w-full pl-12 pr-4 py-3 bg-slate-100/80 dark:bg-slate-800/50 border ${errors.subject ? 'border-red-500' : 'border-slate-300 dark:border-slate-700'} rounded-xl text-slate-900 dark:text-white focus:outline-none focus:border-violet-500 transition-colors appearance-none`}
                         required
                       >
-                        <option value="" className="bg-slate-800">Select a subject</option>
-                        <option value="general" className="bg-slate-800">General Inquiry</option>
-                        <option value="support" className="bg-slate-800">Technical Support</option>
-                        <option value="sales" className="bg-slate-800">Sales Inquiry</option>
-                        <option value="partnership" className="bg-slate-800">Partnership Opportunity</option>
-                        <option value="billing" className="bg-slate-800">Billing & Payments</option>
+                        <option value="" className="bg-slate-100 dark:bg-slate-800">Select a subject</option>
+                        <option value="general" className="bg-slate-100 dark:bg-slate-800">General Inquiry</option>
+                        <option value="support" className="bg-slate-100 dark:bg-slate-800">Technical Support</option>
+                        <option value="sales" className="bg-slate-100 dark:bg-slate-800">Sales Inquiry</option>
+                        <option value="partnership" className="bg-slate-100 dark:bg-slate-800">Partnership Opportunity</option>
+                        <option value="billing" className="bg-slate-100 dark:bg-slate-800">Billing & Payments</option>
                       </select>
                     </div>
                     {errors.subject && (
@@ -384,7 +384,7 @@ const Contact = () => {
                 </div>
 
                 <div>
-                  <label htmlFor="message" className="block text-sm font-medium text-slate-300 mb-2">
+                  <label htmlFor="message" className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
                     Message
                   </label>
                   <textarea
@@ -393,7 +393,7 @@ const Contact = () => {
                     value={formData.message}
                     onChange={handleChange}
                     rows={6}
-                    className={`w-full px-4 py-3 bg-slate-800/50 border ${errors.message ? 'border-red-500' : 'border-slate-700'} rounded-xl text-white placeholder-slate-500 focus:outline-none focus:border-violet-500 transition-colors resize-none`}
+                    className={`w-full px-4 py-3 bg-slate-100/80 dark:bg-slate-800/50 border ${errors.message ? 'border-red-500' : 'border-slate-300 dark:border-slate-700'} rounded-xl text-slate-900 dark:text-white placeholder-slate-500 focus:outline-none focus:border-violet-500 transition-colors resize-none`}
                     placeholder="Tell us about your project..."
                     required
                   ></textarea>
@@ -469,7 +469,7 @@ const Contact = () => {
 
       {/* FAQ Section */}
       <section ref={faqRef} className="py-24 relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-b from-slate-950 via-slate-900 to-slate-950" />
+        <div className="absolute inset-0 bg-gradient-to-b from-slate-50 dark:from-slate-950 via-white dark:via-slate-900 to-slate-50 dark:to-slate-950" />
 
         <div className="container relative z-10">
           <motion.div
@@ -481,10 +481,10 @@ const Contact = () => {
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-amber-500/10 border border-amber-500/20 mb-6">
               <span className="text-amber-400 text-sm font-medium">FAQ</span>
             </div>
-            <h2 className="text-4xl font-bold text-white mb-4">
+            <h2 className="text-4xl font-bold text-slate-900 dark:text-white mb-4">
               Frequently Asked <span className="bg-gradient-to-r from-amber-400 to-orange-400 bg-clip-text text-transparent">Questions</span>
             </h2>
-            <p className="text-slate-400 text-lg max-w-2xl mx-auto">
+            <p className="text-slate-600 dark:text-slate-400 text-lg max-w-2xl mx-auto">
               Find answers to common questions about our AI solutions
             </p>
           </motion.div>
@@ -496,20 +496,20 @@ const Contact = () => {
                 initial={{ opacity: 0, y: 20 }}
                 animate={faqInView ? { opacity: 1, y: 0 } : {}}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
-                className="bg-slate-900/50 backdrop-blur-sm border border-slate-800 rounded-2xl overflow-hidden"
+                className="bg-slate-50/80 dark:bg-slate-900/50 backdrop-blur-sm border border-slate-200 dark:border-slate-800 rounded-2xl overflow-hidden"
               >
                 <button
                   onClick={() => setExpandedFaq(expandedFaq === index ? null : index)}
-                  className="w-full px-6 py-5 flex items-center justify-between text-left hover:bg-slate-800/50 transition-colors"
+                  className="w-full px-6 py-5 flex items-center justify-between text-left hover:bg-slate-100/80 dark:bg-slate-800/50 transition-colors"
                 >
-                  <span className="text-lg font-medium text-white pr-4">
+                  <span className="text-lg font-medium text-slate-900 dark:text-white pr-4">
                     {faq.question}
                   </span>
-                  <div className={`w-8 h-8 rounded-lg bg-slate-800 flex items-center justify-center flex-shrink-0 transition-transform duration-300 ${expandedFaq === index ? 'rotate-180' : ''}`}>
+                  <div className={`w-8 h-8 rounded-lg bg-slate-100 dark:bg-slate-800 flex items-center justify-center flex-shrink-0 transition-transform duration-300 ${expandedFaq === index ? 'rotate-180' : ''}`}>
                     {expandedFaq === index ? (
-                      <FiChevronUp className="w-5 h-5 text-slate-400" />
+                      <FiChevronUp className="w-5 h-5 text-slate-600 dark:text-slate-400" />
                     ) : (
-                      <FiChevronDown className="w-5 h-5 text-slate-400" />
+                      <FiChevronDown className="w-5 h-5 text-slate-600 dark:text-slate-400" />
                     )}
                   </div>
                 </button>
@@ -521,7 +521,7 @@ const Contact = () => {
                     transition={{ duration: 0.3 }}
                     className="px-6 pb-5"
                   >
-                    <p className="text-slate-400 leading-relaxed">
+                    <p className="text-slate-600 dark:text-slate-400 leading-relaxed">
                       {faq.answer}
                     </p>
                   </motion.div>

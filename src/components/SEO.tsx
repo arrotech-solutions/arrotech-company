@@ -18,7 +18,7 @@ const SEO = ({
     description = "Arrotech - Transforming Business with AI Solutions. Specialized in AI Automation, Conversational AI, and Research Intelligence.",
     canonical,
     ogType = 'website',
-    ogImage = '/logo.png', // Fallback to our root logo
+    ogImage = '/logo.png?v=2', // Fallback to our root logo
     twitterHandle = '@ArrotechAI',
     keywords = 'AI, Artificial Intelligence, Business Automation, Kenya Tech, Arrotech, AI Solutions, Machine Learning',
     publishedTime,
@@ -35,7 +35,7 @@ const SEO = ({
         "@type": "Organization",
         "name": "Arrotech",
         "url": siteUrl,
-        "logo": `${siteUrl}/logo.png`,
+        "logo": `${siteUrl}/logo.png?v=2`,
         "sameAs": [
             "https://twitter.com/ArrotechAI",
             "https://instagram.com/arrotech",
