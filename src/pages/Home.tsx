@@ -104,7 +104,7 @@ const Home = () => {
   ];
 
   return (
-    <div className="bg-slate-950 min-h-screen">
+    <div className="bg-white dark:bg-slate-950 min-h-screen">
       <SEO
         title="Home"
         description="Arrotech transforms businesses with cutting-edge AI solutions. Explore our AI-powered platforms like Arrotech Hub."
@@ -114,7 +114,7 @@ const Home = () => {
       <section ref={heroRef} className="relative min-h-screen flex items-center pt-20 overflow-hidden">
         {/* Background */}
         <div className="absolute inset-0">
-          <div className="absolute inset-0 bg-gradient-to-b from-slate-950 via-slate-900 to-slate-950" />
+          <div className="absolute inset-0 bg-gradient-to-b from-slate-50 dark:from-slate-950 via-white dark:via-slate-900 to-slate-50 dark:to-slate-950" />
           <div
             className="absolute inset-0 opacity-20"
             style={{
@@ -138,20 +138,20 @@ const Home = () => {
               transition={{ duration: 0.8 }}
             >
               {/* Badge */}
-              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 backdrop-blur-sm border border-white/10 mb-8">
+              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-slate-100 dark:bg-white/5 backdrop-blur-sm border border-slate-200 dark:border-white/10 mb-8">
                 <span className="w-2 h-2 bg-emerald-400 rounded-full animate-pulse" />
-                <span className="text-slate-300 text-sm font-medium">Building the Future of AI</span>
+                <span className="text-slate-700 dark:text-slate-300 text-sm font-medium">Building the Future of AI</span>
               </div>
 
               <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold mb-8 leading-tight">
-                <span className="text-white">Transform Your</span>
+                <span className="text-slate-900 dark:text-white">Transform Your</span>
                 <br />
                 <span className="bg-gradient-to-r from-violet-400 via-blue-400 to-cyan-400 bg-clip-text text-transparent">
                   Business with AI
                 </span>
               </h1>
 
-              <p className="text-xl md:text-2xl text-slate-400 mb-12 max-w-3xl mx-auto leading-relaxed">
+              <p className="text-xl md:text-2xl text-slate-600 dark:text-slate-400 mb-12 max-w-3xl mx-auto leading-relaxed">
                 We design and deploy intelligent AI solutions that automate, optimize, and transform your business operations.
               </p>
 
@@ -169,7 +169,7 @@ const Home = () => {
                 <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
                   <Link
                     to="/products"
-                    className="inline-flex items-center gap-2 px-8 py-4 bg-white/5 backdrop-blur-sm border border-white/10 text-white rounded-xl font-semibold text-lg hover:bg-white/10 transition-all"
+                    className="inline-flex items-center gap-2 px-8 py-4 bg-slate-100 dark:bg-white/5 backdrop-blur-sm border border-slate-200 dark:border-white/10 text-slate-900 dark:text-white rounded-xl font-semibold text-lg hover:bg-white/10 transition-all"
                   >
                     View Products
                   </Link>
@@ -179,7 +179,7 @@ const Home = () => {
               {/* Trust Badges */}
               <div className="flex flex-wrap items-center justify-center gap-8">
                 {['Enterprise Ready', 'SOC 2 Compliant', 'GDPR Ready', '99.9% Uptime'].map((badge) => (
-                  <div key={badge} className="flex items-center gap-2 text-slate-500">
+                  <div key={badge} className="flex items-center gap-2 text-slate-500 dark:text-slate-400">
                     <FiCheck className="w-4 h-4 text-emerald-400" />
                     <span className="text-sm">{badge}</span>
                   </div>
@@ -196,7 +196,7 @@ const Home = () => {
           transition={{ delay: 1.5 }}
           className="absolute bottom-8 left-1/2 -translate-x-1/2"
         >
-          <div className="w-6 h-10 rounded-full border-2 border-white/20 flex items-start justify-center p-2">
+          <div className="w-6 h-10 rounded-full border-2 border-slate-300 dark:border-white/20 flex items-start justify-center p-2">
             <motion.div
               animate={{ y: [0, 8, 0] }}
               transition={{ duration: 1.5, repeat: Infinity }}
@@ -219,10 +219,10 @@ const Home = () => {
               <FiZap className="w-4 h-4 text-violet-400" />
               <span className="text-violet-400 text-sm font-medium">Why Choose Us</span>
             </div>
-            <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">
+            <h2 className="text-4xl md:text-5xl font-bold text-slate-900 dark:text-white mb-4">
               Comprehensive AI <span className="bg-gradient-to-r from-violet-400 to-cyan-400 bg-clip-text text-transparent">Solutions</span>
             </h2>
-            <p className="text-xl text-slate-400 max-w-2xl mx-auto">
+            <p className="text-xl text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">
               End-to-end AI capabilities designed for real business impact
             </p>
           </motion.div>
@@ -234,13 +234,13 @@ const Home = () => {
                 initial={{ opacity: 0, y: 30 }}
                 animate={featuresInView ? { opacity: 1, y: 0 } : {}}
                 transition={{ duration: 0.6, delay: index * 0.1 }}
-                className="group relative bg-slate-900/50 backdrop-blur-sm border border-slate-800 rounded-2xl p-6 hover:border-slate-700 transition-all duration-500"
+                className="group relative bg-slate-50/80 dark:bg-slate-900/50 backdrop-blur-sm border border-slate-200 dark:border-slate-800 rounded-2xl p-6 hover:border-slate-300 dark:border-slate-700 transition-all duration-500"
               >
                 <div className={`w-12 h-12 rounded-xl bg-gradient-to-br ${feature.gradient} flex items-center justify-center text-white mb-4 shadow-lg`}>
                   {feature.icon}
                 </div>
-                <h3 className="text-lg font-semibold text-white mb-2">{feature.title}</h3>
-                <p className="text-slate-400 text-sm leading-relaxed">{feature.description}</p>
+                <h3 className="text-lg font-semibold text-slate-900 dark:text-white mb-2">{feature.title}</h3>
+                <p className="text-slate-600 dark:text-slate-400 text-sm leading-relaxed">{feature.description}</p>
               </motion.div>
             ))}
           </div>
@@ -249,7 +249,7 @@ const Home = () => {
 
       {/* Arrotech Hub Section */}
       <section ref={productsRef} className="py-24 relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-b from-slate-950 via-slate-900 to-slate-950" />
+        <div className="absolute inset-0 bg-gradient-to-b from-slate-50 dark:from-slate-950 via-white dark:via-slate-900 to-slate-50 dark:to-slate-950" />
 
         <div className="container relative z-10">
           <div className="max-w-4xl mx-auto">
@@ -257,7 +257,7 @@ const Home = () => {
               initial={{ opacity: 0, scale: 0.95 }}
               animate={productsInView ? { opacity: 1, scale: 1 } : {}}
               transition={{ duration: 0.8 }}
-              className="relative bg-slate-900/50 backdrop-blur-sm border border-slate-800 rounded-3xl overflow-hidden shadow-2xl shadow-violet-500/10"
+              className="relative bg-slate-50/80 dark:bg-slate-900/50 backdrop-blur-sm border border-slate-200 dark:border-slate-800 rounded-3xl overflow-hidden shadow-2xl shadow-violet-500/10"
             >
               <div className="absolute inset-0 bg-gradient-to-br from-violet-500/10 to-indigo-600/10" />
 
@@ -266,22 +266,22 @@ const Home = () => {
                   <FiCpu className="w-8 h-8" />
                 </div>
 
-                <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
+                <h2 className="text-4xl md:text-5xl font-bold text-slate-900 dark:text-white mb-6">
                   Meet <span className="bg-gradient-to-r from-violet-400 to-indigo-400 bg-clip-text text-transparent">Arrotech Hub</span>
                 </h2>
 
-                <p className="text-xl md:text-2xl text-slate-300 font-medium mb-4">
+                <p className="text-xl md:text-2xl text-slate-700 dark:text-slate-300 font-medium mb-4">
                   The Central Nervous System for Your Business
                 </p>
 
-                <p className="text-lg text-slate-400 mb-10 max-w-2xl mx-auto leading-relaxed">
+                <p className="text-lg text-slate-600 dark:text-slate-400 mb-10 max-w-2xl mx-auto leading-relaxed">
                   Connect your AI models to 50+ business tools with our Arrotech Hub MCP Server.
                   Seamlessly bridge the gap between intelligence and action.
                 </p>
 
                 <div className="flex flex-wrap justify-center gap-4 mb-10">
                   {['50+ Integrations', '6+ LLM Providers', '24/7 Automation'].map((stat) => (
-                    <span key={stat} className="px-4 py-2 rounded-full bg-slate-800/50 border border-slate-700 text-slate-300 text-sm font-medium">
+                    <span key={stat} className="px-4 py-2 rounded-full bg-slate-100/80 dark:bg-slate-800/50 border border-slate-300 dark:border-slate-700 text-slate-700 dark:text-slate-300 text-sm font-medium">
                       {stat}
                     </span>
                   ))}
@@ -319,10 +319,10 @@ const Home = () => {
                 <div className="w-14 h-14 mx-auto mb-4 rounded-xl bg-gradient-to-br from-violet-600 to-blue-600 flex items-center justify-center text-white shadow-lg shadow-violet-500/20 group-hover:scale-110 transition-transform">
                   {stat.icon}
                 </div>
-                <div className="text-4xl md:text-5xl font-bold text-white mb-1">
+                <div className="text-4xl md:text-5xl font-bold text-slate-900 dark:text-white mb-1">
                   {stat.number}
                 </div>
-                <div className="text-slate-500 text-sm">
+                <div className="text-slate-500 dark:text-slate-400 text-sm">
                   {stat.label}
                 </div>
               </motion.div>
@@ -333,7 +333,7 @@ const Home = () => {
 
       {/* Pricing Section */}
       <section ref={pricingRef} className="py-24 relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-b from-slate-950 via-slate-900 to-slate-950" />
+        <div className="absolute inset-0 bg-gradient-to-b from-slate-50 dark:from-slate-950 via-white dark:via-slate-900 to-slate-50 dark:to-slate-950" />
 
         <div className="container relative z-10">
           <motion.div
@@ -346,10 +346,10 @@ const Home = () => {
               <FiStar className="w-4 h-4 text-amber-400" />
               <span className="text-amber-400 text-sm font-medium">Pricing</span>
             </div>
-            <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">
+            <h2 className="text-4xl md:text-5xl font-bold text-slate-900 dark:text-white mb-4">
               Choose Your AI <span className="bg-gradient-to-r from-amber-400 to-orange-400 bg-clip-text text-transparent">Journey</span>
             </h2>
-            <p className="text-xl text-slate-400 max-w-2xl mx-auto">
+            <p className="text-xl text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">
               Flexible pricing designed for Kenyan businesses of all sizes
             </p>
           </motion.div>
@@ -361,9 +361,9 @@ const Home = () => {
                 initial={{ opacity: 0, y: 30 }}
                 animate={pricingInView ? { opacity: 1, y: 0 } : {}}
                 transition={{ duration: 0.6, delay: index * 0.1 }}
-                className={`relative bg-slate-900/50 backdrop-blur-sm border rounded-2xl p-8 ${plan.popular
+                className={`relative bg-slate-50/80 dark:bg-slate-900/50 backdrop-blur-sm border rounded-2xl p-8 ${plan.popular
                   ? 'border-violet-500 shadow-lg shadow-violet-500/20'
-                  : 'border-slate-800'
+                  : 'border-slate-200 dark:border-slate-800'
                   }`}
               >
                 {plan.popular && (
@@ -375,14 +375,14 @@ const Home = () => {
                 )}
 
                 <div className="text-center mb-8">
-                  <h3 className="text-xl font-bold text-white mb-2">{plan.name}</h3>
-                  <div className="text-3xl font-bold text-white mb-2">{plan.price}</div>
-                  <p className="text-slate-400 text-sm">{plan.description}</p>
+                  <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-2">{plan.name}</h3>
+                  <div className="text-3xl font-bold text-slate-900 dark:text-white mb-2">{plan.price}</div>
+                  <p className="text-slate-600 dark:text-slate-400 text-sm">{plan.description}</p>
                 </div>
 
                 <ul className="space-y-4 mb-8">
                   {plan.features.map((feature, featureIndex) => (
-                    <li key={featureIndex} className="flex items-center gap-3 text-slate-300 text-sm">
+                    <li key={featureIndex} className="flex items-center gap-3 text-slate-700 dark:text-slate-300 text-sm">
                       <FiCheck className="w-5 h-5 text-emerald-400 flex-shrink-0" />
                       {feature}
                     </li>
@@ -393,7 +393,7 @@ const Home = () => {
                   to="/contact"
                   className={`block w-full py-3 rounded-xl font-semibold text-center transition-all ${plan.popular
                     ? 'bg-gradient-to-r from-violet-600 to-blue-600 text-white hover:from-violet-500 hover:to-blue-500'
-                    : 'bg-slate-800 text-white hover:bg-slate-700'
+                    : 'bg-slate-100 dark:bg-slate-800 text-slate-900 dark:text-white hover:bg-slate-700'
                     }`}
                 >
                   Get Started
@@ -408,7 +408,7 @@ const Home = () => {
             transition={{ duration: 0.6, delay: 0.4 }}
             className="text-center mt-12"
           >
-            <p className="text-slate-400 mb-4">
+            <p className="text-slate-600 dark:text-slate-400 mb-4">
               Need a custom solution? We offer flexible payment plans.
             </p>
             <Link

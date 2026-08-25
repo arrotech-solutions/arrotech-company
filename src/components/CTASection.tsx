@@ -41,8 +41,8 @@ const CTASection = ({
           transition={{ duration: 0.8 }}
           className="max-w-3xl mx-auto text-center"
         >
-          <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">{title}</h2>
-          <p className="text-xl text-slate-300 mb-10">
+          <h2 className="text-4xl md:text-5xl font-bold text-slate-900 dark:text-white mb-6">{title}</h2>
+          <p className="text-xl text-slate-700 dark:text-slate-300 mb-10">
             {description}
           </p>
 
@@ -60,7 +60,7 @@ const CTASection = ({
             <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
               <Link
                 to="/products"
-                className="inline-flex items-center gap-2 px-10 py-5 bg-white/10 backdrop-blur-sm border border-white/20 text-white rounded-xl font-bold text-lg hover:bg-white/20 transition-all"
+                className="inline-flex items-center gap-2 px-10 py-5 bg-white/10 backdrop-blur-sm border border-slate-300 dark:border-white/20 text-slate-900 dark:text-white rounded-xl font-bold text-lg hover:bg-white/20 transition-all"
               >
                 Explore Products
               </Link>
@@ -70,7 +70,7 @@ const CTASection = ({
           {/* Trust Badges */}
           <div className="mt-16 flex flex-wrap items-center justify-center gap-8">
             {['Enterprise Ready', 'SOC 2 Compliant', 'GDPR Ready', '99.9% Uptime'].map((badge) => (
-              <div key={badge} className="flex items-center gap-2 text-slate-400">
+              <div key={badge} className="flex items-center gap-2 text-slate-600 dark:text-slate-400">
                 <FiCheck className="w-5 h-5 text-emerald-400" />
                 <span className="text-sm">{badge}</span>
               </div>

@@ -9,7 +9,7 @@ const CaseStudies = () => {
   const [contentRef, contentInView] = useInView({ triggerOnce: true, threshold: 0.1 });
 
   return (
-    <div className="bg-slate-950 min-h-screen pt-20">
+    <div className="bg-white dark:bg-slate-950 min-h-screen pt-20">
       <SEO
         title="Case Studies"
         description="See how Arrotech's AI solutions have transformed businesses. Real-world success stories of AI automation and intelligence."
@@ -19,7 +19,7 @@ const CaseStudies = () => {
       <section ref={heroRef} className="relative py-24 overflow-hidden">
         {/* Background */}
         <div className="absolute inset-0">
-          <div className="absolute inset-0 bg-gradient-to-b from-slate-950 via-slate-900 to-slate-950" />
+          <div className="absolute inset-0 bg-gradient-to-b from-slate-50 dark:from-slate-950 via-white dark:via-slate-900 to-slate-50 dark:to-slate-950" />
           <div
             className="absolute inset-0 opacity-20"
             style={{
@@ -41,19 +41,19 @@ const CaseStudies = () => {
             transition={{ duration: 0.8 }}
             className="max-w-4xl mx-auto text-center"
           >
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 backdrop-blur-sm border border-white/10 mb-8">
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-slate-100 dark:bg-white/5 backdrop-blur-sm border border-slate-200 dark:border-white/10 mb-8">
               <FiAward className="w-4 h-4 text-violet-400" />
-              <span className="text-slate-300 text-sm font-medium">Success Stories</span>
+              <span className="text-slate-700 dark:text-slate-300 text-sm font-medium">Success Stories</span>
             </div>
 
             <h1 className="text-5xl md:text-7xl font-bold mb-6 leading-tight">
-              <span className="text-white">Case</span>{' '}
+              <span className="text-slate-900 dark:text-white">Case</span>{' '}
               <span className="bg-gradient-to-r from-violet-400 via-blue-400 to-cyan-400 bg-clip-text text-transparent">
                 Studies
               </span>
             </h1>
 
-            <p className="text-xl md:text-2xl text-slate-400 max-w-3xl mx-auto leading-relaxed">
+            <p className="text-xl md:text-2xl text-slate-600 dark:text-slate-400 max-w-3xl mx-auto leading-relaxed">
               Real-world examples of how our AI solutions transform businesses
             </p>
           </motion.div>
@@ -69,16 +69,16 @@ const CaseStudies = () => {
             transition={{ duration: 0.8 }}
             className="max-w-3xl mx-auto"
           >
-            <div className="bg-slate-900/50 backdrop-blur-sm border border-slate-800 rounded-3xl p-12 text-center">
+            <div className="bg-slate-50/80 dark:bg-slate-900/50 backdrop-blur-sm border border-slate-200 dark:border-slate-800 rounded-3xl p-12 text-center">
               <div className="w-20 h-20 mx-auto mb-8 rounded-2xl bg-gradient-to-br from-violet-600 to-blue-600 flex items-center justify-center shadow-lg shadow-violet-500/20">
-                <FiLayers className="w-10 h-10 text-white" />
+                <FiLayers className="w-10 h-10 text-slate-900 dark:text-white" />
               </div>
 
-              <h2 className="text-3xl font-bold text-white mb-4">
+              <h2 className="text-3xl font-bold text-slate-900 dark:text-white mb-4">
                 Our First Success Stories Coming Soon
               </h2>
 
-              <p className="text-slate-400 text-lg mb-8 leading-relaxed">
+              <p className="text-slate-600 dark:text-slate-400 text-lg mb-8 leading-relaxed">
                 We're working on exciting projects that will showcase the power of our AI solutions. Stay tuned for real-world examples of how we're helping businesses transform their operations.
               </p>
 
@@ -96,7 +96,7 @@ const CaseStudies = () => {
                 <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
                   <Link
                     to="/products"
-                    className="inline-flex items-center gap-2 px-8 py-4 bg-white/10 backdrop-blur-sm border border-white/20 text-white rounded-xl font-semibold hover:bg-white/20 transition-all"
+                    className="inline-flex items-center gap-2 px-8 py-4 bg-white/10 backdrop-blur-sm border border-slate-300 dark:border-white/20 text-slate-900 dark:text-white rounded-xl font-semibold hover:bg-white/20 transition-all"
                   >
                     View Our Products
                   </Link>

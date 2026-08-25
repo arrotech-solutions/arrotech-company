@@ -78,7 +78,7 @@ const Privacy = () => {
   ];
 
   return (
-    <div className="bg-slate-950 min-h-screen pt-20">
+    <div className="bg-white dark:bg-slate-950 min-h-screen pt-20">
       <SEO
         title="Privacy Policy"
         description="Read Arrotech's Privacy Policy to understand how we collect, use, and safeguard your personal information."
@@ -88,7 +88,7 @@ const Privacy = () => {
       <section ref={heroRef} className="relative py-24 overflow-hidden">
         {/* Background */}
         <div className="absolute inset-0">
-          <div className="absolute inset-0 bg-gradient-to-b from-slate-950 via-slate-900 to-slate-950" />
+          <div className="absolute inset-0 bg-gradient-to-b from-slate-50 dark:from-slate-950 via-white dark:via-slate-900 to-slate-50 dark:to-slate-950" />
           <div
             className="absolute inset-0 opacity-20"
             style={{
@@ -110,19 +110,19 @@ const Privacy = () => {
             transition={{ duration: 0.8 }}
             className="max-w-4xl mx-auto text-center"
           >
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 backdrop-blur-sm border border-white/10 mb-8">
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-slate-100 dark:bg-white/5 backdrop-blur-sm border border-slate-200 dark:border-white/10 mb-8">
               <FiShield className="w-4 h-4 text-violet-400" />
-              <span className="text-slate-300 text-sm font-medium">Privacy Policy</span>
+              <span className="text-slate-700 dark:text-slate-300 text-sm font-medium">Privacy Policy</span>
             </div>
 
             <h1 className="text-5xl md:text-7xl font-bold mb-6 leading-tight">
-              <span className="text-white">Your Privacy</span>{' '}
+              <span className="text-slate-900 dark:text-white">Your Privacy</span>{' '}
               <span className="bg-gradient-to-r from-violet-400 via-blue-400 to-cyan-400 bg-clip-text text-transparent">
                 Matters
               </span>
             </h1>
 
-            <p className="text-xl md:text-2xl text-slate-400 max-w-3xl mx-auto leading-relaxed">
+            <p className="text-xl md:text-2xl text-slate-600 dark:text-slate-400 max-w-3xl mx-auto leading-relaxed">
               We are committed to protecting your privacy and ensuring the security of your personal information.
             </p>
           </motion.div>
@@ -138,20 +138,20 @@ const Privacy = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={contentInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.5 }}
-              className="bg-slate-900/50 backdrop-blur-sm border border-slate-800 rounded-2xl p-8 mb-8"
+              className="bg-slate-50/80 dark:bg-slate-900/50 backdrop-blur-sm border border-slate-200 dark:border-slate-800 rounded-2xl p-8 mb-8"
             >
               <div className="flex items-center gap-4 mb-6">
                 <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-violet-600 to-blue-600 flex items-center justify-center text-white">
                   <FiShield className="w-6 h-6" />
                 </div>
-                <h2 className="text-2xl font-bold text-white">
+                <h2 className="text-2xl font-bold text-slate-900 dark:text-white">
                   Our Commitment to Privacy
                 </h2>
               </div>
-              <p className="text-slate-400 leading-relaxed mb-4">
+              <p className="text-slate-600 dark:text-slate-400 leading-relaxed mb-4">
                 At Arrotech, we take your privacy seriously. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you use our services.
               </p>
-              <div className="flex items-center text-sm text-slate-500">
+              <div className="flex items-center text-sm text-slate-500 dark:text-slate-400">
                 <span className="w-2 h-2 bg-violet-500 rounded-full mr-2"></span>
                 Last updated: April 28, 2026
               </div>
@@ -165,25 +165,25 @@ const Privacy = () => {
                   initial={{ opacity: 0, y: 20 }}
                   animate={contentInView ? { opacity: 1, y: 0 } : {}}
                   transition={{ duration: 0.5, delay: index * 0.1 }}
-                  className="bg-slate-900/50 backdrop-blur-sm border border-slate-800 rounded-2xl overflow-hidden"
+                  className="bg-slate-50/80 dark:bg-slate-900/50 backdrop-blur-sm border border-slate-200 dark:border-slate-800 rounded-2xl overflow-hidden"
                 >
                   <button
                     onClick={() => setExpandedSection(expandedSection === index ? null : index)}
-                    className="w-full px-6 py-5 flex items-center justify-between text-left hover:bg-slate-800/50 transition-colors"
+                    className="w-full px-6 py-5 flex items-center justify-between text-left hover:bg-slate-100/80 dark:bg-slate-800/50 transition-colors"
                   >
                     <div className="flex items-center gap-4">
                       <div className={`w-12 h-12 rounded-xl bg-gradient-to-br ${section.gradient} flex items-center justify-center text-white`}>
                         {section.icon}
                       </div>
-                      <h3 className="text-lg font-semibold text-white">
+                      <h3 className="text-lg font-semibold text-slate-900 dark:text-white">
                         {section.title}
                       </h3>
                     </div>
-                    <div className={`w-8 h-8 rounded-lg bg-slate-800 flex items-center justify-center flex-shrink-0 transition-transform duration-300 ${expandedSection === index ? 'rotate-180' : ''}`}>
+                    <div className={`w-8 h-8 rounded-lg bg-slate-100 dark:bg-slate-800 flex items-center justify-center flex-shrink-0 transition-transform duration-300 ${expandedSection === index ? 'rotate-180' : ''}`}>
                       {expandedSection === index ? (
-                        <FiChevronUp className="w-5 h-5 text-slate-400" />
+                        <FiChevronUp className="w-5 h-5 text-slate-600 dark:text-slate-400" />
                       ) : (
-                        <FiChevronDown className="w-5 h-5 text-slate-400" />
+                        <FiChevronDown className="w-5 h-5 text-slate-600 dark:text-slate-400" />
                       )}
                     </div>
                   </button>
@@ -197,7 +197,7 @@ const Privacy = () => {
                     >
                       <ul className="space-y-3 pl-16">
                         {section.content.map((item, i) => (
-                          <li key={i} className="flex items-start text-slate-400">
+                          <li key={i} className="flex items-start text-slate-600 dark:text-slate-400">
                             <span className="w-2 h-2 bg-violet-500 rounded-full mt-2 mr-3 flex-shrink-0"></span>
                             {item}
                           </li>
@@ -214,29 +214,29 @@ const Privacy = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={contentInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.5, delay: 0.4 }}
-              className="bg-gradient-to-br from-violet-600/20 via-blue-600/20 to-cyan-600/20 backdrop-blur-sm border border-slate-800 rounded-2xl p-8 mt-8"
+              className="bg-gradient-to-br from-violet-600/20 via-blue-600/20 to-cyan-600/20 backdrop-blur-sm border border-slate-200 dark:border-slate-800 rounded-2xl p-8 mt-8"
             >
-              <h3 className="text-2xl font-semibold text-white mb-6">
+              <h3 className="text-2xl font-semibold text-slate-900 dark:text-white mb-6">
                 Have Questions?
               </h3>
-              <p className="text-slate-300 mb-6">
+              <p className="text-slate-700 dark:text-slate-300 mb-6">
                 If you have any questions about our Privacy Policy, please don't hesitate to contact us:
               </p>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <div className="flex items-center text-slate-300">
-                  <div className="w-10 h-10 rounded-lg bg-slate-800 flex items-center justify-center mr-3">
+                <div className="flex items-center text-slate-700 dark:text-slate-300">
+                  <div className="w-10 h-10 rounded-lg bg-slate-100 dark:bg-slate-800 flex items-center justify-center mr-3">
                     <FiMail className="w-5 h-5 text-violet-400" />
                   </div>
                   <span className="text-sm">info@arrotechsolutions.com</span>
                 </div>
-                <div className="flex items-center text-slate-300">
-                  <div className="w-10 h-10 rounded-lg bg-slate-800 flex items-center justify-center mr-3">
+                <div className="flex items-center text-slate-700 dark:text-slate-300">
+                  <div className="w-10 h-10 rounded-lg bg-slate-100 dark:bg-slate-800 flex items-center justify-center mr-3">
                     <FiPhone className="w-5 h-5 text-violet-400" />
                   </div>
                   <span className="text-sm">+254 797 568564</span>
                 </div>
-                <div className="flex items-center text-slate-300">
-                  <div className="w-10 h-10 rounded-lg bg-slate-800 flex items-center justify-center mr-3">
+                <div className="flex items-center text-slate-700 dark:text-slate-300">
+                  <div className="w-10 h-10 rounded-lg bg-slate-100 dark:bg-slate-800 flex items-center justify-center mr-3">
                     <FiMapPin className="w-5 h-5 text-violet-400" />
                   </div>
                   <span className="text-sm">Nairobi, Kenya</span>

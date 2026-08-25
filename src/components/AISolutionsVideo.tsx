@@ -108,7 +108,7 @@ const AISolutionsVideo = () => {
         >
           <a
             href="/contact"
-            className="inline-flex items-center px-6 py-3 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors duration-300"
+            className="inline-flex items-center px-6 py-3 bg-indigo-600 text-slate-900 dark:text-white rounded-lg hover:bg-indigo-700 transition-colors duration-300"
           >
             Schedule a Demo
           </a>
